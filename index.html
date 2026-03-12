@@ -64,82 +64,6 @@ body {
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-/* ── SEARCH BAR ── */
-.tah-search-wrapper {
-  background: #ffffff !important;
-  border-bottom: 1px solid var(--border);
-  padding: 12px 24px;
-}
-
-.tah-search-input {
-  width: 100%;
-  padding: 10px 16px;
-  border: 1.5px solid var(--border);
-  border-radius: 8px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.9em;
-  color: #333;
-  background: #ffffff;
-  transition: border-color 0.18s;
-}
-
-.tah-search-input:focus {
-  outline: none;
-  border-color: #E91E63;
-}
-
-.tah-search-input::placeholder {
-  color: var(--muted);
-}
-
-/* ── QUICK FILTERS BAR ── */
-.tah-quick-filters {
-  background: linear-gradient(90deg, #E91E63, #FF69B4);
-  padding: 10px 24px;
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  align-items: center;
-  border-bottom: 1px solid var(--border);
-}
-
-.tah-quick-filters label {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-  color: #ffffff;
-  font-size: 0.85em;
-  font-weight: 500;
-  white-space: nowrap;
-}
-
-.tah-quick-filters input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
-  accent-color: #FF9800;
-}
-
-.tah-clear-filters {
-  margin-left: auto;
-  padding: 5px 12px;
-  background: rgba(255,255,255,0.2);
-  color: #ffffff;
-  border: 1px solid rgba(255,255,255,0.4);
-  border-radius: 20px;
-  font-size: 0.8em;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  white-space: nowrap;
-}
-
-.tah-clear-filters:hover {
-  background: rgba(255,255,255,0.3);
-  border-color: rgba(255,255,255,0.6);
-}
-
 /* ── PERSONA STRIP ── */
 .tah-persona-strip {
   background: #ffffff !important;
@@ -557,7 +481,7 @@ body {
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   .tah-header h1 { font-size: 1.3em; }
-  .tah-search-wrapper, .tah-persona-strip, .tah-filter-bar, .tah-quick-filters { padding: 12px 16px; }
+  .tah-persona-strip, .tah-filter-bar { padding: 12px 16px; }
   .tah-content { padding: 12px 16px 32px; }
   
   .tah-row {
@@ -596,18 +520,6 @@ body {
   .tah-section-title {
     font-size: 1.1em;
   }
-  
-  .tah-quick-filters {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-  
-  .tah-clear-filters {
-    margin-left: 0;
-    width: 100%;
-    text-align: center;
-  }
 }
 </style>
 </head>
@@ -624,18 +536,7 @@ body {
 
 <!-- STICKY CONTROLS -->
 <div class="tah-sticky">
-  <!-- Search -->
-  <div class="tah-search-wrapper">
-    <input type="text" id="tah-search" class="tah-search-input" placeholder="🔍 Search opportunities by name, keyword, deadline...">
-  </div>
 
-  <!-- Quick Filters Bar -->
-  <div class="tah-quick-filters">
-    <label><input type="checkbox" id="tah-urgent-filter"> 🔥 Most Urgent</label>
-    <label><input type="checkbox" id="tah-free-filter"> ✨ Free Only</label>
-    <label><input type="checkbox" id="tah-new-filter"> ⭐ New Opportunities</label>
-    <button class="tah-clear-filters" id="tah-clear-btn">Clear All Filters</button>
-  </div>
 
   <!-- Persona Strip -->
   <div class="tah-persona-strip">
@@ -731,22 +632,7 @@ body {
       </div>
     </div>
 
-    <div class="tah-item" data-personas="all secondary university" data-loc="us" data-deadline="urgent" data-free="false" data-new="false" data-urgent="true" data-search="amazon future engineer scholarship high school cs engineering internship">
-      <div class="tah-row">
-        <div class="tah-title">Amazon Future Engineer Scholarship</div>
-        <div class="tah-meta"><span class="tah-pill urgent">Deadline Jan 15</span><div class="tah-badges"><span class="tb tb-urgent">URGENT</span><span class="tb tb-loc">US Only</span></div></div>
-        <span class="tah-chev">▼</span>
-      </div>
-      <div class="tah-body">
-        <div class="tah-mob-badges"><span class="tb tb-urgent">URGENT</span><span class="tb tb-loc">US Only</span></div>
-        <div class="tah-grid">
-          <div class="tah-detail"><span>📅</span><span><strong>Deadline:</strong> January 15, 2026</span></div>
-          <div class="tah-detail"><span>💰</span><span><strong>Award:</strong> $40,000 + internship</span></div>
-          <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> High school seniors pursuing CS/engineering (US residents)</span></div>
-        </div>
-        <div class="tah-foot"><div class="tah-badges"><span class="tb tb-urgent">URGENT</span><span class="tb tb-loc">US Only</span></div><button class="tah-copy-btn" onclick="copyLink('Amazon Future Engineer Scholarship', 'https://www.amazonfutureengineer.com')">📋 Copy Link</button><a class="tah-btn" href="https://www.amazonfutureengineer.com" target="_blank">Apply Now →</a></div>
-      </div>
-    </div>
+
 
     <div class="tah-item" data-personas="all university earlycareer founder" data-loc="intl" data-deadline="rolling" data-free="false" data-new="false" data-urgent="false" data-search="mastercard foundation scholars program african youth higher education">
       <div class="tah-row">
@@ -774,23 +660,7 @@ body {
       <span class="tah-section-count" data-cat-count="scholarships">0</span>
     </h2>
 
-    <div class="tah-item" data-personas="all secondary" data-loc="intl" data-deadline="urgent" data-free="true" data-new="true" data-urgent="true" data-search="techgirls 2026 summer exchange program virginia tech girls 15-17">
-      <div class="tah-row">
-        <div class="tah-title">TechGirls 2026 Summer Exchange Program</div>
-        <div class="tah-meta"><span class="tah-pill urgent">Deadline Jan 20</span><div class="tah-badges"><span class="tb tb-urgent">URGENT</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">International</span></div></div>
-        <span class="tah-chev">▼</span>
-      </div>
-      <div class="tah-body">
-        <div class="tah-mob-badges"><span class="tb tb-urgent">URGENT</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">International</span></div>
-        <div class="tah-grid">
-          <div class="tah-detail"><span>📅</span><span><strong>Deadline:</strong> January 20, 2026 (12 PM EST)</span></div>
-          <div class="tah-detail"><span>💰</span><span><strong>Award:</strong> Fully funded (flights, housing, meals)</span></div>
-          <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> Ages 15-17, girls from 37+ countries</span></div>
-          <div class="tah-detail full"><span>💡</span><span>23-day US exchange at Virginia Tech + 7-month mentorship. Only first 125 applications per country reviewed!</span></div>
-        </div>
-        <div class="tah-foot"><div class="tah-badges"><span class="tb tb-urgent">URGENT</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">International</span></div><button class="tah-copy-btn" onclick="copyLink('TechGirls 2026 Summer Exchange Program', 'https://techgirlsglobal.org/')">📋 Copy Link</button><a class="tah-btn" href="https://techgirlsglobal.org/" target="_blank">Apply Now →</a></div>
-      </div>
-    </div>
+
 
     <div class="tah-item" data-personas="all secondary" data-loc="us" data-deadline="soon" data-free="true" data-new="true" data-urgent="false" data-search="davidson fellows scholarship stem tech literature music ages 18 and under">
       <div class="tah-row">
@@ -835,23 +705,7 @@ body {
       <span class="tah-section-count" data-cat-count="fellowships">0</span>
     </h2>
 
-    <div class="tah-item" data-personas="all founder earlycareer" data-loc="us" data-deadline="urgent" data-free="true" data-new="true" data-urgent="true" data-search="village capital standard chartered women in tech accelerator startups">
-      <div class="tah-row">
-        <div class="tah-title">Village Capital: Standard Chartered Women in Tech Accelerator</div>
-        <div class="tah-meta"><span class="tah-pill urgent">Deadline Jan 16</span><div class="tah-badges"><span class="tb tb-urgent">URGENT</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">US Only</span></div></div>
-        <span class="tah-chev">▼</span>
-      </div>
-      <div class="tah-body">
-        <div class="tah-mob-badges"><span class="tb tb-urgent">URGENT</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">US Only</span></div>
-        <div class="tah-grid">
-          <div class="tah-detail"><span>📅</span><span><strong>Deadline:</strong> January 16, 2026</span></div>
-          <div class="tah-detail"><span>💰</span><span><strong>Award:</strong> $25,000 grant (2 winners) + mentorship</span></div>
-          <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> Women-led US startups (&lt;10 employees)</span></div>
-          <div class="tah-detail full"><span>💡</span><span>4-month accelerator (April-July) for economic mobility, health, or education tech</span></div>
-        </div>
-        <div class="tah-foot"><div class="tah-badges"><span class="tb tb-urgent">URGENT</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">US Only</span></div><button class="tah-copy-btn" onclick="copyLink('Village Capital Women in Tech Accelerator', 'https://vilcap.com/programs/women-in-tech-accelerator-us-2026')">📋 Copy Link</button><a class="tah-btn" href="https://vilcap.com/programs/women-in-tech-accelerator-us-2026" target="_blank">Apply Now →</a></div>
-      </div>
-    </div>
+
 
     <div class="tah-item" data-personas="all university earlycareer" data-loc="intl" data-deadline="rolling" data-free="true" data-new="false" data-urgent="false" data-search="edsafe women in ai fellowship responsible ai education technologists">
       <div class="tah-row">
@@ -896,21 +750,39 @@ body {
       <span class="tah-section-count" data-cat-count="events">0</span>
     </h2>
 
-    <div class="tah-item" data-personas="all university earlycareer founder" data-loc="intl" data-deadline="urgent" data-free="false" data-new="true" data-urgent="true" data-search="microsoft imagine cup 2026 startup competition global students">
+    <div class="tah-item" data-personas="all secondary university earlycareer founder" data-loc="intl" data-deadline="rolling" data-free="true" data-new="true" data-urgent="false" data-search="one tech world 2026 wearetechwomen global virtual learning conference">
       <div class="tah-row">
-        <div class="tah-title">Microsoft Imagine Cup 2026</div>
-        <div class="tah-meta"><span class="tah-pill urgent">Deadline Jan 9</span><div class="tah-badges"><span class="tb tb-urgent">URGENT</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">International</span></div></div>
+        <div class="tah-title">One Tech World 2026 (WeAreTechWomen)</div>
+        <div class="tah-meta"><span class="tah-pill">March 20</span><div class="tah-badges"><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">International</span></div></div>
         <span class="tah-chev">▼</span>
       </div>
       <div class="tah-body">
-        <div class="tah-mob-badges"><span class="tb tb-urgent">URGENT</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">International</span></div>
+        <div class="tah-mob-badges"><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">International</span></div>
         <div class="tah-grid">
-          <div class="tah-detail"><span>📅</span><span><strong>Deadline:</strong> January 9, 2026</span></div>
-          <div class="tah-detail"><span>💰</span><span><strong>Prize:</strong> Up to $150,000 + Azure credits</span></div>
-          <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> Students 18+, teams of up to 4 (must use 2+ Microsoft AI services)</span></div>
-          <div class="tah-detail full"><span>💡</span><span>Global startup competition — perfect for scaling your Technovation app!</span></div>
+          <div class="tah-detail"><span>📅</span><span><strong>Date:</strong> March 20, 2026</span></div>
+          <div class="tah-detail"><span>💰</span><span><strong>Cost:</strong> 100% FREE</span></div>
+          <div class="tah-detail full"><span>👥</span><span><strong>Format:</strong> Global virtual learning experience, 7th annual conference</span></div>
+          <div class="tah-detail full"><span>💡</span><span>1:1 conversations with tech leaders, career panels, technical skills, networking, keynotes from TechWomen100 alumni & industry leaders</span></div>
         </div>
-        <div class="tah-foot"><div class="tah-badges"><span class="tb tb-urgent">URGENT</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">International</span></div><button class="tah-copy-btn" onclick="copyLink('Microsoft Imagine Cup 2026', 'https://imaginecup.microsoft.com/')">📋 Copy Link</button><a class="tah-btn" href="https://imaginecup.microsoft.com/" target="_blank">Apply Now →</a></div>
+        <div class="tah-foot"><div class="tah-badges"><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">International</span></div><button class="tah-copy-btn" onclick="copyLink('One Tech World 2026', 'https://wearetechwomen.com/one-tech-world-2026/')">📋 Copy Link</button><a class="tah-btn" href="https://wearetechwomen.com/one-tech-world-2026/" target="_blank">Register Free →</a></div>
+      </div>
+    </div>
+
+    <div class="tah-item" data-personas="all secondary university earlycareer founder" data-loc="intl" data-deadline="rolling" data-free="true" data-new="true" data-urgent="false" data-search="women techmakers break the pattern march international women's day events">
+      <div class="tah-row">
+        <div class="tah-title">Women Techmakers #BreakthePattern Events</div>
+        <div class="tah-meta"><span class="tah-pill rolling">March-April</span><div class="tah-badges"><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-rolling">ROLLING</span><span class="tb tb-loc">International</span></div></div>
+        <span class="tah-chev">▼</span>
+      </div>
+      <div class="tah-body">
+        <div class="tah-mob-badges"><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-rolling">ROLLING</span><span class="tb tb-loc">International</span></div>
+        <div class="tah-grid">
+          <div class="tah-detail"><span>📅</span><span><strong>Timeline:</strong> March & April 2026 (International Women's Day themed)</span></div>
+          <div class="tah-detail"><span>💡</span><span><strong>Theme:</strong> #BreakthePattern — disrupt biases, step into spaces, rewrite the rules</span></div>
+          <div class="tah-detail full"><span>📍</span><span><strong>Format:</strong> Summits, workshops, hackathons, keynotes, leadership sessions, career panels</span></div>
+          <div class="tah-detail full"><span>🌟</span><span><strong>NEW:</strong> Women Techmakers is now integrated with Technovation! Direct pathways to Oxford credentials, AI Accelerators, mentorship opportunities, and 1,000+ industry partners</span></div>
+        </div>
+        <div class="tah-foot"><div class="tah-badges"><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-rolling">ROLLING</span><span class="tb tb-loc">International</span></div><button class="tah-copy-btn" onclick="copyLink('Women Techmakers #BreakthePattern Events', 'https://www.technovation.org/women-techmakers/')">📋 Copy Link</button><a class="tah-btn" href="https://www.technovation.org/women-techmakers/" target="_blank">Learn More →</a></div>
       </div>
     </div>
 
@@ -932,19 +804,19 @@ body {
       </div>
     </div>
 
-    <div class="tah-item" data-personas="all university earlycareer" data-loc="intl" data-deadline="rolling" data-free="false" data-new="true" data-urgent="false" data-search="anitab grace hopper celebration scholarships women non-binary technologists">
+    <div class="tah-item" data-personas="all university earlycareer" data-loc="intl" data-deadline="rolling" data-free="false" data-new="true" data-urgent="false" data-search="anitab grace hopper celebration scholarships women non-binary technologists march 11-14">
       <div class="tah-row">
         <div class="tah-title">AnitaB.org Grace Hopper Celebration Scholarships</div>
-        <div class="tah-meta"><span class="tah-pill rolling">Early 2026</span><div class="tah-badges"><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-rolling">ROLLING</span><span class="tb tb-loc">International</span></div></div>
+        <div class="tah-meta"><span class="tah-pill">March 11-14</span><div class="tah-badges"><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-rolling">ROLLING</span><span class="tb tb-loc">International</span></div></div>
         <span class="tah-chev">▼</span>
       </div>
       <div class="tah-body">
         <div class="tah-mob-badges"><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-rolling">ROLLING</span><span class="tb tb-loc">International</span></div>
         <div class="tah-grid">
-          <div class="tah-detail"><span>📅</span><span><strong>Interest Forms:</strong> Open early 2026 for Anaheim conference</span></div>
+          <div class="tah-detail"><span>📅</span><span><strong>Conference Dates:</strong> March 11-14, 2026 (National Harbor, MD) | Virtual: April 22-23</span></div>
           <div class="tah-detail"><span>💰</span><span><strong>Award:</strong> Registration + travel + accommodation + meals</span></div>
           <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> Women & non-binary students/professionals in tech</span></div>
-          <div class="tah-detail full"><span>💡</span><span>World's largest gathering of women technologists with networking, career workshops, & job opportunities</span></div>
+          <div class="tah-detail full"><span>💡</span><span>World's largest gathering of women technologists with career fair, recruiting, networking, career workshops, & job opportunities. Perfect for D.C. area alumnae!</span></div>
         </div>
         <div class="tah-foot"><div class="tah-badges"><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-rolling">ROLLING</span><span class="tb tb-loc">International</span></div><button class="tah-copy-btn" onclick="copyLink('AnitaB Grace Hopper Celebration Scholarships', 'https://ghc.anitab.org/')">📋 Copy Link</button><a class="tah-btn" href="https://ghc.anitab.org/" target="_blank">Learn More →</a></div>
       </div>
@@ -968,41 +840,9 @@ body {
       </div>
     </div>
 
-    <div class="tah-item" data-personas="all secondary" data-loc="intl" data-deadline="rolling" data-free="false" data-new="true" data-urgent="false" data-search="women in tech hackathon riga 2025 automation impact security">
-      <div class="tah-row">
-        <div class="tah-title">Women in Tech Hackathon 2025 (Riga TechGirls)</div>
-        <div class="tah-meta"><span class="tah-pill">March 28-30</span><div class="tah-badges"><span class="tb tb-new">NEW</span><span class="tb tb-loc">International</span></div></div>
-        <span class="tah-chev">▼</span>
-      </div>
-      <div class="tah-body">
-        <div class="tah-mob-badges"><span class="tb tb-new">NEW</span><span class="tb tb-loc">International</span></div>
-        <div class="tah-grid">
-          <div class="tah-detail"><span>📅</span><span><strong>Dates:</strong> March 28-30, 2025</span></div>
-          <div class="tah-detail"><span>📍</span><span><strong>Format:</strong> Online & in-person (Riga, Latvia)</span></div>
-          <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> All skill levels, teams with 2+ female participants</span></div>
-          <div class="tah-detail full"><span>💡</span><span><strong>Theme:</strong> "Automation. Impact. Security."</span></div>
-        </div>
-        <div class="tah-foot"><div class="tah-badges"><span class="tb tb-new">NEW</span><span class="tb tb-loc">International</span></div><button class="tah-copy-btn" onclick="copyLink('Riga TechGirls Women in Tech Hackathon', 'https://rigatechgirls.com/women-in-tech-hackathon/')">📋 Copy Link</button><a class="tah-btn" href="https://rigatechgirls.com/women-in-tech-hackathon/" target="_blank">Register →</a></div>
-      </div>
-    </div>
 
-    <div class="tah-item" data-personas="all university" data-loc="us" data-deadline="rolling" data-free="false" data-new="true" data-urgent="false" data-search="wichacks rit women in computing hackathon rochester 24-hour">
-      <div class="tah-row">
-        <div class="tah-title">WiCHacks (RIT Women in Computing Hackathon)</div>
-        <div class="tah-meta"><span class="tah-pill">March 1-2</span><div class="tah-badges"><span class="tb tb-new">NEW</span><span class="tb tb-loc">US Only</span></div></div>
-        <span class="tah-chev">▼</span>
-      </div>
-      <div class="tah-body">
-        <div class="tah-mob-badges"><span class="tb tb-new">NEW</span><span class="tb tb-loc">US Only</span></div>
-        <div class="tah-grid">
-          <div class="tah-detail"><span>📅</span><span><strong>Dates:</strong> March 1-2, 2025</span></div>
-          <div class="tah-detail"><span>📍</span><span><strong>Location:</strong> Rochester Institute of Technology (in-person)</span></div>
-          <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> Women and gender minorities in tech (college students)</span></div>
-          <div class="tah-detail full"><span>💡</span><span>24-hour hackathon with tech talks, mentorship, prizes</span></div>
-        </div>
-        <div class="tah-foot"><div class="tah-badges"><span class="tb tb-new">NEW</span><span class="tb tb-loc">US Only</span></div><button class="tah-copy-btn" onclick="copyLink('WiCHacks RIT Women in Computing Hackathon', 'https://wichacks.io/')">📋 Copy Link</button><a class="tah-btn" href="https://wichacks.io/" target="_blank">Learn More →</a></div>
-      </div>
-    </div>
+
+
 
     <div class="tah-item" data-personas="all university earlycareer" data-loc="intl" data-deadline="urgent" data-free="false" data-new="true" data-urgent="true" data-search="ai by her impact challenge women non-binary india summit">
       <div class="tah-row">
@@ -1018,6 +858,24 @@ body {
           <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> Women & non-binary individuals in AI</span></div>
         </div>
         <div class="tah-foot"><div class="tah-badges"><span class="tb tb-priority">PRIORITY</span><span class="tb tb-new">NEW</span><span class="tb tb-loc">International</span></div><button class="tah-copy-btn" onclick="copyLink('AI by HER Impact Challenge', 'https://impact.indiaai.gov.in/events/ai-by-her')">📋 Copy Link</button><a class="tah-btn" href="https://impact.indiaai.gov.in/events/ai-by-her" target="_blank">Submit Project →</a></div>
+      </div>
+    </div>
+
+    <div class="tah-item" data-personas="all founder earlycareer" data-loc="us" data-deadline="urgent" data-free="true" data-new="true" data-urgent="true" data-search="select global women in tech mentorship selectusa women entrepreneurs">
+      <div class="tah-row">
+        <div class="tah-title">Select Global Women in Tech (SGWIT) Mentorship Program</div>
+        <div class="tah-meta"><span class="tah-pill urgent">Deadline March 26</span><div class="tah-badges"><span class="tb tb-urgent">URGENT</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Intl Women</span></div></div>
+        <span class="tah-chev">▼</span>
+      </div>
+      <div class="tah-body">
+        <div class="tah-mob-badges"><span class="tb tb-urgent">URGENT</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Intl Women</span></div>
+        <div class="tah-grid">
+          <div class="tah-detail"><span>📅</span><span><strong>Deadline:</strong> March 26, 2026 (12 PM EDT)</span></div>
+          <div class="tah-detail"><span>💼</span><span><strong>Mentors:</strong> U.S.-based entrepreneurs, executives, VCs, investors</span></div>
+          <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> International women-led tech startups developing innovative tech; looking for U.S. market entry within 2-3 years</span></div>
+          <div class="tah-detail full"><span>💡</span><span>Mentorship program kicks off May 2026 with mentor-led matching. Accepted mentors notified mid-April. Perfect for scaling startups seeking U.S. growth!</span></div>
+        </div>
+        <div class="tah-foot"><div class="tah-badges"><span class="tb tb-urgent">URGENT</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Intl Women</span></div><button class="tah-copy-btn" onclick="copyLink('SelectUSA Women in Tech Mentorship', 'https://www.selectusasummit.us/Programming/Select-Global-Women-in-Tech')">📋 Copy Link</button><a class="tah-btn" href="https://www.selectusasummit.us/Programming/Select-Global-Women-in-Tech" target="_blank">Apply Now →</a></div>
       </div>
     </div>
 
@@ -1246,10 +1104,10 @@ body {
 <!-- FOOTER -->
 <div class="tah-footer">
   <p><strong>Questions? Need help?</strong></p>
-  <p style="margin-top:6px;">Contact us: <a href="mailto:alumnae@technovation.org">alumnae@technovation.org</a></p>
+  <p style="margin-top:6px;">Contact us: <a href="/cdn-cgi/l/email-protection#86e7eaf3ebe8e7e3c6f2e3e5eee8e9f0e7f2efe9e8a8e9f4e1"><span class="__cf_email__" data-cfemail="a8c9c4ddc5c6c9cde8dccdcbc0c6c7dec9dcc1c7c686c7dacf">[email&#160;protected]</span></a></p>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 (function() {
   var state = {
     persona: 'all',
@@ -1347,66 +1205,6 @@ body {
     });
   }
 
-  // Search input
-  var searchInput = document.getElementById('tah-search');
-  if (searchInput) {
-    searchInput.addEventListener('input', function() {
-      state.search = this.value;
-      applyFilters();
-    });
-  }
-
-  // Quick filters
-  var urgentFilter = document.getElementById('tah-urgent-filter');
-  var freeFilter = document.getElementById('tah-free-filter');
-  var newFilter = document.getElementById('tah-new-filter');
-  var clearBtn = document.getElementById('tah-clear-btn');
-
-  if (urgentFilter) {
-    urgentFilter.addEventListener('change', function() {
-      state.urgent = this.checked;
-      applyFilters();
-    });
-  }
-
-  if (freeFilter) {
-    freeFilter.addEventListener('change', function() {
-      state.free = this.checked;
-      applyFilters();
-    });
-  }
-
-  if (newFilter) {
-    newFilter.addEventListener('change', function() {
-      state.new = this.checked;
-      applyFilters();
-    });
-  }
-
-  if (clearBtn) {
-    clearBtn.addEventListener('click', function() {
-      state = {
-        persona: 'all',
-        loc: 'all',
-        deadline: 'all',
-        urgent: false,
-        free: false,
-        new: false,
-        search: ''
-      };
-      if (searchInput) searchInput.value = '';
-      if (urgentFilter) urgentFilter.checked = false;
-      if (freeFilter) freeFilter.checked = false;
-      if (newFilter) newFilter.checked = false;
-      document.querySelectorAll('.tah-pbtn').forEach(function(b) { b.classList.remove('tah-active'); });
-      document.querySelector('[data-persona="all"]').classList.add('tah-active');
-      document.querySelectorAll('.tah-chip').forEach(function(c) { c.classList.remove('tah-active'); });
-      document.querySelector('[data-filter="loc"][data-value="all"]').classList.add('tah-active');
-      document.querySelector('[data-filter="deadline"][data-value="all"]').classList.add('tah-active');
-      applyFilters();
-    });
-  }
-
   // Persona buttons
   document.querySelectorAll('.tah-pbtn').forEach(function(btn) {
     btn.addEventListener('click', function() {
@@ -1468,16 +1266,4 @@ body {
 
   function showToast(msg) {
     var toast = document.createElement('div');
-    toast.className = 'tah-toast';
-    toast.textContent = msg;
-    document.body.appendChild(toast);
-    setTimeout(function() {
-      toast.classList.add('tah-fade');
-      setTimeout(function() { toast.remove(); }, 300);
-    }, 2500);
-  }
-})();
-</script>
-
-</body>
-</html>
+    toast.className =
