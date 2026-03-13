@@ -1367,7 +1367,7 @@ body {
 </div>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-document.addEventListener('DOMContentLoaded', function() {
+function tahInit() {
   var state = { persona: 'all', loc: 'all', deadline: 'all' };
   var allExpanded = false;
 
@@ -1476,3 +1476,22 @@ document.addEventListener('DOMContentLoaded', function() {
   function showToast(msg) {
     var toast = document.createElement('div');
     toast.className = 'tah-toast';
+    toast.textContent = msg;
+    document.body.appendChild(toast);
+    setTimeout(function() {
+      toast.classList.add('tah-fade');
+      setTimeout(function() { toast.remove(); }, 250);
+    }, 2500);
+  }
+
+  applyFilters();
+} // end tahInit
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', tahInit);
+} else {
+  tahInit();
+}
+</script>
+</body>
+</html>
