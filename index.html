@@ -1420,7 +1420,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var cat = section.getAttribute('data-cat');
       var count = 0;
       section.querySelectorAll('[data-personas]').forEach(function(item) {
-        if (item.style.display !== 'none') count++;
+        if (matches(item)) count++;
       });
       var span = section.querySelector('[data-cat-count="' + cat + '"]');
       if (span) span.textContent = count;
