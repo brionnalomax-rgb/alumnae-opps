@@ -1,238 +1,289 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Technovation Alumnae Opportunities Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
-
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --pink: #E91E63;
-  --pink-light: #fce4ec;
-  --orange: #FF9800;
-  --blue: #0277BD;
-  --purple: #7B68A6;
-  --teal: #00897B;       /* NEW — FUTURE deadline */
-  --teal-light: #e0f2f1;
-  --red: #E74C3C;
-  --green: #27AE60;
-  --border: #e4e4e4;
-  --muted: #666;
-  --bg: #f5f7fa;
+  --slate:        #2C3A4A;
+  --slate-mid:    #3D4F62;
+  --slate-light:  #546778;
+  --pink:         #E91E63;
+  --pink-light:   #FCE4EC;
+  --pink-mid:     #F06292;
+  --orange:       #FF9800;
+  --orange-light: #FFF3E0;
+  --warm-bg:      #F7F6F3;
+  --warm-border:  #E8E5DF;
+  --warm-border2: #DDD9D3;
+  --card-bg:      #FFFFFF;
+  --red:          #C62828;
+  --red-light:    #FFEBEE;
+  --green:        #2E7D32;
+  --green-light:  #E8F5E9;
+  --blue:         #283593;
+  --blue-light:   #E8EAF6;
+  --teal:         #00695C;
+  --teal-light:   #E0F2F1;
+  --purple:       #4527A0;
+  --purple-light: #EDE7F6;
+  --muted:        #888;
+  --text:         #2C3A4A;
+  --text-soft:    #6B7785;
 }
 
 body {
-  font-family: 'DM Sans', sans-serif !important;
-  background: var(--bg) !important;
-  color: #1a1a1a !important;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--warm-bg);
+  color: var(--text);
   min-height: 100vh;
   -webkit-text-size-adjust: 100%;
 }
 
 /* ── HEADER ── */
 .tah-header {
-  background: #E91E63 !important;
-  padding: 28px 24px 22px !important;
-  text-align: center !important;
+  background: var(--slate);
+  padding: 32px 28px 24px;
+  position: relative;
+  overflow: hidden;
 }
+.tah-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 110% 50%, rgba(233,30,99,0.18) 0%, transparent 65%);
+  pointer-events: none;
+}
+.tah-header-inner { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; }
 .tah-header h1 {
-  font-size: clamp(1.25em, 4.5vw, 1.8em) !important;
-  font-weight: 700 !important;
-  color: #ffffff !important;
-  margin-bottom: 5px !important;
-  line-height: 1.3 !important;
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(1.2em, 3.5vw, 1.75em);
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 6px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
 }
-.tah-header .tah-tagline {
-  font-size: 0.87em !important;
-  color: #ffffff !important;
-  line-height: 1.4 !important;
-  opacity: 1 !important;
+.tah-header .tagline {
+  font-size: 0.88em;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.5;
 }
 .tah-header .tah-updated {
-  font-size: 0.75em !important;
-  color: #ffe0eb !important;
-  margin-top: 6px !important;
-  display: block !important;
+  font-size: 0.72em;
+  color: rgba(255,255,255,0.35);
+  margin-top: 8px;
+  display: block;
+}
+.tah-accent-dots {
+  display: flex;
+  gap: 6px;
+  margin-top: 14px;
+}
+.tah-accent-dots span {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  display: inline-block;
 }
 
-/* ── STICKY CONTROLS ── */
+/* ── LEGEND ── */
+.tah-legend {
+  background: #fff;
+  border-bottom: 1px solid var(--warm-border);
+  padding: 11px 28px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  align-items: center;
+}
+.tah-legend-title {
+  font-size: 0.65em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--muted);
+}
+.tah-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.75em;
+  color: var(--text-soft);
+}
+
+/* ── STICKY ── */
 .tah-sticky {
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 12px rgba(44,58,74,0.08);
 }
 
 /* ── PERSONA STRIP ── */
 .tah-persona-strip {
-  background: #ffffff !important;
-  border-bottom: 2px solid var(--border);
-  padding: 14px 24px;
+  background: #fff;
+  border-bottom: 1px solid var(--warm-border);
+  padding: 13px 28px;
 }
 .tah-strip-label {
-  font-size: 0.66em;
-  font-weight: 700;
+  font-size: 0.64em;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.09em;
   color: var(--muted);
-  margin-bottom: 9px;
+  margin-bottom: 8px;
   display: block;
 }
 .tah-strip-label em { color: var(--pink); font-style: italic; font-weight: 400; }
 .tah-persona-row {
   display: flex;
-  gap: 7px;
+  gap: 6px;
   flex-wrap: wrap;
 }
-
 .tah-pbtn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 14px;
-  border: 2px solid var(--border);
-  border-radius: 40px;
-  background: #ffffff;
+  padding: 7px 14px;
+  border: 1.5px solid var(--warm-border2);
+  border-radius: 20px;
+  background: var(--warm-bg);
   cursor: pointer;
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.81em;
+  font-size: 0.8em;
   font-weight: 500;
-  color: #444;
-  transition: all 0.18s;
+  color: var(--text-soft);
+  transition: all 0.16s;
   white-space: nowrap;
-  min-height: 40px;
+  min-height: 36px;
   -webkit-tap-highlight-color: transparent;
-  text-decoration: none !important;
 }
-.tah-pbtn:hover { border-color: #E91E63; color: #E91E63; background: #fce4ec; }
-.tah-pbtn.tah-active { background: #E91E63 !important; border-color: #E91E63 !important; color: #ffffff !important; font-weight: 600; }
+.tah-pbtn:hover { border-color: var(--pink); color: var(--pink); background: var(--pink-light); }
+.tah-pbtn.tah-active { background: var(--slate) !important; border-color: var(--slate) !important; color: #fff !important; font-weight: 500; }
 .tah-pcount {
-  background: rgba(0,0,0,0.09);
+  background: rgba(0,0,0,0.1);
   border-radius: 10px;
   padding: 1px 6px;
-  font-size: 0.76em;
-  font-weight: 700;
+  font-size: 0.74em;
+  font-weight: 600;
   min-width: 18px;
   text-align: center;
 }
-.tah-pbtn.tah-active .tah-pcount { background: rgba(255,255,255,0.28) !important; color: #ffffff !important; }
+.tah-pbtn.tah-active .tah-pcount { background: rgba(255,255,255,0.22) !important; color: #fff !important; }
 
 /* ── FILTER BAR ── */
 .tah-filter-bar {
-  background: #f8f8f8 !important;
-  border-bottom: 1px solid var(--border);
-  padding: 10px 24px;
+  background: var(--warm-bg);
+  border-bottom: 1px solid var(--warm-border);
+  padding: 9px 28px;
   display: flex;
-  gap: 16px;
+  gap: 14px;
   flex-wrap: wrap;
   align-items: center;
 }
-.tah-filter-group {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
-}
+.tah-filter-group { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
 .tah-filter-label {
-  font-size: 0.65em;
-  font-weight: 700;
+  font-size: 0.64em;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--muted);
   white-space: nowrap;
 }
 .tah-chip {
-  padding: 5px 12px;
-  border: 1.5px solid var(--border);
+  padding: 4px 12px;
+  border: 1.5px solid var(--warm-border2);
   border-radius: 20px;
-  background: #ffffff;
+  background: #fff;
   cursor: pointer;
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.76em;
+  font-size: 0.74em;
   font-weight: 500;
-  color: #555;
-  transition: all 0.15s;
+  color: #666;
+  transition: all 0.14s;
   white-space: nowrap;
-  min-height: 32px;
+  min-height: 30px;
   display: inline-flex;
   align-items: center;
   -webkit-tap-highlight-color: transparent;
 }
-.tah-chip:hover { border-color: #E91E63; color: #E91E63; }
-.tah-chip.tah-active { background: #E91E63 !important; border-color: #E91E63 !important; color: #ffffff !important; font-weight: 600; }
-
-/* FUTURE chip gets teal when active */
+.tah-chip:hover { border-color: var(--pink); color: var(--pink); }
+.tah-chip.tah-active { background: var(--slate) !important; border-color: var(--slate) !important; color: #fff !important; font-weight: 500; }
 .tah-chip[data-value="future"].tah-active { background: var(--teal) !important; border-color: var(--teal) !important; }
-
-.tah-filter-sep { width: 1px; height: 18px; background: var(--border); }
+.tah-filter-sep { width: 1px; height: 16px; background: var(--warm-border2); }
 
 /* ── CONTENT ── */
-.tah-content { padding: 16px 24px 48px; max-width: 900px; margin: 0 auto; }
+.tah-content { padding: 20px 28px 60px; max-width: 900px; margin: 0 auto; }
 
 .tah-results-meta {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 20px;
+  gap: 12px;
+  margin-bottom: 22px;
   padding-bottom: 12px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--warm-border);
   flex-wrap: wrap;
 }
-.tah-results-meta span { font-size: 0.85em; color: var(--muted); }
+.tah-results-meta span { font-size: 0.82em; color: var(--muted); }
 .tah-meta-buttons { display: flex; gap: 8px; }
 .tah-meta-buttons button {
   padding: 6px 12px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  background: #ffffff;
+  border: 1.5px solid var(--warm-border2);
+  border-radius: 20px;
+  background: #fff;
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.75em;
-  font-weight: 600;
-  color: #555;
+  font-size: 0.74em;
+  font-weight: 500;
+  color: #666;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: all 0.14s;
   white-space: nowrap;
 }
-.tah-meta-buttons button:hover { border-color: #E91E63; color: #E91E63; }
+.tah-meta-buttons button:hover { border-color: var(--pink); color: var(--pink); }
 
 /* ── SECTIONS ── */
-.tah-section { margin-bottom: 36px; }
+.tah-section { margin-bottom: 38px; }
 .tah-section-title {
-  font-size: 1.3em;
-  font-weight: 700;
-  color: #E91E63;
-  margin-bottom: 16px;
+  font-family: 'Sora', sans-serif;
+  font-size: 1.15em;
+  font-weight: 600;
+  color: var(--slate);
+  margin-bottom: 14px;
   display: flex;
   align-items: center;
   gap: 10px;
   padding-bottom: 10px;
-  border-bottom: 3px solid var(--orange);
+  border-bottom: 2px solid var(--warm-border);
 }
 .tah-section-count {
-  background: var(--orange);
-  color: #ffffff;
+  background: var(--pink);
+  color: #fff;
   border-radius: 20px;
   padding: 2px 10px;
-  font-size: 0.85em;
-  font-weight: 700;
-  min-width: 28px;
+  font-size: 0.78em;
+  font-weight: 600;
+  min-width: 26px;
   text-align: center;
+  font-family: 'DM Sans', sans-serif;
 }
 
 /* ── ACCORDION ITEMS ── */
 .tah-item {
-  border: 1px solid var(--border);
+  border: 1px solid var(--warm-border);
   border-radius: 8px;
-  margin-bottom: 12px;
-  background: #ffffff;
-  transition: all 0.2s;
+  margin-bottom: 10px;
+  background: var(--card-bg);
+  transition: all 0.18s;
   overflow: hidden;
+  box-shadow: 0 1px 3px rgba(44,58,74,0.05);
 }
-.tah-item:hover { border-color: #E91E63; box-shadow: 0 2px 8px rgba(233,30,99,0.1); }
+.tah-item:hover { border-color: var(--pink-mid); box-shadow: 0 3px 10px rgba(233,30,99,0.08); }
 
 .tah-row {
   padding: 14px 18px;
@@ -243,209 +294,199 @@ body {
   gap: 12px;
   user-select: none;
 }
-.tah-row:active { background: #f9f9f9; }
+.tah-row:active { background: #fafaf9; }
 
 .tah-title {
   flex: 1;
-  font-size: 1em;
-  font-weight: 600;
-  color: #E91E63;
+  font-size: 0.95em;
+  font-weight: 500;
+  color: var(--slate);
   line-height: 1.3;
   text-align: left;
 }
 .tah-meta {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-left: 12px;
+  gap: 10px;
+  margin-left: 10px;
 }
 
+/* deadline pills on row */
 .tah-pill {
-  padding: 4px 10px;
-  border-radius: 14px;
-  font-size: 0.7em;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.68em;
   font-weight: 600;
   white-space: nowrap;
   text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
-.tah-pill.urgent  { background: var(--red);    color: #fff; }
-.tah-pill.soon    { background: var(--orange);  color: #fff; }
-.tah-pill.future  { background: var(--teal);    color: #fff; }   /* NEW */
-.tah-pill.rolling { background: var(--purple);  color: #fff; }
-.tah-pill.new     { background: var(--green);   color: #fff; }
+.tah-pill.urgent  { background: var(--red-light);    color: var(--red); }
+.tah-pill.soon    { background: var(--orange-light);  color: #B45309; }
+.tah-pill.future  { background: var(--teal-light);    color: var(--teal); }
+.tah-pill.rolling { background: var(--purple-light);  color: var(--purple); }
+.tah-pill.new     { background: var(--green-light);   color: var(--green); }
 
 .tah-chev {
-  font-size: 1.2em;
-  color: var(--orange);
+  font-size: 1em;
+  color: var(--pink);
   transition: transform 0.2s;
   flex-shrink: 0;
+  opacity: 0.7;
 }
 .tah-item.tah-open .tah-chev { transform: rotate(180deg); }
 
 .tah-body {
   display: none;
-  padding: 14px 18px;
-  border-top: 1px solid var(--border);
-  background: #fafafa;
+  padding: 14px 18px 16px;
+  border-top: 1px solid var(--warm-border);
+  background: #FAFAF8;
 }
 .tah-item.tah-open .tah-body { display: block; }
 
-.tah-mob-badges { display: none; margin-bottom: 12px; }
+.tah-mob-badges { display: none; margin-bottom: 11px; }
 
 .tah-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 10px;
   margin-bottom: 12px;
 }
 .tah-detail {
   display: flex;
-  gap: 8px;
-  font-size: 0.88em;
-  color: #555;
-  line-height: 1.4;
+  gap: 7px;
+  font-size: 0.86em;
+  color: var(--text-soft);
+  line-height: 1.45;
 }
-.tah-detail span:first-child { flex-shrink: 0; font-size: 1.1em; }
+.tah-detail span:first-child { flex-shrink: 0; font-size: 1em; }
 .tah-detail.full { grid-column: 1 / -1; }
 
 .tah-foot {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   margin-top: 12px;
   padding-top: 12px;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--warm-border);
 }
-.tah-badges { display: flex; gap: 6px; flex-wrap: wrap; flex: 1; }
+.tah-badges { display: flex; gap: 5px; flex-wrap: wrap; flex: 1; }
 
 /* ── BADGE PILLS ── */
 .tb {
-  padding: 3px 8px;
-  border-radius: 4px;
-  font-size: 0.65em;
-  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-size: 0.64em;
+  font-weight: 600;
   text-transform: uppercase;
   white-space: nowrap;
+  letter-spacing: 0.03em;
 }
-.tb-urgent   { background: var(--red);    color: #fff; }
-.tb-soon     { background: var(--orange);  color: #fff; }
-.tb-future   { background: var(--teal);    color: #fff; }   /* NEW */
-.tb-new      { background: var(--green);   color: #fff; }
-.tb-priority { background: var(--orange);  color: #fff; }
-.tb-rolling  { background: var(--purple);  color: #fff; }
-.tb-loc      { background: var(--blue);    color: #fff; }
+.tb-urgent   { background: var(--red-light);    color: var(--red); }
+.tb-soon     { background: var(--orange-light);  color: #92400E; }
+.tb-future   { background: var(--teal-light);    color: var(--teal); }
+.tb-new      { background: var(--green-light);   color: var(--green); }
+.tb-priority { background: var(--pink-light);    color: #9C0040; }
+.tb-rolling  { background: var(--purple-light);  color: var(--purple); }
+.tb-loc      { background: var(--blue-light);    color: var(--blue); }
 
 /* ── BUTTONS ── */
 .tah-btn {
-  padding: 8px 14px;
-  background: #E91E63;
-  color: #ffffff !important;
+  padding: 8px 16px;
+  background: var(--pink);
+  color: #fff !important;
   border: none;
-  border-radius: 6px;
+  border-radius: 20px;
   font-family: 'DM Sans', sans-serif;
   font-size: 0.8em;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.18s;
+  transition: all 0.16s;
   text-decoration: none;
   white-space: nowrap;
   display: inline-block;
+  box-shadow: 0 2px 6px rgba(233,30,99,0.25);
 }
-.tah-btn:hover { background: #FF9800; transform: scale(1.05); }
+.tah-btn:hover { background: var(--slate); box-shadow: 0 2px 8px rgba(44,58,74,0.25); }
 
 .tah-copy-btn {
-  padding: 6px 8px;
+  padding: 6px 10px;
   background: transparent;
-  color: #FF9800;
-  border: 1px solid #FF9800;
-  border-radius: 4px;
-  font-size: 0.75em;
+  color: var(--muted);
+  border: 1.5px solid var(--warm-border2);
+  border-radius: 20px;
+  font-size: 0.74em;
   cursor: pointer;
-  transition: all 0.18s;
+  transition: all 0.16s;
   white-space: nowrap;
+  font-family: 'DM Sans', sans-serif;
 }
-.tah-copy-btn:hover { background: #FF9800; color: #ffffff; }
+.tah-copy-btn:hover { background: var(--warm-bg); border-color: var(--slate); color: var(--slate); }
 
 /* ── TOAST ── */
 .tah-toast {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #27AE60;
-  color: #ffffff;
+  bottom: 24px;
+  right: 24px;
+  background: var(--slate);
+  color: #fff;
   padding: 12px 20px;
-  border-radius: 6px;
+  border-radius: 20px;
   font-size: 0.85em;
-  font-weight: 600;
+  font-weight: 500;
   z-index: 1000;
-  animation: tah-slide-in 0.3s ease-out;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  animation: tah-slide-in 0.25s ease-out;
+  box-shadow: 0 4px 16px rgba(44,58,74,0.25);
 }
-@keyframes tah-slide-in { from { transform: translateX(400px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-@keyframes tah-fade-out { to { opacity: 0; transform: translateX(400px); } }
-.tah-toast.tah-fade { animation: tah-fade-out 0.3s ease-out forwards; }
+@keyframes tah-slide-in { from { transform: translateX(300px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes tah-fade-out { to { opacity: 0; transform: translateX(300px); } }
+.tah-toast.tah-fade { animation: tah-fade-out 0.25s ease-out forwards; }
 
 /* ── EMPTY STATE ── */
-#tah-empty { display: none; text-align: center; padding: 40px 20px; color: var(--muted); }
-#tah-empty h2 { font-size: 1.3em; margin-bottom: 10px; color: #555; }
-
-/* ── LEGEND ── */
-.tah-legend {
-  background: #fff9e6;
-  border-bottom: 1px solid #ffe082;
-  padding: 14px 24px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  align-items: center;
-}
-.tah-legend-title {
-  font-size: 0.7em;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--muted);
-  margin-right: 4px;
-}
-.tah-legend-item { display: flex; align-items: center; gap: 5px; font-size: 0.78em; color: #555; }
+#tah-empty { display: none; text-align: center; padding: 48px 20px; color: var(--muted); }
+#tah-empty h2 { font-size: 1.2em; margin-bottom: 8px; color: #555; }
 
 /* ── FOOTER ── */
 .tah-footer {
-  background: #0277BD;
-  color: #ffffff;
+  background: var(--slate);
+  color: rgba(255,255,255,0.7);
   text-align: center;
-  padding: 24px;
+  padding: 26px;
   font-size: 0.85em;
 }
-.tah-footer a { color: #FFD700; text-decoration: none; font-weight: 600; }
+.tah-footer a { color: var(--pink-mid); text-decoration: none; font-weight: 500; }
 .tah-footer a:hover { text-decoration: underline; }
 
 /* ── RESPONSIVE ── */
-@media (max-width: 768px) {
-  .tah-header h1 { font-size: 1.3em; }
-  .tah-persona-strip, .tah-filter-bar { padding: 12px 16px; }
-  .tah-content { padding: 12px 16px 32px; }
+@media (max-width: 640px) {
+  .tah-header, .tah-persona-strip, .tah-filter-bar, .tah-content { padding-left: 16px; padding-right: 16px; }
+  .tah-legend { padding: 10px 16px; }
   .tah-row { flex-wrap: wrap; gap: 8px; }
   .tah-title { width: 100%; }
-  .tah-meta { width: 100%; margin-left: 0; flex-direction: column; align-items: flex-start; }
+  .tah-meta { width: 100%; margin-left: 0; }
   .tah-grid { grid-template-columns: 1fr; }
   .tah-detail.full { grid-column: 1; }
   .tah-foot { flex-direction: column; align-items: flex-start; }
-  .tah-mob-badges { display: flex !important; }
-  .tah-section-title { font-size: 1.1em; }
-  .tah-legend { padding: 12px 16px; }
+  .tah-mob-badges { display: flex !important; flex-wrap: wrap; gap: 5px; }
+  .tah-section-title { font-size: 1em; }
 }
 </style>
 </head>
 <body>
-<div id="tah-wrapper">
 
 <!-- HEADER -->
 <div class="tah-header">
-  <h1>🌟 Technovation Alumnae Opportunities Hub</h1>
-  <p class="tah-tagline">Your gateway to scholarships, programs, fellowships, jobs, and career opportunities worldwide</p>
-  <span class="tah-updated">Last Updated: March 13, 2026</span>
+  <div class="tah-header-inner">
+    <h1>🌟 Technovation Alumnae Opportunities Hub</h1>
+    <p class="tagline">Your gateway to scholarships, programs, fellowships, jobs, and career opportunities worldwide</p>
+    <div class="tah-accent-dots">
+      <span style="background:#E91E63;"></span>
+      <span style="background:#FF9800;"></span>
+      <span style="background:rgba(255,255,255,0.2);"></span>
+    </div>
+    <span class="tah-updated">Last Updated: March 13, 2026</span>
+  </div>
 </div>
 
 <!-- LEGEND -->
@@ -453,7 +494,7 @@ body {
   <span class="tah-legend-title">📍 Key:</span>
   <div class="tah-legend-item"><span class="tb tb-urgent">URGENT</span> ≤2 weeks</div>
   <div class="tah-legend-item"><span class="tb tb-soon">SOON</span> ≤1 month</div>
-  <div class="tah-legend-item"><span class="tb tb-future">FUTURE</span> Fixed date, 1+ months away</div>
+  <div class="tah-legend-item"><span class="tb tb-future">FUTURE</span> Fixed, 1+ months</div>
   <div class="tah-legend-item"><span class="tb tb-rolling">ROLLING</span> No fixed deadline</div>
   <div class="tah-legend-item"><span class="tb tb-new">NEW</span> Recently added</div>
   <div class="tah-legend-item"><span class="tb tb-priority">PRIORITY</span> Special for Technovation alumnae</div>
@@ -474,7 +515,7 @@ body {
     </div>
   </div>
 
-  <!-- Location & Deadline Filters -->
+  <!-- Filter Bar -->
   <div class="tah-filter-bar">
     <div class="tah-filter-group">
       <span class="tah-filter-label">📍 Location:</span>
@@ -486,9 +527,9 @@ body {
     <div class="tah-filter-group">
       <span class="tah-filter-label">📅 Deadline:</span>
       <button class="tah-chip tah-active" data-filter="deadline" data-value="all">All</button>
-      <button class="tah-chip" data-filter="deadline" data-value="urgent">🔴 Urgent (≤2 wks)</button>
-      <button class="tah-chip" data-filter="deadline" data-value="soon">🟠 Soon (≤1 mo)</button>
-      <button class="tah-chip" data-filter="deadline" data-value="future">🟢 Future (1+ mo)</button>
+      <button class="tah-chip" data-filter="deadline" data-value="urgent">🔴 Urgent</button>
+      <button class="tah-chip" data-filter="deadline" data-value="soon">🟠 Soon</button>
+      <button class="tah-chip" data-filter="deadline" data-value="future">🟢 Future</button>
       <button class="tah-chip" data-filter="deadline" data-value="rolling">🔵 Rolling</button>
     </div>
   </div>
@@ -504,9 +545,7 @@ body {
     </div>
   </div>
 
-  <!-- ════════════════════════════════════
-       AI & TECH PROGRAMS
-  ════════════════════════════════════ -->
+  <!-- ════ AI & TECH PROGRAMS ════ -->
   <div class="tah-section" data-cat="ai-tech">
     <h2 class="tah-section-title">💻 AI &amp; Tech Programs <span class="tah-section-count" data-cat-count="ai-tech">0</span></h2>
 
@@ -560,13 +599,10 @@ body {
 
   </div><!-- /ai-tech -->
 
-  <!-- ════════════════════════════════════
-       SCHOLARSHIPS
-  ════════════════════════════════════ -->
+  <!-- ════ SCHOLARSHIPS ════ -->
   <div class="tah-section" data-cat="scholarships">
     <h2 class="tah-section-title">🎓 Scholarships <span class="tah-section-count" data-cat-count="scholarships">0</span></h2>
 
-    <!-- URGENT: Palantir — deadline Mar 22 -->
     <div class="tah-item" data-personas="all university" data-loc="intl" data-deadline="urgent">
       <div class="tah-row">
         <div class="tah-title">Palantir Women in Technology Scholarship</div>
@@ -581,7 +617,7 @@ body {
         <div class="tah-grid">
           <div class="tah-detail"><span>📅</span><span><strong>Deadline:</strong> March 22, 2026</span></div>
           <div class="tah-detail"><span>💰</span><span><strong>Award:</strong> $7,000 + professional dev workshop + internship interview</span></div>
-          <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> Undergraduate &amp; Master's women in CS/engineering/tech — US, Canada, Mexico (North America track) + separate global track for other countries</span></div>
+          <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> Undergraduate &amp; Master's women in CS/engineering/tech — North America track + separate global track</span></div>
           <div class="tah-detail full"><span>💡</span><span>Annual award — recurs each year. Strong fit for Technovation university alumnae globally.</span></div>
         </div>
         <div class="tah-foot">
@@ -592,7 +628,6 @@ body {
       </div>
     </div>
 
-    <!-- SOON: SWE Emerging First Year — deadline Mar 31 -->
     <div class="tah-item" data-personas="all secondary" data-loc="intl" data-deadline="soon">
       <div class="tah-row">
         <div class="tah-title">SWE Emerging First Year Scholars Scholarship</div>
@@ -606,7 +641,7 @@ body {
         <div class="tah-mob-badges"><span class="tb tb-soon">SOON</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">International</span></div>
         <div class="tah-grid">
           <div class="tah-detail"><span>📅</span><span><strong>Deadline:</strong> March 31, 2026</span></div>
-          <div class="tah-detail"><span>💰</span><span><strong>Award:</strong> Varies — one application = all eligible SWE scholarships ($1.5M+ awarded annually)</span></div>
+          <div class="tah-detail"><span>💰</span><span><strong>Award:</strong> Varies — one application = all eligible SWE scholarships ($1.5M+ annually)</span></div>
           <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> High school seniors entering first year of college in engineering, computing, or tech at an ABET-accredited school</span></div>
           <div class="tah-detail full"><span>🎯</span><span>Perfect for Technovation HS alumnae heading to college in fall 2026!</span></div>
         </div>
@@ -618,7 +653,6 @@ body {
       </div>
     </div>
 
-    <!-- SOON: SWE Collegiate/Grad — deadline Mar 31 -->
     <div class="tah-item" data-personas="all university earlycareer" data-loc="intl" data-deadline="soon">
       <div class="tah-row">
         <div class="tah-title">SWE Collegiate &amp; Graduate Scholars Scholarship</div>
@@ -634,7 +668,7 @@ body {
           <div class="tah-detail"><span>📅</span><span><strong>Deadline:</strong> March 31, 2026</span></div>
           <div class="tah-detail"><span>💰</span><span><strong>Award:</strong> Up to $20,000 — 250+ scholarships awarded annually</span></div>
           <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> Women in undergraduate (sophomore+) or graduate engineering/tech/computing at ABET-accredited schools</span></div>
-          <div class="tah-detail full"><span>💡</span><span>One application covers all eligible SWE awards — pairs with Emerging First Year for HS alumnae.</span></div>
+          <div class="tah-detail full"><span>💡</span><span>One application covers all eligible SWE awards.</span></div>
         </div>
         <div class="tah-foot">
           <div class="tah-badges"><span class="tb tb-soon">SOON</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">International</span></div>
@@ -644,7 +678,6 @@ body {
       </div>
     </div>
 
-    <!-- FUTURE: Generation Google — Aug 14 (FIXED from "soon") -->
     <div class="tah-item" data-personas="all university earlycareer" data-loc="intl" data-deadline="future">
       <div class="tah-row">
         <div class="tah-title">Generation Google Scholarship (Women in Tech)</div>
@@ -669,7 +702,6 @@ body {
       </div>
     </div>
 
-    <!-- FUTURE: MPOWER — Jul 31 (FIXED from "rolling") -->
     <div class="tah-item" data-personas="all university" data-loc="intl" data-deadline="future">
       <div class="tah-row">
         <div class="tah-title">MPOWER Women in STEM Scholarship</div>
@@ -697,13 +729,10 @@ body {
 
   </div><!-- /scholarships -->
 
-  <!-- ════════════════════════════════════
-       FELLOWSHIPS & RESEARCH
-  ════════════════════════════════════ -->
+  <!-- ════ FELLOWSHIPS & RESEARCH ════ -->
   <div class="tah-section" data-cat="fellowships">
     <h2 class="tah-section-title">🌍 Fellowships &amp; Research Opportunities <span class="tah-section-count" data-cat-count="fellowships">0</span></h2>
 
-    <!-- SOON: UBS Project Female Founder (FIXED from "urgent") -->
     <div class="tah-item" data-personas="all founder" data-loc="intl" data-deadline="soon">
       <div class="tah-row">
         <div class="tah-title">UBS Project Female Founder</div>
@@ -717,7 +746,7 @@ body {
         <div class="tah-mob-badges"><span class="tb tb-soon">SOON</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">International</span></div>
         <div class="tah-grid">
           <div class="tah-detail"><span>📅</span><span><strong>Applications:</strong> Open now — cohort starts April 2026</span></div>
-          <div class="tah-detail"><span>💰</span><span><strong>Cost:</strong> 100% FREE (no UBS client relationship required)</span></div>
+          <div class="tah-detail"><span>💰</span><span><strong>Cost:</strong> 100% FREE</span></div>
           <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> Women-majority-owned (51%+) businesses in development or early commercialization, raised up to $1M — 25+ countries eligible</span></div>
           <div class="tah-detail full"><span>💡</span><span>8-week investor-readiness accelerator + 12-month activation. 100 founders selected globally. Access to 100+ VCs, 60 UBS advisors &amp; investor pitch at program end.</span></div>
         </div>
@@ -729,7 +758,6 @@ body {
       </div>
     </div>
 
-    <!-- FUTURE: Cartier Women's Initiative -->
     <div class="tah-item" data-personas="all founder" data-loc="intl" data-deadline="future">
       <div class="tah-row">
         <div class="tah-title">Cartier Women's Initiative 2027</div>
@@ -743,9 +771,9 @@ body {
         <div class="tah-mob-badges"><span class="tb tb-future">FUTURE</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">International</span></div>
         <div class="tah-grid">
           <div class="tah-detail"><span>📅</span><span><strong>Applications Open:</strong> April 16 – June 16, 2026</span></div>
-          <div class="tah-detail"><span>💰</span><span><strong>Award:</strong> $100,000 (1st) / $60,000 (2nd) per region + INSEAD fellowship + coaching + global media</span></div>
+          <div class="tah-detail"><span>💰</span><span><strong>Award:</strong> $100,000 (1st) / $60,000 (2nd) per region + INSEAD fellowship + coaching</span></div>
           <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> Women-led impact businesses, 1–6 years old, revenue-generating, &lt;$2M dilutive funding — any country, any sector</span></div>
-          <div class="tah-detail full"><span>🌟</span><span>One of the most prestigious global awards for women founders. 9 regional tracks + Science &amp; Technology Pioneer Award. Start preparing your application now!</span></div>
+          <div class="tah-detail full"><span>🌟</span><span>One of the most prestigious global awards for women founders. 9 regional tracks + Science &amp; Technology Pioneer Award. Start preparing now!</span></div>
         </div>
         <div class="tah-foot">
           <div class="tah-badges"><span class="tb tb-future">FUTURE</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">International</span></div>
@@ -767,7 +795,7 @@ body {
       <div class="tah-body">
         <div class="tah-mob-badges"><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">International</span></div>
         <div class="tah-grid">
-          <div class="tah-detail"><span>📅</span><span><strong>Application:</strong> Opens annually (next round ~Nov 2026)</span></div>
+          <div class="tah-detail"><span>📅</span><span><strong>Application:</strong> Opens annually (~Nov 2026)</span></div>
           <div class="tah-detail"><span>📍</span><span><strong>Format:</strong> Global, virtual program</span></div>
           <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> Women technologists and educational leaders</span></div>
           <div class="tah-detail full"><span>💡</span><span>Year-long program on responsible AI in education</span></div>
@@ -806,13 +834,10 @@ body {
 
   </div><!-- /fellowships -->
 
-  <!-- ════════════════════════════════════
-       EVENTS & COMPETITIONS
-  ════════════════════════════════════ -->
+  <!-- ════ EVENTS & COMPETITIONS ════ -->
   <div class="tah-section" data-cat="events">
     <h2 class="tah-section-title">🏆 Summits, Events &amp; Competitions <span class="tah-section-count" data-cat-count="events">0</span></h2>
 
-    <!-- URGENT: One Tech World — Mar 20 (FIXED from "rolling") -->
     <div class="tah-item" data-personas="all university earlycareer founder" data-loc="intl" data-deadline="urgent">
       <div class="tah-row">
         <div class="tah-title">One Tech World 2026 (WeAreTechWomen)</div>
@@ -838,7 +863,6 @@ body {
       </div>
     </div>
 
-    <!-- URGENT: SGWIT — Mar 26 -->
     <div class="tah-item" data-personas="all founder earlycareer" data-loc="intl" data-deadline="urgent">
       <div class="tah-row">
         <div class="tah-title">Select Global Women in Tech (SGWIT) Mentorship Program</div>
@@ -854,7 +878,7 @@ body {
           <div class="tah-detail"><span>📅</span><span><strong>Deadline:</strong> March 26, 2026 (12 PM EDT)</span></div>
           <div class="tah-detail"><span>💼</span><span><strong>Mentors:</strong> U.S.-based entrepreneurs, executives, VCs &amp; investors</span></div>
           <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> International women-led tech startups seeking U.S. market entry within 2–3 years</span></div>
-          <div class="tah-detail full"><span>💡</span><span>Mentorship kicks off May 2026 with mentor-led matching. Accepted mentors notified mid-April. Perfect for scaling startups seeking U.S. growth!</span></div>
+          <div class="tah-detail full"><span>💡</span><span>Mentorship kicks off May 2026. Accepted mentors notified mid-April. Perfect for scaling startups seeking U.S. growth!</span></div>
         </div>
         <div class="tah-foot">
           <div class="tah-badges"><span class="tb tb-urgent">URGENT</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">International</span></div>
@@ -864,7 +888,6 @@ body {
       </div>
     </div>
 
-    <!-- SOON: AnitaB GHC Virtual — Apr 22-23 (FIXED: in-person note removed) -->
     <div class="tah-item" data-personas="all university earlycareer" data-loc="intl" data-deadline="soon">
       <div class="tah-row">
         <div class="tah-title">AnitaB.org Grace Hopper Celebration — Virtual</div>
@@ -880,7 +903,7 @@ body {
           <div class="tah-detail"><span>📅</span><span><strong>Virtual Conference:</strong> April 22–23, 2026</span></div>
           <div class="tah-detail"><span>💰</span><span><strong>Award:</strong> Scholarship covers registration + full access</span></div>
           <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> Women &amp; non-binary students/professionals in tech</span></div>
-          <div class="tah-detail full"><span>💡</span><span>World's largest gathering of women technologists — networking, career fair, recruiting &amp; workshops. (In-person conference at National Harbor, MD has passed.)</span></div>
+          <div class="tah-detail full"><span>💡</span><span>World's largest gathering of women technologists — networking, career fair, recruiting &amp; workshops.</span></div>
         </div>
         <div class="tah-foot">
           <div class="tah-badges"><span class="tb tb-soon">SOON</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">International</span></div>
@@ -967,9 +990,7 @@ body {
 
   </div><!-- /events -->
 
-  <!-- ════════════════════════════════════
-       PROFESSIONAL DEVELOPMENT & JOBS
-  ════════════════════════════════════ -->
+  <!-- ════ PROFESSIONAL DEVELOPMENT & JOBS ════ -->
   <div class="tah-section" data-cat="jobs">
     <h2 class="tah-section-title">📈 Professional Development &amp; Jobs <span class="tah-section-count" data-cat-count="jobs">0</span></h2>
 
@@ -987,7 +1008,6 @@ body {
         <div class="tah-grid">
           <div class="tah-detail"><span>📅</span><span><strong>Schedule:</strong> Ongoing, monthly sessions</span></div>
           <div class="tah-detail"><span>💰</span><span><strong>Cost:</strong> 100% FREE</span></div>
-          <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> All professionals &amp; students</span></div>
           <div class="tah-detail full"><span>💡</span><span>Free workshops on resume building, interviewing, networking &amp; professional development</span></div>
         </div>
         <div class="tah-foot">
@@ -1013,7 +1033,7 @@ body {
           <div class="tah-detail"><span>📅</span><span><strong>Deadline:</strong> Rolling applications</span></div>
           <div class="tah-detail"><span>💰</span><span><strong>Cost:</strong> 100% FREE</span></div>
           <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> Young women in tech (ages 18–25)</span></div>
-          <div class="tah-detail full"><span>💡</span><span>6-month mentorship with tech industry professionals (global, virtual program)</span></div>
+          <div class="tah-detail full"><span>💡</span><span>6-month mentorship with tech industry professionals (global, virtual)</span></div>
         </div>
         <div class="tah-foot">
           <div class="tah-badges"><span class="tb tb-priority">PRIORITY</span><span class="tb tb-rolling">ROLLING</span><span class="tb tb-loc">International</span></div>
@@ -1038,7 +1058,6 @@ body {
           <div class="tah-detail"><span>📅</span><span><strong>Updates:</strong> Daily job postings</span></div>
           <div class="tah-detail"><span>📍</span><span><strong>Scope:</strong> Global opportunities</span></div>
           <div class="tah-detail full"><span>👥</span><span><strong>Focus:</strong> High-impact careers in AI, policy, research, non-profits</span></div>
-          <div class="tah-detail full"><span>💡</span><span>Curated opportunities for social impact careers</span></div>
         </div>
         <div class="tah-foot">
           <div class="tah-badges"><span class="tb tb-rolling">ROLLING</span><span class="tb tb-loc">International</span></div>
@@ -1050,9 +1069,7 @@ body {
 
   </div><!-- /jobs -->
 
-  <!-- ════════════════════════════════════
-       COURSES & LEARNING
-  ════════════════════════════════════ -->
+  <!-- ════ COURSES & LEARNING ════ -->
   <div class="tah-section" data-cat="learning">
     <h2 class="tah-section-title">📚 Online Courses &amp; Learning Platforms <span class="tah-section-count" data-cat-count="learning">0</span></h2>
 
@@ -1094,9 +1111,8 @@ body {
         <div class="tah-mob-badges"><span class="tb tb-rolling">ROLLING</span><span class="tb tb-loc">International</span></div>
         <div class="tah-grid">
           <div class="tah-detail"><span>📅</span><span><strong>Sessions:</strong> Regular free sessions</span></div>
-          <div class="tah-detail"><span>💰</span><span><strong>Cost:</strong> 100% FREE (one-time intro session)</span></div>
-          <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> Women worldwide</span></div>
-          <div class="tah-detail full"><span>📍</span><span><strong>Format:</strong> Online, no webcam needed</span></div>
+          <div class="tah-detail"><span>💰</span><span><strong>Cost:</strong> 100% FREE (one-time intro)</span></div>
+          <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> Women worldwide — online, no webcam needed</span></div>
         </div>
         <div class="tah-foot">
           <div class="tah-badges"><span class="tb tb-rolling">ROLLING</span><span class="tb tb-loc">International</span></div>
@@ -1106,7 +1122,6 @@ body {
       </div>
     </div>
 
-    <!-- Girls Who Code — FIXED to US Only -->
     <div class="tah-item" data-personas="all secondary" data-loc="us" data-deadline="rolling">
       <div class="tah-row">
         <div class="tah-title">Girls Who Code — Free Summer Programs</div>
@@ -1234,32 +1249,30 @@ body {
   <!-- EMPTY STATE -->
   <div id="tah-empty">
     <h2>🔍 No opportunities found</h2>
-    <p>Try adjusting your filters</p>
+    <p>Try adjusting your filters above</p>
   </div>
 
 </div><!-- /tah-content -->
-</div><!-- /tah-wrapper -->
 
 <!-- FOOTER -->
 <div class="tah-footer">
-  <p><strong>Questions? Need help?</strong></p>
-  <p style="margin-top:6px;">Contact us: <a href="mailto:alumnae@technovation.org">alumnae@technovation.org</a></p>
+  <p style="font-weight:500; color:#fff; margin-bottom:6px;">Questions? Need help?</p>
+  <p>Contact us: <a href="mailto:alumnae@technovation.org">alumnae@technovation.org</a></p>
 </div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-
   var state = { persona: 'all', loc: 'all', deadline: 'all' };
   var allExpanded = false;
 
   function allCards() { return document.querySelectorAll('[data-personas]'); }
 
   function matches(el) {
-    var personas  = el.getAttribute('data-personas').split(' ');
-    var locVal    = el.getAttribute('data-loc');
+    var personas = el.getAttribute('data-personas').split(' ');
+    var locVal = el.getAttribute('data-loc');
     var deadlineVal = el.getAttribute('data-deadline');
     var personaOk = state.persona === 'all' || personas.indexOf(state.persona) > -1;
-    var locOk     = state.loc === 'all' || locVal === state.loc;
+    var locOk = state.loc === 'all' || locVal === state.loc;
     var deadlineOk = state.deadline === 'all' || deadlineVal === state.deadline;
     return personaOk && locOk && deadlineOk;
   }
@@ -1272,14 +1285,12 @@ document.addEventListener('DOMContentLoaded', function() {
       if (!show) el.classList.remove('tah-open');
       if (show) total++;
     });
-
     document.querySelectorAll('[data-cat]').forEach(function(section) {
       var items = section.querySelectorAll('[data-personas]');
       var anyVisible = false;
       items.forEach(function(i) { if (i.style.display !== 'none') anyVisible = true; });
       section.style.display = anyVisible ? '' : 'none';
     });
-
     var countEl = document.getElementById('tah-count');
     if (countEl) countEl.textContent = total;
     var emptyEl = document.getElementById('tah-empty');
@@ -1299,7 +1310,6 @@ document.addEventListener('DOMContentLoaded', function() {
       var el = document.getElementById('pc-' + persona);
       if (el) el.textContent = count;
     });
-
     document.querySelectorAll('[data-cat]').forEach(function(section) {
       var cat = section.getAttribute('data-cat');
       var count = 0;
@@ -1311,7 +1321,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Persona buttons
   document.querySelectorAll('.tah-pbtn').forEach(function(btn) {
     btn.addEventListener('click', function() {
       document.querySelectorAll('.tah-pbtn').forEach(function(b) { b.classList.remove('tah-active'); });
@@ -1321,7 +1330,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Filter chips
   document.querySelectorAll('.tah-chip').forEach(function(chip) {
     chip.addEventListener('click', function() {
       var filterType = chip.getAttribute('data-filter');
@@ -1332,14 +1340,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Accordion rows
   document.querySelectorAll('.tah-row').forEach(function(row) {
     row.addEventListener('click', function() {
       row.parentElement.classList.toggle('tah-open');
     });
   });
 
-  // Expand all
   var expandBtn = document.getElementById('tah-expand-btn');
   if (expandBtn) {
     expandBtn.addEventListener('click', function() {
@@ -1353,12 +1359,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Copy link helper
   window.copyLink = function(url) {
     navigator.clipboard.writeText(url).then(function() {
-      showToast('Link copied! ✓');
+      showToast('Link copied ✓');
     }).catch(function() {
-      showToast('Copy failed — try again.');
+      showToast('Copy failed — try again');
     });
   };
 
@@ -1369,14 +1374,12 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.appendChild(toast);
     setTimeout(function() {
       toast.classList.add('tah-fade');
-      setTimeout(function() { toast.remove(); }, 300);
+      setTimeout(function() { toast.remove(); }, 250);
     }, 2500);
   }
 
   applyFilters();
-
-}); // end DOMContentLoaded
+});
 </script>
-
 </body>
 </html>
