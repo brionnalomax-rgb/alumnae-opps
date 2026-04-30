@@ -458,18 +458,169 @@ body {
 .tah-footer a { color: var(--pink-mid); text-decoration: none; font-weight: 500; }
 .tah-footer a:hover { text-decoration: underline; }
 
+/* ── SECTION JUMP NAV ── */
+.tah-jump-nav {
+  background: #fff;
+  border-bottom: 2px solid var(--warm-border);
+  padding: 10px 28px;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.tah-jump-label {
+  font-size: 0.62em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--muted);
+  white-space: nowrap;
+  margin-right: 4px;
+}
+.tah-jump-link {
+  padding: 4px 11px;
+  border: 1.5px solid var(--warm-border2);
+  border-radius: 20px;
+  background: var(--warm-bg);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.73em;
+  font-weight: 500;
+  color: var(--text-soft);
+  text-decoration: none;
+  transition: all 0.14s;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 28px;
+  -webkit-tap-highlight-color: transparent;
+}
+.tah-jump-link:hover { border-color: var(--pink); color: var(--pink); background: var(--pink-light); }
+
+/* ── FOUNDERS HUB INTRO ── */
+.tah-section-intro {
+  font-size: 0.85em;
+  color: var(--text-soft);
+  margin-top: -6px;
+  margin-bottom: 14px;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* ── WELCOME PROMPT ── */
+.tah-welcome-prompt {
+  background: linear-gradient(135deg, var(--pink-light) 0%, #FFF8F0 100%);
+  border: 1.5px solid rgba(233,30,99,0.18);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 18px;
+  font-size: 0.84em;
+  color: var(--slate-mid);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  line-height: 1.5;
+  position: relative;
+}
+.tah-welcome-prompt .tah-wp-icon { font-size: 1.3em; flex-shrink: 0; }
+.tah-welcome-prompt .tah-wp-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1em;
+  color: var(--muted);
+  padding: 2px 4px;
+  line-height: 1;
+  opacity: 0.6;
+  transition: opacity 0.15s;
+  font-family: 'DM Sans', sans-serif;
+}
+.tah-welcome-prompt .tah-wp-close:hover { opacity: 1; }
+.tah-welcome-prompt strong { color: var(--pink); }
+
+/* ── NOMINATE CTA ── */
+.tah-nominate-cta {
+  background: var(--teal-light);
+  border: 1.5px solid rgba(0,105,92,0.2);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin: 0 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.tah-nominate-cta .tah-nc-text { font-size: 0.84em; color: var(--teal); line-height: 1.45; }
+.tah-nominate-cta .tah-nc-text strong { display: block; font-size: 1.05em; margin-bottom: 2px; color: var(--slate); }
+.tah-nominate-cta a.tah-nc-btn {
+  padding: 8px 16px;
+  background: var(--teal);
+  color: #fff !important;
+  border-radius: 20px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8em;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+.tah-nominate-cta a.tah-nc-btn:hover { background: var(--slate); }
+
+/* ── BACK TO TOP ── */
+#tah-back-top {
+  position: fixed;
+  bottom: 28px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background: var(--slate);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.1em;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 12px rgba(44,58,74,0.3);
+  z-index: 999;
+  transition: background 0.15s, opacity 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+#tah-back-top:hover { background: var(--pink); }
+#tah-back-top.visible { display: flex; }
+
+/* ── SECTION COUNT SUBTITLE ── */
+.tah-section-subtitle {
+  font-size: 0.75em;
+  font-weight: 400;
+  color: var(--muted);
+  margin-left: auto;
+  font-family: 'DM Sans', sans-serif;
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 640px) {
   .tah-header, .tah-persona-strip, .tah-filter-bar, .tah-content { padding-left: 16px; padding-right: 16px; }
   .tah-legend { padding: 10px 16px; }
+  .tah-jump-nav { padding: 9px 16px; }
   .tah-row { flex-wrap: wrap; gap: 8px; }
   .tah-title { width: 100%; }
   .tah-meta { width: 100%; margin-left: 0; }
+  .tah-chev { position: absolute; top: 14px; right: 14px; }
+  .tah-row { position: relative; padding-right: 36px; }
   .tah-grid { grid-template-columns: 1fr; }
   .tah-detail.full { grid-column: 1; }
   .tah-foot { flex-direction: column; align-items: flex-start; }
   .tah-mob-badges { display: flex !important; flex-wrap: wrap; gap: 5px; }
   .tah-section-title { font-size: 1em; }
+  .tah-nominate-cta { flex-direction: column; }
+  #tah-back-top { bottom: 18px; right: 14px; }
 }
 </style>
 </head>
@@ -505,7 +656,7 @@ body {
   <div class="tah-persona-strip">
     <span class="tah-strip-label">👤 Filter by <em>your stage</em>:</span>
     <div class="tah-persona-row">
-      <button class="tah-pbtn tah-active" data-persona="all">All Alumnae <span class="tah-pcount" id="pc-all">0</span></button>
+      <button class="tah-pbtn tah-active" data-persona="all">Browse Everything <span class="tah-pcount" id="pc-all">0</span></button>
       <button class="tah-pbtn" data-persona="secondary">High School <span class="tah-pcount" id="pc-secondary">0</span></button>
       <button class="tah-pbtn" data-persona="university">University <span class="tah-pcount" id="pc-university">0</span></button>
       <button class="tah-pbtn" data-persona="earlycareer">Early Career <span class="tah-pcount" id="pc-earlycareer">0</span></button>
@@ -518,11 +669,13 @@ body {
       <button class="tah-chip tah-active" data-filter="loc" data-value="all">All</button>
       <button class="tah-chip" data-filter="loc" data-value="us">US Only</button>
       <button class="tah-chip" data-filter="loc" data-value="intl">International</button>
+      <button class="tah-chip tah-chip-intlonly" data-filter="loc" data-value="intlonly" title="No US affiliation required">🌍 No US Required</button>
     </div>
     <div class="tah-filter-sep"></div>
     <div class="tah-filter-group">
       <span class="tah-filter-label">📅 Deadline:</span>
       <button class="tah-chip tah-active" data-filter="deadline" data-value="all">All</button>
+      <button class="tah-chip tah-chip-actnow" data-filter="deadline" data-value="actnow">⚡ Act Now</button>
       <button class="tah-chip" data-filter="deadline" data-value="urgent">🔴 Urgent</button>
       <button class="tah-chip" data-filter="deadline" data-value="soon">🟠 Soon</button>
       <button class="tah-chip" data-filter="deadline" data-value="future">🟢 Future</button>
@@ -531,8 +684,28 @@ body {
   </div>
 </div>
 
-<!-- CONTENT -->
+<!-- SECTION JUMP NAV -->
+<div class="tah-jump-nav">
+  <span class="tah-jump-label">Jump to:</span>
+  <a class="tah-jump-link" href="#sec-scholarships">🎓 Scholarships</a>
+  <a class="tah-jump-link" href="#sec-fellowships">🌍 Fellowships</a>
+  <a class="tah-jump-link" href="#sec-jobs">💼 Jobs</a>
+  <a class="tah-jump-link" href="#sec-events">🏆 Events</a>
+  <a class="tah-jump-link" href="#sec-courses">📚 Courses</a>
+  <a class="tah-jump-link" href="#sec-prodev">💡 Pro Dev</a>
+  <a class="tah-jump-link" href="#sec-founders">🚀 Founders Hub</a>
+</div>
+
+<!-- BACK TO TOP -->
+<button id="tah-back-top" title="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 <div class="tah-content">
+
+  <!-- WELCOME PROMPT -->
+  <div class="tah-welcome-prompt" id="tah-welcome">
+    <span class="tah-wp-icon">👋</span>
+    <span>Not sure where to start? <strong>Pick your stage above</strong> and we'll filter to what's most relevant for you — High School, University, Early Career, or Founder/Builder.</span>
+    <button class="tah-wp-close" onclick="document.getElementById('tah-welcome').style.display='none'" title="Dismiss">✕</button>
+  </div>
 
   <div class="tah-results-meta">
     <span><span id="tah-count">0</span> opportunities found</span>
@@ -542,7 +715,7 @@ body {
   </div>
 
   <!-- ════ SCHOLARSHIPS ════ -->
-  <div class="tah-section" data-cat="scholarships">
+  <div class="tah-section" id="sec-scholarships" data-cat="scholarships">
     <h2 class="tah-section-title">🎓 Scholarships <span class="tah-section-count" data-cat-count="scholarships">0</span></h2>
 
     <div class="tah-item" data-personas="all university earlycareer" data-loc="intl" data-deadline="future">
@@ -647,7 +820,7 @@ body {
   </div><!-- /scholarships -->
 
   <!-- ════ FELLOWSHIPS & RESEARCH ════ -->
-  <div class="tah-section" data-cat="fellowships">
+  <div class="tah-section" id="sec-fellowships" data-cat="fellowships">
     <h2 class="tah-section-title">🌍 Fellowships &amp; Research Opportunities <span class="tah-section-count" data-cat-count="fellowships">0</span></h2>
 
     <div class="tah-item" data-personas="all university earlycareer" data-loc="intl" data-deadline="urgent">
@@ -830,7 +1003,7 @@ body {
   </div><!-- /fellowships -->
 
   <!-- ════ JOBS & CAREER PLATFORMS ════ -->
-  <div class="tah-section" data-cat="jobs">
+  <div class="tah-section" id="sec-jobs" data-cat="jobs">
     <h2 class="tah-section-title">💼 Jobs &amp; Career Platforms <span class="tah-section-count" data-cat-count="jobs">0</span></h2>
 
     <div class="tah-item" data-personas="all university earlycareer" data-loc="intl" data-deadline="rolling">
@@ -1033,7 +1206,7 @@ body {
   </div><!-- /jobs -->
 
   <!-- ════ EVENTS & COMPETITIONS ════ -->
-  <div class="tah-section" data-cat="events">
+  <div class="tah-section" id="sec-events" data-cat="events">
     <h2 class="tah-section-title">🏆 Events &amp; Competitions <span class="tah-section-count" data-cat-count="events">0</span></h2>
 
     <div class="tah-item" data-personas="all founder earlycareer" data-loc="intl" data-deadline="rolling">
@@ -1163,7 +1336,7 @@ body {
   </div><!-- /events -->
 
   <!-- ════ COURSES & LEARNING ════ -->
-  <div class="tah-section" data-cat="courses">
+  <div class="tah-section" id="sec-courses" data-cat="courses">
     <h2 class="tah-section-title">📚 Courses &amp; Learning <span class="tah-section-count" data-cat-count="courses">0</span></h2>
 
     <div class="tah-item" data-personas="all secondary" data-loc="intl" data-deadline="rolling">
@@ -1362,7 +1535,7 @@ body {
   </div><!-- /courses -->
 
   <!-- ════ PROFESSIONAL DEVELOPMENT ════ -->
-  <div class="tah-section" data-cat="prodev">
+  <div class="tah-section" id="sec-prodev" data-cat="prodev">
     <h2 class="tah-section-title">📈 Professional Development <span class="tah-section-count" data-cat-count="prodev">0</span></h2>
 
     <div class="tah-item" data-personas="all university earlycareer founder" data-loc="intl" data-deadline="rolling">
@@ -1512,8 +1685,9 @@ body {
   </div><!-- /prodev -->
 
   <!-- ════ FOUNDERS HUB ════ -->
-  <div class="tah-section" data-cat="founders">
+  <div class="tah-section" id="sec-founders" data-cat="founders">
     <h2 class="tah-section-title">🚀 Founders Hub <span class="tah-section-count" data-cat-count="founders">0</span></h2>
+    <p class="tah-section-intro">Grants, accelerators, and pitch competitions for alumnae who are building — whether you have a finished product or just a bold idea.</p>
 
     <div class="tah-item" data-personas="all founder earlycareer" data-loc="intl" data-deadline="soon">
       <div class="tah-row">
@@ -1861,6 +2035,15 @@ body {
 
   </div><!-- /founders -->
 
+  <!-- NOMINATE AN OPPORTUNITY -->
+  <div class="tah-nominate-cta">
+    <div class="tah-nc-text">
+      <strong>🔔 Know an opportunity that should be here?</strong>
+      The community knows about opps we don't — this page is better with your help.
+    </div>
+    <a class="tah-nc-btn" href="mailto:alumnae@technovation.org?subject=Opportunity%20Nomination&body=Hi!%20I%20wanted%20to%20nominate%20an%20opportunity%20for%20the%20Alumnae%20Opportunities%20Hub:%0A%0AName:%0AURL:%0AWhy%20it%27s%20a%20good%20fit:" target="_blank">Nominate an Opp →</a>
+  </div>
+
   <!-- EMPTY STATE -->
   <div id="tah-empty">
     <h2>🔍 No opportunities found</h2>
@@ -1887,8 +2070,8 @@ function tahInit() {
     var locVal = el.getAttribute('data-loc');
     var deadlineVal = el.getAttribute('data-deadline');
     var personaOk = state.persona === 'all' || personas.indexOf(state.persona) > -1;
-    var locOk = state.loc === 'all' || locVal === state.loc;
-    var deadlineOk = state.deadline === 'all' || deadlineVal === state.deadline;
+    var locOk = state.loc === 'all' || locVal === state.loc || (state.loc === 'intl' && locVal === 'intl') || (state.loc === 'intlonly' && locVal === 'intl');
+    var deadlineOk = state.deadline === 'all' || deadlineVal === state.deadline || (state.deadline === 'actnow' && (deadlineVal === 'urgent' || deadlineVal === 'soon'));
     return personaOk && locOk && deadlineOk;
   }
 
@@ -1918,8 +2101,10 @@ function tahInit() {
       var count = 0;
       allCards().forEach(function(el) {
         var ps = el.getAttribute('data-personas').split(' ');
-        var lOk = state.loc === 'all' || el.getAttribute('data-loc') === state.loc;
-        var dOk = state.deadline === 'all' || el.getAttribute('data-deadline') === state.deadline;
+        var lVal = el.getAttribute('data-loc');
+        var dVal = el.getAttribute('data-deadline');
+        var lOk = state.loc === 'all' || lVal === state.loc || (state.loc === 'intlonly' && lVal === 'intl');
+        var dOk = state.deadline === 'all' || dVal === state.deadline || (state.deadline === 'actnow' && (dVal === 'urgent' || dVal === 'soon'));
         if ((persona === 'all' || ps.indexOf(persona) > -1) && lOk && dOk) count++;
       });
       var el = document.getElementById('pc-' + persona);
@@ -1935,6 +2120,18 @@ function tahInit() {
       if (span) span.textContent = count;
     });
   }
+
+  // Back to top visibility
+  var backTopBtn = document.getElementById('tah-back-top');
+  window.addEventListener('scroll', function() {
+    if (backTopBtn) {
+      if (window.scrollY > 400) {
+        backTopBtn.classList.add('visible');
+      } else {
+        backTopBtn.classList.remove('visible');
+      }
+    }
+  }, { passive: true });
 
   document.querySelectorAll('.tah-pbtn').forEach(function(btn) {
     btn.addEventListener('click', function() {
