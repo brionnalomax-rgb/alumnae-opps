@@ -604,11 +604,103 @@ body {
   font-family: 'DM Sans', sans-serif;
 }
 
+/* ── CARD URGENCY BORDER ACCENTS ── */
+.tah-item[data-deadline="urgent"] { border-left: 3px solid var(--red); }
+.tah-item[data-deadline="soon"]   { border-left: 3px solid var(--orange); }
+.tah-item[data-deadline="future"] { border-left: 3px solid var(--teal); }
+.tah-item[data-deadline="rolling"]{ border-left: 3px solid var(--purple); }
+
+/* ── MOBILE FILTER TOGGLE ── */
+.tah-filter-toggle {
+  display: none;
+  width: 100%;
+  padding: 9px 16px;
+  background: var(--warm-bg);
+  border: none;
+  border-bottom: 1px solid var(--warm-border);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82em;
+  font-weight: 500;
+  color: var(--slate-mid);
+  cursor: pointer;
+  text-align: left;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 44px;
+}
+.tah-filter-toggle .tah-ft-right { display: flex; align-items: center; gap: 8px; }
+.tah-filter-toggle .tah-ft-badge {
+  background: var(--pink);
+  color: #fff;
+  border-radius: 10px;
+  padding: 1px 7px;
+  font-size: 0.74em;
+  font-weight: 600;
+  display: none;
+}
+.tah-filter-toggle .tah-ft-badge.visible { display: inline-block; }
+.tah-filter-toggle .tah-ft-chevron { font-size: 0.8em; color: var(--muted); transition: transform 0.2s; }
+.tah-filter-toggle.open .tah-ft-chevron { transform: rotate(180deg); }
+
+.tah-filter-bar-wrap { }
+
+/* ── SHARE FILTER BUTTON in results meta ── */
+.tah-share-btn {
+  padding: 6px 12px;
+  border: 1.5px solid var(--warm-border2);
+  border-radius: 20px;
+  background: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.74em;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.14s;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.tah-share-btn:hover { border-color: var(--pink); color: var(--pink); }
+
+/* ── PRINT ── */
+@media print {
+  .tah-sticky, .tah-legend, .tah-jump-nav, .tah-filter-toggle,
+  .tah-results-meta, .tah-welcome-prompt, .tah-nominate-cta,
+  .tah-footer, #tah-back-top, .tah-copy-btn, .tah-btn,
+  .tah-filter-bar-wrap, .tah-persona-strip { display: none !important; }
+  .tah-header { padding: 16px; }
+  .tah-header::before { display: none; }
+  .tah-content { padding: 12px; }
+  .tah-item { break-inside: avoid; border: 1px solid #ccc !important; border-left: 3px solid #999 !important; margin-bottom: 6px; box-shadow: none !important; }
+  .tah-item[data-deadline="urgent"] { border-left-color: var(--red) !important; }
+  .tah-item[data-deadline="soon"] { border-left-color: var(--orange) !important; }
+  .tah-item[data-deadline="future"] { border-left-color: var(--teal) !important; }
+  .tah-body { display: block !important; }
+  .tah-chev { display: none; }
+  .tah-mob-badges { display: flex !important; }
+  .tah-section-title { font-size: 1em; border-bottom: 2px solid #333; }
+  body { background: #fff; }
+  .tah-foot { display: none !important; }
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 640px) {
-  .tah-header, .tah-persona-strip, .tah-filter-bar, .tah-content { padding-left: 16px; padding-right: 16px; }
+  .tah-header, .tah-persona-strip, .tah-content { padding-left: 16px; padding-right: 16px; }
   .tah-legend { padding: 10px 16px; }
   .tah-jump-nav { padding: 9px 16px; }
+
+  /* Mobile filter toggle — show toggle, hide bar by default */
+  .tah-filter-toggle { display: flex; }
+  .tah-filter-bar { padding: 10px 16px; }
+  .tah-filter-bar-wrap { overflow: hidden; max-height: 0; transition: max-height 0.25s ease; }
+  .tah-filter-bar-wrap.open { max-height: 300px; }
+
+  /* Increase tap targets on copy buttons */
+  .tah-copy-btn { min-height: 44px; padding: 8px 14px; }
+
   .tah-row { flex-wrap: wrap; gap: 8px; }
   .tah-title { width: 100%; }
   .tah-meta { width: 100%; margin-left: 0; }
@@ -655,7 +747,7 @@ body {
 <div class="tah-sticky">
   <div class="tah-persona-strip">
     <span class="tah-strip-label">👤 Filter by <em>your stage</em>:</span>
-    <div class="tah-persona-row">
+    <div class="tah-persona-row" id="tah-persona-row">
       <button class="tah-pbtn tah-active" data-persona="all">Browse Everything <span class="tah-pcount" id="pc-all">0</span></button>
       <button class="tah-pbtn" data-persona="secondary">High School <span class="tah-pcount" id="pc-secondary">0</span></button>
       <button class="tah-pbtn" data-persona="university">University <span class="tah-pcount" id="pc-university">0</span></button>
@@ -663,7 +755,16 @@ body {
       <button class="tah-pbtn" data-persona="founder">Founder/Builder <span class="tah-pcount" id="pc-founder">0</span></button>
     </div>
   </div>
-  <div class="tah-filter-bar">
+  <!-- Mobile filter toggle -->
+  <button class="tah-filter-toggle" id="tah-filter-toggle" aria-expanded="false">
+    <span>📅 Filters</span>
+    <span class="tah-ft-right">
+      <span class="tah-ft-badge" id="tah-active-filter-badge"></span>
+      <span class="tah-ft-chevron">▼</span>
+    </span>
+  </button>
+  <div class="tah-filter-bar-wrap" id="tah-filter-bar-wrap">
+    <div class="tah-filter-bar">
     <div class="tah-filter-group">
       <span class="tah-filter-label">📍 Location:</span>
       <button class="tah-chip tah-active" data-filter="loc" data-value="all">All</button>
@@ -680,8 +781,10 @@ body {
       <button class="tah-chip" data-filter="deadline" data-value="soon">🟠 Soon</button>
       <button class="tah-chip" data-filter="deadline" data-value="future">🟢 Future</button>
       <button class="tah-chip" data-filter="deadline" data-value="rolling">🔵 Rolling</button>
+      <button class="tah-chip" data-filter="deadline" data-value="new-only">🟢 New Only</button>
     </div>
   </div>
+  </div><!-- /filter-bar-wrap -->
 </div>
 
 <!-- SECTION JUMP NAV -->
@@ -711,6 +814,8 @@ body {
     <span><span id="tah-count">0</span> opportunities found</span>
     <div class="tah-meta-buttons">
       <button id="tah-expand-btn">📂 Expand All</button>
+      <button class="tah-share-btn" id="tah-share-btn" title="Copy a link with your current filters">🔗 Share view</button>
+      <button class="tah-share-btn" id="tah-print-btn" title="Print or save as PDF" onclick="window.print()">🖨 Print / PDF</button>
     </div>
   </div>
 
@@ -2063,18 +2168,85 @@ function tahInit() {
   var state = { persona: 'all', loc: 'all', deadline: 'all' };
   var allExpanded = false;
 
+  // ── URL HASH STATE ──────────────────────────────────────────
+  function readHash() {
+    try {
+      var hash = window.location.hash.replace('#', '');
+      if (!hash) return;
+      var parts = hash.split('&');
+      parts.forEach(function(part) {
+        var kv = part.split('=');
+        if (kv.length === 2 && state.hasOwnProperty(kv[0])) {
+          state[kv[0]] = decodeURIComponent(kv[1]);
+        }
+      });
+    } catch(e) {}
+  }
+
+  function writeHash() {
+    try {
+      var parts = [];
+      if (state.persona !== 'all') parts.push('persona=' + encodeURIComponent(state.persona));
+      if (state.loc     !== 'all') parts.push('loc='     + encodeURIComponent(state.loc));
+      if (state.deadline !== 'all') parts.push('deadline=' + encodeURIComponent(state.deadline));
+      var newHash = parts.length ? '#' + parts.join('&') : '';
+      if (history.replaceState) {
+        history.replaceState(null, '', newHash || window.location.pathname + window.location.search);
+      } else {
+        location.hash = newHash;
+      }
+    } catch(e) { /* sandboxed iframe — silently skip */ }
+  }
+
+  function syncButtonsToState() {
+    // Persona buttons
+    document.querySelectorAll('.tah-pbtn').forEach(function(btn) {
+      btn.classList.toggle('tah-active', btn.getAttribute('data-persona') === state.persona);
+    });
+    // Filter chips
+    document.querySelectorAll('.tah-chip').forEach(function(chip) {
+      chip.classList.toggle('tah-active', chip.getAttribute('data-value') === state[chip.getAttribute('data-filter')]);
+    });
+    updateActiveFilterBadge();
+  }
+
+  function updateActiveFilterBadge() {
+    var badge = document.getElementById('tah-active-filter-badge');
+    if (!badge) return;
+    var active = [];
+    if (state.persona !== 'all') active.push(state.persona);
+    if (state.loc     !== 'all') active.push(state.loc);
+    if (state.deadline !== 'all') active.push(state.deadline);
+    if (active.length) {
+      badge.textContent = active.length + ' active';
+      badge.classList.add('visible');
+    } else {
+      badge.classList.remove('visible');
+    }
+  }
+
+  // ── MATCH LOGIC ─────────────────────────────────────────────
   function allCards() { return document.querySelectorAll('[data-personas]'); }
 
   function matches(el) {
-    var personas = el.getAttribute('data-personas').split(' ');
-    var locVal = el.getAttribute('data-loc');
+    var personas    = el.getAttribute('data-personas').split(' ');
+    var locVal      = el.getAttribute('data-loc');
     var deadlineVal = el.getAttribute('data-deadline');
-    var personaOk = state.persona === 'all' || personas.indexOf(state.persona) > -1;
-    var locOk = state.loc === 'all' || locVal === state.loc || (state.loc === 'intl' && locVal === 'intl') || (state.loc === 'intlonly' && locVal === 'intl');
-    var deadlineOk = state.deadline === 'all' || deadlineVal === state.deadline || (state.deadline === 'actnow' && (deadlineVal === 'urgent' || deadlineVal === 'soon'));
+    var isNew       = el.querySelector('.tb-new') !== null;
+
+    var personaOk  = state.persona === 'all' || personas.indexOf(state.persona) > -1;
+    var locOk      = state.loc === 'all'
+                     || locVal === state.loc
+                     || (state.loc === 'intl' && locVal === 'intl')
+                     || (state.loc === 'intlonly' && locVal === 'intl');
+    var deadlineOk = state.deadline === 'all'
+                     || deadlineVal === state.deadline
+                     || (state.deadline === 'actnow'   && (deadlineVal === 'urgent' || deadlineVal === 'soon'))
+                     || (state.deadline === 'new-only' && isNew);
     return personaOk && locOk && deadlineOk;
   }
 
+  // ── FILTER APPLICATION ───────────────────────────────────────
   function applyFilters() {
     var total = 0;
     allCards().forEach(function(el) {
@@ -2084,9 +2256,10 @@ function tahInit() {
       if (show) total++;
     });
     document.querySelectorAll('[data-cat]').forEach(function(section) {
-      var items = section.querySelectorAll('[data-personas]');
       var anyVisible = false;
-      items.forEach(function(i) { if (i.style.display !== 'none') anyVisible = true; });
+      section.querySelectorAll('[data-personas]').forEach(function(i) {
+        if (i.style.display !== 'none') anyVisible = true;
+      });
       section.style.display = anyVisible ? '' : 'none';
     });
     var countEl = document.getElementById('tah-count');
@@ -2094,17 +2267,23 @@ function tahInit() {
     var emptyEl = document.getElementById('tah-empty');
     if (emptyEl) emptyEl.style.display = total === 0 ? 'block' : 'none';
     updateCounts();
+    writeHash();
+    updateActiveFilterBadge();
   }
 
   function updateCounts() {
     ['all','secondary','university','earlycareer','founder'].forEach(function(persona) {
       var count = 0;
       allCards().forEach(function(el) {
-        var ps = el.getAttribute('data-personas').split(' ');
+        var ps   = el.getAttribute('data-personas').split(' ');
         var lVal = el.getAttribute('data-loc');
         var dVal = el.getAttribute('data-deadline');
-        var lOk = state.loc === 'all' || lVal === state.loc || (state.loc === 'intlonly' && lVal === 'intl');
-        var dOk = state.deadline === 'all' || dVal === state.deadline || (state.deadline === 'actnow' && (dVal === 'urgent' || dVal === 'soon'));
+        var isNew = el.querySelector('.tb-new') !== null;
+        var lOk  = state.loc === 'all' || lVal === state.loc || (state.loc === 'intlonly' && lVal === 'intl');
+        var dOk  = state.deadline === 'all'
+                   || dVal === state.deadline
+                   || (state.deadline === 'actnow' && (dVal === 'urgent' || dVal === 'soon'))
+                   || (state.deadline === 'new-only' && isNew);
         if ((persona === 'all' || ps.indexOf(persona) > -1) && lOk && dOk) count++;
       });
       var el = document.getElementById('pc-' + persona);
@@ -2121,18 +2300,26 @@ function tahInit() {
     });
   }
 
-  // Back to top visibility
+  // ── BACK TO TOP ──────────────────────────────────────────────
   var backTopBtn = document.getElementById('tah-back-top');
   window.addEventListener('scroll', function() {
     if (backTopBtn) {
-      if (window.scrollY > 400) {
-        backTopBtn.classList.add('visible');
-      } else {
-        backTopBtn.classList.remove('visible');
-      }
+      backTopBtn.classList.toggle('visible', window.scrollY > 400);
     }
   }, { passive: true });
 
+  // ── MOBILE FILTER TOGGLE ─────────────────────────────────────
+  var filterToggle = document.getElementById('tah-filter-toggle');
+  var filterWrap   = document.getElementById('tah-filter-bar-wrap');
+  if (filterToggle && filterWrap) {
+    filterToggle.addEventListener('click', function() {
+      var isOpen = filterWrap.classList.toggle('open');
+      filterToggle.classList.toggle('open', isOpen);
+      filterToggle.setAttribute('aria-expanded', isOpen);
+    });
+  }
+
+  // ── PERSONA BUTTONS ──────────────────────────────────────────
   document.querySelectorAll('.tah-pbtn').forEach(function(btn) {
     btn.addEventListener('click', function() {
       document.querySelectorAll('.tah-pbtn').forEach(function(b) { b.classList.remove('tah-active'); });
@@ -2142,6 +2329,7 @@ function tahInit() {
     });
   });
 
+  // ── FILTER CHIPS ─────────────────────────────────────────────
   document.querySelectorAll('.tah-chip').forEach(function(chip) {
     chip.addEventListener('click', function() {
       var filterType = chip.getAttribute('data-filter');
@@ -2152,12 +2340,14 @@ function tahInit() {
     });
   });
 
+  // ── ACCORDION ────────────────────────────────────────────────
   document.querySelectorAll('.tah-row').forEach(function(row) {
     row.addEventListener('click', function() {
       row.parentElement.classList.toggle('tah-open');
     });
   });
 
+  // ── EXPAND ALL ───────────────────────────────────────────────
   var expandBtn = document.getElementById('tah-expand-btn');
   if (expandBtn) {
     expandBtn.addEventListener('click', function() {
@@ -2171,6 +2361,26 @@ function tahInit() {
     });
   }
 
+  // ── SHARE FILTERED VIEW ──────────────────────────────────────
+  var shareBtn = document.getElementById('tah-share-btn');
+  if (shareBtn) {
+    shareBtn.addEventListener('click', function() {
+      var url = window.location.href.split('#')[0];
+      var parts = [];
+      if (state.persona !== 'all') parts.push('persona=' + encodeURIComponent(state.persona));
+      if (state.loc     !== 'all') parts.push('loc='     + encodeURIComponent(state.loc));
+      if (state.deadline !== 'all') parts.push('deadline=' + encodeURIComponent(state.deadline));
+      var shareUrl = url + (parts.length ? '#' + parts.join('&') : '');
+      navigator.clipboard.writeText(shareUrl).then(function() {
+        var label = parts.length ? 'Filtered link copied ✓' : 'Link copied ✓';
+        showToast(label);
+      }).catch(function() {
+        showToast('Copy failed — try again');
+      });
+    });
+  }
+
+  // ── COPY LINK ────────────────────────────────────────────────
   window.copyLink = function(url) {
     navigator.clipboard.writeText(url).then(function() {
       showToast('Link copied ✓');
@@ -2179,6 +2389,7 @@ function tahInit() {
     });
   };
 
+  // ── TOAST ────────────────────────────────────────────────────
   function showToast(msg) {
     var toast = document.createElement('div');
     toast.className = 'tah-toast';
@@ -2190,6 +2401,9 @@ function tahInit() {
     }, 2500);
   }
 
+  // ── INIT ─────────────────────────────────────────────────────
+  readHash();
+  syncButtonsToState();
   applyFilters();
 }
 
