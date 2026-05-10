@@ -17,16 +17,17 @@ body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f5f4f1; co
 .card { background: #fff; border: 1px solid #e2dfd8; border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem; }
 .card h2 { font-size: 0.95rem; font-weight: 700; margin-bottom: 1rem; }
 
-.cat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); gap: 7px; margin-bottom: 1rem; }
+.cat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); gap: 7px; margin-bottom: 1.25rem; }
 .cat-btn { display: flex; align-items: center; gap: 7px; padding: 7px 11px; border: 1px solid #e2dfd8; border-radius: 7px; cursor: pointer; font-size: 13px; background: #fff; color: #555; transition: all 0.12s; user-select: none; }
 .cat-btn.on { background: #EEEDFE; border-color: #534AB7; color: #26215C; font-weight: 600; }
 .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 
-.token-row { display: flex; gap: 8px; align-items: center; margin-bottom: 1rem; }
-.token-row input { flex: 1; padding: 8px 12px; border: 1px solid #e2dfd8; border-radius: 7px; font-size: 13px; font-family: 'Courier New', monospace; background: #faf9f7; color: #1a1a1a; }
-.token-toggle { padding: 8px 12px; border: 1px solid #e2dfd8; border-radius: 7px; background: #faf9f7; cursor: pointer; font-size: 12px; color: #666; white-space: nowrap; }
+.field-row { display: flex; gap: 8px; align-items: center; margin-bottom: 0.75rem; }
+.field-row label { font-size: 12px; font-weight: 700; color: #444; min-width: 110px; }
+.field-row input { flex: 1; padding: 8px 12px; border: 1px solid #e2dfd8; border-radius: 7px; font-size: 13px; font-family: 'Courier New', monospace; background: #faf9f7; color: #1a1a1a; }
+.toggle-btn { padding: 8px 12px; border: 1px solid #e2dfd8; border-radius: 7px; background: #faf9f7; cursor: pointer; font-size: 12px; color: #666; white-space: nowrap; }
 
-.run-btn { width: 100%; padding: 0.8rem; background: #26215C; color: #fff; border: none; border-radius: 8px; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: background 0.12s; }
+.run-btn { width: 100%; padding: 0.8rem; background: #26215C; color: #fff; border: none; border-radius: 8px; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: background 0.12s; margin-top: 0.25rem; }
 .run-btn:hover { background: #3C3489; }
 .run-btn:disabled { background: #B4B2A9; cursor: not-allowed; }
 
@@ -34,7 +35,7 @@ body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f5f4f1; co
 .spinner { width: 15px; height: 15px; border-radius: 50%; border: 2px solid #B5D4F4; border-top-color: #185FA5; animation: spin 0.7s linear infinite; flex-shrink: 0; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-.error-box { display: none; padding: 0.8rem 1rem; background: #fff5f5; border: 1px solid #fcc; border-radius: 8px; font-size: 13px; color: #a00; margin-bottom: 1rem; white-space: pre-wrap; }
+.error-box { display: none; padding: 0.8rem 1rem; background: #fff5f5; border: 1px solid #fcc; border-radius: 8px; font-size: 13px; color: #a00; margin-bottom: 1rem; }
 
 .review-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; flex-wrap: wrap; gap: 8px; }
 .review-header h2 { font-size: 1rem; font-weight: 700; }
@@ -85,7 +86,6 @@ body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f5f4f1; co
 .push-result a { color: #0F6E56; text-decoration: underline; }
 
 .info-box { background: #EEEDFE; border: 1px solid #CECBF6; border-radius: 8px; padding: 0.9rem 1.1rem; font-size: 13px; color: #26215C; line-height: 1.6; margin-bottom: 1.25rem; }
-.info-box strong { font-weight: 700; }
 </style>
 </head>
 <body>
@@ -98,7 +98,7 @@ body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f5f4f1; co
 <div class="main">
 
   <div class="info-box">
-    <strong>How to use:</strong> Click "Find This Week's Opportunities", then approve or skip each result. Click "Push Approved to GitHub" and the hub updates automatically.
+    <strong>How to use:</strong> Paste your two keys below, select categories, click Find. Approve or skip each result, then push to GitHub in one click.
   </div>
 
   <div class="card">
@@ -113,11 +113,17 @@ body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f5f4f1; co
       <div class="cat-btn on" data-cat="founders"><span class="dot" style="background:#5F5E5A"></span>Founders & Grants</div>
     </div>
 
-    <h2 style="margin-bottom:0.5rem;">GitHub token</h2>
-    <p style="font-size:12px;color:#888;margin-bottom:0.5rem;">Your token is stored only in this page's memory and never sent anywhere except GitHub's API.</p>
-    <div class="token-row">
+    <h2 style="margin-bottom:0.75rem;">Your keys</h2>
+
+    <div class="field-row">
+      <label>Anthropic API key</label>
+      <input type="password" id="anthropicKey" placeholder="sk-ant-..." autocomplete="off" />
+      <button class="toggle-btn" onclick="toggleField('anthropicKey', this)">Show</button>
+    </div>
+    <div class="field-row">
+      <label>GitHub token</label>
       <input type="password" id="ghToken" placeholder="ghp_..." autocomplete="off" />
-      <button class="token-toggle" onclick="toggleToken(this)">Show</button>
+      <button class="toggle-btn" onclick="toggleField('ghToken', this)">Show</button>
     </div>
 
     <button class="run-btn" id="runBtn" onclick="findOpps()">Find This Week's Opportunities</button>
@@ -138,9 +144,8 @@ body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f5f4f1; co
 </div>
 
 <script>
-const REPO  = 'technovation-alumnae/alumnae-opps';
-const FILE  = 'index.html';
-const GH_API = 'https://api.github.com';
+const REPO = 'technovation-alumnae/alumnae-opps';
+const FILE = 'index.html';
 
 const SECTION_IDS = {
   scholarships: 'sec-scholarships',
@@ -153,25 +158,22 @@ const SECTION_IDS = {
 };
 
 const APPLY_LABELS = {
-  scholarships: 'Apply Now →',
-  fellowships:  'Apply Now →',
-  jobs:         'View Roles →',
-  events:       'Apply Now →',
-  courses:      'Enroll →',
-  prodev:       'Join →',
-  founders:     'Apply Now →',
+  scholarships: 'Apply Now →', fellowships: 'Apply Now →',
+  jobs: 'View Roles →', events: 'Apply Now →',
+  courses: 'Enroll →', prodev: 'Join →', founders: 'Apply Now →',
 };
 
 let allOpps = [], verdicts = {};
 
 document.querySelectorAll('.cat-btn').forEach(b => b.addEventListener('click', () => b.classList.toggle('on')));
 
-function toggleToken(btn) {
-  const inp = document.getElementById('ghToken');
+function toggleField(id, btn) {
+  const inp = document.getElementById(id);
   inp.type = inp.type === 'password' ? 'text' : 'password';
   btn.textContent = inp.type === 'password' ? 'Show' : 'Hide';
 }
 
+const getAnthropicKey = () => document.getElementById('anthropicKey').value.trim();
 const getToken = () => document.getElementById('ghToken').value.trim();
 const getCats  = () => [...document.querySelectorAll('.cat-btn.on')].map(b => b.dataset.cat);
 const today    = () => new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
@@ -184,7 +186,8 @@ function hideError()    { document.getElementById('errorBox').style.display = 'n
 async function findOpps() {
   const cats = getCats();
   if (!cats.length) { alert('Select at least one category.'); return; }
-  if (!getToken())  { alert('Please enter your GitHub token.'); return; }
+  if (!getAnthropicKey()) { alert('Please enter your Anthropic API key.'); return; }
+  if (!getToken()) { alert('Please enter your GitHub token.'); return; }
 
   const btn = document.getElementById('runBtn');
   btn.disabled = true; btn.textContent = 'Searching...';
@@ -217,7 +220,12 @@ URGENCY: URGENT=within 2 weeks, SOON=within 1 month, FUTURE=1+ months, ROLLING=n
   try {
     const res = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-api-key': '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', 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': getAnthropicKey(),
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
         max_tokens: 4000,
@@ -336,7 +344,6 @@ function buildEntryHTML(opp) {
 async function pushToGitHub() {
   const token = getToken();
   if (!token) { alert('GitHub token is missing.'); return; }
-
   const approved = allOpps.filter((_, i) => verdicts[i] === true);
   if (!approved.length) return;
 
@@ -346,7 +353,7 @@ async function pushToGitHub() {
 
   try {
     setStatus('Fetching current index.html from GitHub...');
-    const apiUrl = `${GH_API}/repos/${REPO}/contents/${FILE}`;
+    const apiUrl = `https://api.github.com/repos/${REPO}/contents/${FILE}`;
     const ghHeaders = {
       'Authorization': `token ${token}`,
       'Accept': 'application/vnd.github.v3+json',
@@ -354,17 +361,13 @@ async function pushToGitHub() {
     };
 
     const getRes = await fetch(apiUrl, { headers: ghHeaders });
-    if (!getRes.ok) {
-      const e = await getRes.json();
-      throw new Error(`GitHub fetch failed (${getRes.status}): ${e.message}`);
-    }
+    if (!getRes.ok) { const e = await getRes.json(); throw new Error(`GitHub fetch failed (${getRes.status}): ${e.message}`); }
 
     const fileData = await getRes.json();
     const sha = fileData.sha;
     let html = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g,''))));
 
     setStatus('Inserting approved opportunities...');
-
     const bySection = {};
     approved.forEach(opp => {
       const sec = SECTION_IDS[opp.category] || 'sec-scholarships';
@@ -374,8 +377,7 @@ async function pushToGitHub() {
 
     for (const [secId, opps] of Object.entries(bySection)) {
       const newHTML = opps.map(buildEntryHTML).join('\n');
-      const pat = `id="${secId}"`;
-      const idx = html.indexOf(pat);
+      const idx = html.indexOf(`id="${secId}"`);
       if (idx !== -1) {
         const closeTag = html.indexOf('>', idx) + 1;
         html = html.slice(0, closeTag) + '\n' + newHTML + html.slice(closeTag);
@@ -388,21 +390,15 @@ async function pushToGitHub() {
 
     setStatus('Pushing to GitHub...');
     const encoded = btoa(unescape(encodeURIComponent(html)));
-
     const putRes = await fetch(apiUrl, {
-      method: 'PUT',
-      headers: ghHeaders,
+      method: 'PUT', headers: ghHeaders,
       body: JSON.stringify({
         message: `Weekly opp update — ${today()} (${approved.length} new entr${approved.length===1?'y':'ies'})`,
-        content: encoded,
-        sha,
+        content: encoded, sha,
       })
     });
 
-    if (!putRes.ok) {
-      const e = await putRes.json();
-      throw new Error(`Push failed (${putRes.status}): ${e.message}`);
-    }
+    if (!putRes.ok) { const e = await putRes.json(); throw new Error(`Push failed (${putRes.status}): ${e.message}`); }
 
     hideStatus();
     const result = document.getElementById('pushResult');
