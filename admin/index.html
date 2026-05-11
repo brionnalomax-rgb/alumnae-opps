@@ -5,50 +5,48 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Technovation Alumnae — Weekly Opportunity Finder</title>
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f5f4f1; color: #1a1a1a; min-height: 100vh; }
-.header { background: #26215C; color: #fff; padding: 2rem 2rem 1.75rem; }
-.header h1 { font-size: 1.4rem; font-weight: 600; margin-bottom: 0.25rem; }
-.header p { font-size: 0.85rem; color: #CECBF6; }
-.main { max-width: 860px; margin: 0 auto; padding: 1.5rem; }
-.card { background: #fff; border: 1px solid #e2dfd8; border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem; }
-.card h2 { font-size: 0.95rem; font-weight: 700; margin-bottom: 1rem; }
-.cat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); gap: 7px; margin-bottom: 1.25rem; }
-.cat-btn { display: flex; align-items: center; gap: 7px; padding: 7px 11px; border: 1px solid #e2dfd8; border-radius: 7px; cursor: pointer; font-size: 13px; background: #fff; color: #555; transition: all 0.12s; user-select: none; }
-.cat-btn.on { background: #EEEDFE; border-color: #534AB7; color: #26215C; font-weight: 600; }
-.dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-.field-row { display: flex; gap: 8px; align-items: center; margin-bottom: 0.75rem; }
-.field-row label { font-size: 12px; font-weight: 700; color: #444; min-width: 110px; }
-.field-row input { flex: 1; padding: 8px 12px; border: 1px solid #e2dfd8; border-radius: 7px; font-size: 13px; font-family: 'Courier New', monospace; background: #faf9f7; color: #1a1a1a; }
-.toggle-btn { padding: 8px 12px; border: 1px solid #e2dfd8; border-radius: 7px; background: #faf9f7; cursor: pointer; font-size: 12px; color: #666; white-space: nowrap; }
-.run-btn { width: 100%; padding: 0.8rem; background: #26215C; color: #fff; border: none; border-radius: 8px; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: background 0.12s; margin-top: 0.25rem; }
-.run-btn:hover { background: #3C3489; }
-.run-btn:disabled { background: #B4B2A9; cursor: not-allowed; }
-.cleanup-btn { width: 100%; padding: 0.7rem; background: #0F6E56; color: #fff; border: none; border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: background 0.12s; margin-top: 0.5rem; }
-.cleanup-btn:hover { background: #085041; }
-.cleanup-btn:disabled { background: #B4B2A9; cursor: not-allowed; }
-.status { display: none; align-items: center; gap: 10px; padding: 0.7rem 1rem; background: #E6F1FB; border: 1px solid #B5D4F4; border-radius: 8px; margin-bottom: 1.25rem; font-size: 13px; color: #0C447C; }
-.spinner { width: 15px; height: 15px; border-radius: 50%; border: 2px solid #B5D4F4; border-top-color: #185FA5; animation: spin 0.7s linear infinite; flex-shrink: 0; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.error-box { display: none; padding: 0.8rem 1rem; background: #fff5f5; border: 1px solid #fcc; border-radius: 8px; font-size: 13px; color: #a00; margin-bottom: 1rem; }
-.review-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; flex-wrap: wrap; gap: 8px; }
-.review-header h2 { font-size: 1rem; font-weight: 700; }
-.push-btn { padding: 8px 20px; background: #0F6E56; color: #fff; border: none; border-radius: 7px; font-size: 13px; font-weight: 700; cursor: pointer; transition: background 0.12s; }
-.push-btn:hover { background: #085041; }
-.push-btn:disabled { background: #B4B2A9; cursor: not-allowed; }
-.opp-card { background: #fff; border: 1px solid #e2dfd8; border-radius: 10px; margin-bottom: 0.9rem; overflow: hidden; transition: border-color 0.15s, opacity 0.15s; }
-.opp-card.approved { border: 2px solid #5DCAA5; }
-.opp-card.rejected { opacity: 0.38; }
-.opp-top { padding: 1rem 1.25rem 0.75rem; }
-.opp-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 0.6rem; }
-.opp-name { font-size: 0.95rem; font-weight: 700; line-height: 1.3; color: #1a1a1a; }
-.sec-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 9px; border-radius: 20px; flex-shrink: 0; margin-top: 2px; }
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f5f4f1;color:#1a1a1a;min-height:100vh}
+.header{background:#26215C;color:#fff;padding:2rem 2rem 1.75rem}
+.header h1{font-size:1.4rem;font-weight:600;margin-bottom:.25rem}
+.header p{font-size:.85rem;color:#CECBF6}
+.main{max-width:860px;margin:0 auto;padding:1.5rem}
+.card{background:#fff;border:1px solid #e2dfd8;border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:1.25rem}
+.card h2{font-size:.95rem;font-weight:700;margin-bottom:1rem}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:7px;margin-bottom:1.25rem}
+.cat-btn{display:flex;align-items:center;gap:7px;padding:7px 11px;border:1px solid #e2dfd8;border-radius:7px;cursor:pointer;font-size:13px;background:#fff;color:#555;transition:all .12s;user-select:none}
+.cat-btn.on{background:#EEEDFE;border-color:#534AB7;color:#26215C;font-weight:600}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.field-row{display:flex;gap:8px;align-items:center;margin-bottom:.75rem}
+.field-row label{font-size:12px;font-weight:700;color:#444;min-width:110px}
+.field-row input{flex:1;padding:8px 12px;border:1px solid #e2dfd8;border-radius:7px;font-size:13px;font-family:'Courier New',monospace;background:#faf9f7;color:#1a1a1a}
+.toggle-btn{padding:8px 12px;border:1px solid #e2dfd8;border-radius:7px;background:#faf9f7;cursor:pointer;font-size:12px;color:#666;white-space:nowrap}
+.run-btn{width:100%;padding:.8rem;background:#26215C;color:#fff;border:none;border-radius:8px;font-size:.95rem;font-weight:700;cursor:pointer;transition:background .12s;margin-top:.25rem}
+.run-btn:hover{background:#3C3489}
+.run-btn:disabled{background:#B4B2A9;cursor:not-allowed}
+.status{display:none;align-items:center;gap:10px;padding:.7rem 1rem;background:#E6F1FB;border:1px solid #B5D4F4;border-radius:8px;margin-bottom:1.25rem;font-size:13px;color:#0C447C}
+.spinner{width:15px;height:15px;border-radius:50%;border:2px solid #B5D4F4;border-top-color:#185FA5;animation:spin .7s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.error-box{display:none;padding:.8rem 1rem;background:#fff5f5;border:1px solid #fcc;border-radius:8px;font-size:13px;color:#a00;margin-bottom:1rem}
+.info-box{background:#EEEDFE;border:1px solid #CECBF6;border-radius:8px;padding:.9rem 1.1rem;font-size:13px;color:#26215C;line-height:1.6;margin-bottom:1.25rem}
+.review-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:8px}
+.review-header h2{font-size:1rem;font-weight:700}
+.push-btn{padding:8px 20px;background:#0F6E56;color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;transition:background .12s}
+.push-btn:hover{background:#085041}
+.push-btn:disabled{background:#B4B2A9;cursor:not-allowed}
+.opp-card{background:#fff;border:1px solid #e2dfd8;border-radius:10px;margin-bottom:.9rem;overflow:hidden;transition:border-color .15s,opacity .15s}
+.opp-card.approved{border:2px solid #5DCAA5}
+.opp-card.rejected{opacity:.38}
+.opp-top{padding:1rem 1.25rem .75rem}
+.opp-title-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:.6rem}
+.opp-name{font-size:.95rem;font-weight:700;line-height:1.3;color:#1a1a1a}
+.sec-tag{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:20px;flex-shrink:0;margin-top:2px}
 .t-scholarships{background:#FAEEDA;color:#854F0B}.t-fellowships{background:#EEEDFE;color:#534AB7}
 .t-jobs{background:#E6F1FB;color:#185FA5}.t-events{background:#FAECE7;color:#993C1D}
 .t-courses{background:#EAF3DE;color:#3B6D11}.t-prodev{background:#E1F5EE;color:#0F6E56}
 .t-founders{background:#F1EFE8;color:#5F5E5A}
-.opp-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 0.65rem; }
-.pill { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 20px; }
+.opp-pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:.65rem}
+.pill{font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px}
 .p-deadline{background:#fff3cd;color:#7a5c00;border:1px solid #f5d872}
 .p-award{background:#d4edda;color:#155724;border:1px solid #a3d4ac}
 .p-loc{background:#f0f0f0;color:#555;border:1px solid #d5d5d5}
@@ -57,42 +55,39 @@ body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f5f4f1; co
 .p-future{background:#E1F5EE;color:#0F6E56;border:1px solid #9FE1CB}
 .p-rolling{background:#E6F1FB;color:#185FA5;border:1px solid #B5D4F4}
 .p-priority{background:#EEEDFE;color:#534AB7;border:1px solid #CECBF6}
-.opp-desc { font-size: 13px; color: #444; line-height: 1.55; margin-bottom: 0.5rem; }
-.opp-url  { font-size: 12px; color: #185FA5; word-break: break-all; }
-.opp-actions { display: flex; border-top: 1px solid #f0ede6; }
-.verdict-btn { flex: 1; padding: 0.65rem; border: none; cursor: pointer; font-size: 13px; font-weight: 700; transition: background 0.12s; }
-.verdict-btn.yes { background: #f0faf6; color: #0F6E56; }
-.verdict-btn.yes:hover { background: #9FE1CB; }
-.verdict-btn.yes.active { background: #5DCAA5; color: #fff; }
-.verdict-btn.no  { background: #fff8f6; color: #993C1D; border-left: 1px solid #f0ede6; }
-.verdict-btn.no:hover { background: #F5C4B3; }
-.verdict-btn.no.active { background: #D85A30; color: #fff; }
-.push-result { display: none; padding: 1rem 1.25rem; background: #E1F5EE; border: 1px solid #9FE1CB; border-radius: 8px; font-size: 13px; color: #0F6E56; font-weight: 600; margin-bottom: 1rem; }
-.push-result a { color: #0F6E56; text-decoration: underline; }
-.info-box { background: #EEEDFE; border: 1px solid #CECBF6; border-radius: 8px; padding: 0.9rem 1.1rem; font-size: 13px; color: #26215C; line-height: 1.6; margin-bottom: 1.25rem; }
-.warn-box { background: #FFF8E1; border: 1px solid #FFD54F; border-radius: 8px; padding: 0.75rem 1rem; font-size: 12px; color: #7a5c00; margin-top: 0.5rem; }
+.opp-desc{font-size:13px;color:#444;line-height:1.55;margin-bottom:.5rem}
+.opp-url{font-size:12px;color:#185FA5;word-break:break-all}
+.opp-actions{display:flex;border-top:1px solid #f0ede6}
+.verdict-btn{flex:1;padding:.65rem;border:none;cursor:pointer;font-size:13px;font-weight:700;transition:background .12s}
+.verdict-btn.yes{background:#f0faf6;color:#0F6E56}
+.verdict-btn.yes:hover{background:#9FE1CB}
+.verdict-btn.yes.active{background:#5DCAA5;color:#fff}
+.verdict-btn.no{background:#fff8f6;color:#993C1D;border-left:1px solid #f0ede6}
+.verdict-btn.no:hover{background:#F5C4B3}
+.verdict-btn.no.active{background:#D85A30;color:#fff}
+.push-result{display:none;padding:1rem 1.25rem;background:#E1F5EE;border:1px solid #9FE1CB;border-radius:8px;font-size:13px;color:#0F6E56;font-weight:600;margin-bottom:1rem}
+.push-result a{color:#0F6E56;text-decoration:underline}
 </style>
 </head>
 <body>
 <div class="header">
   <h1>Technovation Alumnae — Weekly Opportunity Finder</h1>
-  <p>Find → approve → push to GitHub automatically</p>
+  <p>Checks existing hub for duplicates before suggesting anything new</p>
 </div>
 <div class="main">
-  <div class="info-box"><strong>How to use:</strong> Paste your two keys, select categories, click Find. Approve or skip each result, then push to GitHub in one click.</div>
-
+  <div class="info-box"><strong>How to use:</strong> Paste your keys, pick categories, click Find. The tool checks your live hub first and will never suggest an opportunity already listed. Approve or skip each result, then push in one click.</div>
   <div class="card">
     <h2>Categories to search this week</h2>
     <div class="cat-grid" id="catGrid">
       <div class="cat-btn on" data-cat="scholarships"><span class="dot" style="background:#BA7517"></span>Scholarships</div>
       <div class="cat-btn on" data-cat="fellowships"><span class="dot" style="background:#534AB7"></span>Fellowships</div>
-      <div class="cat-btn on" data-cat="jobs"><span class="dot" style="background:#185FA5"></span>Jobs & Internships</div>
-      <div class="cat-btn on" data-cat="events"><span class="dot" style="background:#993C1D"></span>Events & Competitions</div>
-      <div class="cat-btn on" data-cat="courses"><span class="dot" style="background:#3B6D11"></span>Courses & Learning</div>
+      <div class="cat-btn on" data-cat="jobs"><span class="dot" style="background:#185FA5"></span>Jobs &amp; Internships</div>
+      <div class="cat-btn on" data-cat="events"><span class="dot" style="background:#993C1D"></span>Events &amp; Competitions</div>
+      <div class="cat-btn on" data-cat="courses"><span class="dot" style="background:#3B6D11"></span>Courses &amp; Learning</div>
       <div class="cat-btn on" data-cat="prodev"><span class="dot" style="background:#0F6E56"></span>Pro Development</div>
-      <div class="cat-btn on" data-cat="founders"><span class="dot" style="background:#5F5E5A"></span>Founders & Grants</div>
+      <div class="cat-btn on" data-cat="founders"><span class="dot" style="background:#5F5E5A"></span>Founders &amp; Grants</div>
     </div>
-    <h2 style="margin-bottom:0.75rem;">Your keys</h2>
+    <h2 style="margin-bottom:.75rem">Your keys</h2>
     <div class="field-row">
       <label>Anthropic API key</label>
       <input type="password" id="anthropicKey" placeholder="sk-ant-..." autocomplete="off"/>
@@ -104,15 +99,11 @@ body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f5f4f1; co
       <button class="toggle-btn" onclick="toggleField('ghToken',this)">Show</button>
     </div>
     <button class="run-btn" id="runBtn" onclick="findOpps()">Find This Week's Opportunities</button>
-    <button class="cleanup-btn" id="cleanupBtn" onclick="cleanupPage()">🧹 Fix Page Formatting (one-time cleanup)</button>
-    <div class="warn-box">The cleanup button fixes the formatting issue from earlier pushes. Run it once, then use the Find button weekly going forward.</div>
   </div>
-
-  <div class="status" id="status"><div class="spinner"></div><span id="statusText">Searching...</span></div>
+  <div class="status" id="status"><div class="spinner"></div><span id="statusText"></span></div>
   <div class="error-box" id="errorBox"></div>
   <div class="push-result" id="pushResult"></div>
-
-  <div id="reviewSection" style="display:none;">
+  <div id="reviewSection" style="display:none">
     <div class="review-header">
       <h2 id="reviewTitle"></h2>
       <button class="push-btn" id="pushBtn" onclick="pushToGitHub()" disabled>Push Approved to GitHub</button>
@@ -124,661 +115,360 @@ body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f5f4f1; co
 <script>
 const REPO = 'technovation-alumnae/alumnae-opps';
 const FILE = 'index.html';
+const HUB_URL = 'https://technovation-alumnae.github.io/alumnae-opps/';
+
 const SECTION_MAP = {
-  scholarships:{id:'sec-scholarships',personas:'all university earlycareer'},
-  fellowships:{id:'sec-fellowships',personas:'all university earlycareer founder'},
-  jobs:{id:'sec-jobs',personas:'all university earlycareer'},
-  events:{id:'sec-events',personas:'all university earlycareer founder secondary'},
-  courses:{id:'sec-courses',personas:'all secondary university earlycareer'},
-  prodev:{id:'sec-prodev',personas:'all university earlycareer founder'},
-  founders:{id:'sec-founders',personas:'all founder earlycareer'},
-};
-const APPLY_LABELS = {scholarships:'Apply Now →',fellowships:'Apply Now →',jobs:'View Roles →',events:'Apply Now →',courses:'Enroll →',prodev:'Join →',founders:'Apply Now →'};
-
-// Pre-built cleanup entries for misformatted opp-items
-const CLEANUP_ENTRIES = {
-  'scholarships': `
-    <div class="tah-item" data-personas="all university earlycareer" data-loc="us" data-deadline="soon">
-      <div class="tah-row">
-        <div class="tah-title">VIP Women in Technology Scholarship (WITS) 2026</div>
-        <div class="tah-meta">
-          <span class="tah-pill soon">June 30, 2026</span>
-          <div class="tah-badges"><span class="tb tb-soon">SOON</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">United States</span></div>
-        </div>
-        <span class="tah-chev">▼</span>
-      </div>
-      <div class="tah-body">
-        <div class="tah-mob-badges"><span class="tb tb-soon">SOON</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">United States</span></div>
-        <div class="tah-grid">
-          <div class="tah-detail"><span>📅</span><span><strong>Deadline:</strong> June 30, 2026</span></div>
-          <div class="tah-detail"><span>💰</span><span><strong>Award:</strong> $2,500</span></div>
-          <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> Women pursuing degrees in computer science, information management systems, or IT-related fields</span></div>
-          <div class="tah-detail full"><span>🌟</span><span>20-year program supporting 190+ women in tech careers. Awards granted during Q2 annually to women across the United States.</span></div>
-        </div>
-        <div class="tah-foot">
-          <div class="tah-badges"><span class="tb tb-soon">SOON</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">United States</span></div>
-          <button class="tah-copy-btn" onclick="copyLink('https://trustvip.com/wits-program-faqs/')">📋 Copy Link</button>
-          <a class="tah-btn" href="https://trustvip.com/wits-program-faqs/" target="_blank">Apply Now →</a>
-        </div>
-      </div>
-    </div>
-    <div class="tah-item" data-personas="all university earlycareer" data-loc="intl" data-deadline="future">
-      <div class="tah-row">
-        <div class="tah-title">ACM-W Research Conference Travel Scholarships</div>
-        <div class="tah-meta">
-          <span class="tah-pill future">June 15, 2026</span>
-          <div class="tah-badges"><span class="tb tb-future">FUTURE</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Global</span></div>
-        </div>
-        <span class="tah-chev">▼</span>
-      </div>
-      <div class="tah-body">
-        <div class="tah-mob-badges"><span class="tb tb-future">FUTURE</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Global</span></div>
-        <div class="tah-grid">
-          <div class="tah-detail"><span>📅</span><span><strong>Deadline:</strong> June 15, 2026</span></div>
-          <div class="tah-detail"><span>💰</span><span><strong>Award:</strong> Up to $1,200</span></div>
-          <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> Women undergraduate/graduate students attending computing research conferences (Aug-Oct 2026)</span></div>
-          <div class="tah-detail full"><span>🌟</span><span>Scholarships for attending research conferences August-October 2026. Up to $600 for intra-continental, $1,200 for intercontinental travel. Does not cover Grace Hopper.</span></div>
-        </div>
-        <div class="tah-foot">
-          <div class="tah-badges"><span class="tb tb-future">FUTURE</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Global</span></div>
-          <button class="tah-copy-btn" onclick="copyLink('https://women.acm.org/scholarships/')">📋 Copy Link</button>
-          <a class="tah-btn" href="https://women.acm.org/scholarships/" target="_blank">Apply Now →</a>
-        </div>
-      </div>
-    </div>
-    <div class="tah-item" data-personas="all university earlycareer" data-loc="intl" data-deadline="future">
-      <div class="tah-row">
-        <div class="tah-title">Women in Cybersecurity Scholarship (Cyber Defense Magazine &amp; WiCyS)</div>
-        <div class="tah-meta">
-          <span class="tah-pill future">June 16, 2026</span>
-          <div class="tah-badges"><span class="tb tb-future">FUTURE</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Global</span></div>
-        </div>
-        <span class="tah-chev">▼</span>
-      </div>
-      <div class="tah-body">
-        <div class="tah-mob-badges"><span class="tb tb-future">FUTURE</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Global</span></div>
-        <div class="tah-grid">
-          <div class="tah-detail"><span>📅</span><span><strong>Deadline:</strong> June 16, 2026</span></div>
-          <div class="tah-detail"><span>💰</span><span><strong>Award:</strong> $1,000+ plus VIP conference passes</span></div>
-          <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> Women studying cybersecurity or related fields</span></div>
-          <div class="tah-detail full"><span>🌟</span><span>Two cycles per year. Winners receive cash plus VIP passes with expenses paid to top InfoSec conferences (RSA, Black Hat, DEF CON).</span></div>
-        </div>
-        <div class="tah-foot">
-          <div class="tah-badges"><span class="tb tb-future">FUTURE</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Global</span></div>
-          <button class="tah-copy-btn" onclick="copyLink('https://www.cyberdefensemagazine.com/women-in-cybersecurity-scholarship')">📋 Copy Link</button>
-          <a class="tah-btn" href="https://www.cyberdefensemagazine.com/women-in-cybersecurity-scholarship" target="_blank">Apply Now →</a>
-        </div>
-      </div>
-    </div>`,
-  'fellowships': `
-    <div class="tah-item" data-personas="all earlycareer founder" data-loc="intl" data-deadline="urgent">
-      <div class="tah-row">
-        <div class="tah-title">Changemaker Fellowship - AI for Nonprofits 2026</div>
-        <div class="tah-meta">
-          <span class="tah-pill urgent">May 22, 2026</span>
-          <div class="tah-badges"><span class="tb tb-urgent">URGENT</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Global</span></div>
-        </div>
-        <span class="tah-chev">▼</span>
-      </div>
-      <div class="tah-body">
-        <div class="tah-mob-badges"><span class="tb tb-urgent">URGENT</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Global</span></div>
-        <div class="tah-grid">
-          <div class="tah-detail"><span>📅</span><span><strong>Deadline:</strong> May 22, 2026</span></div>
-          <div class="tah-detail"><span>💰</span><span><strong>Award:</strong> Free 10-week program</span></div>
-          <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> Nonprofit, UN, and intergovernmental organization professionals working on AI adoption</span></div>
-          <div class="tah-detail full"><span>🌟</span><span>10-week fellowship helping organizations adopt AI strategically. Participants develop customized AI Adoption Plans with guidance from implementation partners and peer network.</span></div>
-        </div>
-        <div class="tah-foot">
-          <div class="tah-badges"><span class="tb tb-urgent">URGENT</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Global</span></div>
-          <button class="tah-copy-btn" onclick="copyLink('https://www.globalsouthopportunities.com/2026/05/08/fellowship-173/')">📋 Copy Link</button>
-          <a class="tah-btn" href="https://www.globalsouthopportunities.com/2026/05/08/fellowship-173/" target="_blank">Apply Now →</a>
-        </div>
-      </div>
-    </div>`,
-  'events': `
-    <div class="tah-item" data-personas="all secondary university earlycareer" data-loc="us" data-deadline="urgent">
-      <div class="tah-row">
-        <div class="tah-title">VenusHacks 2026</div>
-        <div class="tah-meta">
-          <span class="tah-pill urgent">May 16-17, 2026 (event)</span>
-          <div class="tah-badges"><span class="tb tb-urgent">URGENT</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">UC Irvine, California</span></div>
-        </div>
-        <span class="tah-chev">▼</span>
-      </div>
-      <div class="tah-body">
-        <div class="tah-mob-badges"><span class="tb tb-urgent">URGENT</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">UC Irvine, California</span></div>
-        <div class="tah-grid">
-          <div class="tah-detail"><span>📅</span><span><strong>Deadline:</strong> May 16-17, 2026 (event)</span></div>
-          <div class="tah-detail"><span>💰</span><span><strong>Award:</strong> Hackathon with prizes</span></div>
-          <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> High school, undergraduate, graduate students 18+ (women, gender minorities, allies)</span></div>
-          <div class="tah-detail full"><span>🌟</span><span>26-hour in-person hackathon. Teams of up to 4 build projects from scratch. Workshops, speakers, networking. Beginner-friendly with mentors available.</span></div>
-        </div>
-        <div class="tah-foot">
-          <div class="tah-badges"><span class="tb tb-urgent">URGENT</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">UC Irvine, California</span></div>
-          <button class="tah-copy-btn" onclick="copyLink('https://venushacks.com/')">📋 Copy Link</button>
-          <a class="tah-btn" href="https://venushacks.com/" target="_blank">Apply Now →</a>
-        </div>
-      </div>
-    </div>
-    <div class="tah-item" data-personas="all university earlycareer founder" data-loc="intl" data-deadline="rolling">
-      <div class="tah-row">
-        <div class="tah-title">WomenTech Global Conference 2026</div>
-        <div class="tah-meta">
-          <span class="tah-pill rolling">May 12-15, 2026 (event)</span>
-          <div class="tah-badges"><span class="tb tb-rolling">ROLLING</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Virtual + In-Person Global</span></div>
-        </div>
-        <span class="tah-chev">▼</span>
-      </div>
-      <div class="tah-body">
-        <div class="tah-mob-badges"><span class="tb tb-rolling">ROLLING</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Virtual + In-Person Global</span></div>
-        <div class="tah-grid">
-          <div class="tah-detail"><span>📅</span><span><strong>Deadline:</strong> May 12-15, 2026 (event)</span></div>
-          <div class="tah-detail"><span>💰</span><span><strong>Award:</strong> 10,000+ scholarships available</span></div>
-          <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> Women in tech globally</span></div>
-          <div class="tah-detail full"><span>🌟</span><span>100,000+ expected attendance. Keynotes, skill-building workshops, career advancement, and talent matchmaking platform.</span></div>
-        </div>
-        <div class="tah-foot">
-          <div class="tah-badges"><span class="tb tb-rolling">ROLLING</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Virtual + In-Person Global</span></div>
-          <button class="tah-copy-btn" onclick="copyLink('https://womenhack.com/women-in-tech-events/')">📋 Copy Link</button>
-          <a class="tah-btn" href="https://womenhack.com/women-in-tech-events/" target="_blank">Apply Now →</a>
-        </div>
-      </div>
-    </div>
-    <div class="tah-item" data-personas="all secondary university earlycareer" data-loc="intl" data-deadline="rolling">
-      <div class="tah-row">
-        <div class="tah-title">Microsoft Imagine Cup 2026</div>
-        <div class="tah-meta">
-          <span class="tah-pill rolling">Applications open</span>
-          <div class="tah-badges"><span class="tb tb-rolling">ROLLING</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Global</span></div>
-        </div>
-        <span class="tah-chev">▼</span>
-      </div>
-      <div class="tah-body">
-        <div class="tah-mob-badges"><span class="tb tb-rolling">ROLLING</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Global</span></div>
-        <div class="tah-grid">
-          <div class="tah-detail"><span>📅</span><span><strong>Deadline:</strong> Applications open</span></div>
-          <div class="tah-detail"><span>💰</span><span><strong>Award:</strong> Global prizes and recognition</span></div>
-          <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> Students 16+ enrolled in school, teams up to 3, faculty mentor required</span></div>
-          <div class="tah-detail full"><span>🌟</span><span>Premier global student technology competition. Build tech solutions for social impact. Free to enter, open to any country.</span></div>
-        </div>
-        <div class="tah-foot">
-          <div class="tah-badges"><span class="tb tb-rolling">ROLLING</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Global</span></div>
-          <button class="tah-copy-btn" onclick="copyLink('https://imaginecup.microsoft.com/')">📋 Copy Link</button>
-          <a class="tah-btn" href="https://imaginecup.microsoft.com/" target="_blank">Apply Now →</a>
-        </div>
-      </div>
-    </div>`,
-  'courses': `
-    <div class="tah-item" data-personas="all secondary university" data-loc="intl" data-deadline="rolling">
-      <div class="tah-row">
-        <div class="tah-title">Girls Who Code Pathways Summer Program 2026</div>
-        <div class="tah-meta">
-          <span class="tah-pill rolling">Rolling enrollment</span>
-          <div class="tah-badges"><span class="tb tb-rolling">ROLLING</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Global (virtual)</span></div>
-        </div>
-        <span class="tah-chev">▼</span>
-      </div>
-      <div class="tah-body">
-        <div class="tah-mob-badges"><span class="tb tb-rolling">ROLLING</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Global (virtual)</span></div>
-        <div class="tah-grid">
-          <div class="tah-detail"><span>📅</span><span><strong>Deadline:</strong> Rolling enrollment</span></div>
-          <div class="tah-detail"><span>💰</span><span><strong>Award:</strong> Free 7-week virtual program</span></div>
-          <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> High school girls and non-binary students</span></div>
-          <div class="tah-detail full"><span>🌟</span><span>Free, flexible, fully virtual learning in AI, coding, and tech for good. Asynchronous coursework with optional live events and mentorship. Beginner-friendly.</span></div>
-        </div>
-        <div class="tah-foot">
-          <div class="tah-badges"><span class="tb tb-rolling">ROLLING</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Global (virtual)</span></div>
-          <button class="tah-copy-btn" onclick="copyLink('https://opportunitiesforyouth.org/2026/03/26/girls-who-code-pathways-2026-free-virtual-summer-program-to-learn-ai-coding-build-tech-for-good/')">📋 Copy Link</button>
-          <a class="tah-btn" href="https://opportunitiesforyouth.org/2026/03/26/girls-who-code-pathways-2026-free-virtual-summer-program-to-learn-ai-coding-build-tech-for-good/" target="_blank">Enroll →</a>
-        </div>
-      </div>
-    </div>
-    <div class="tah-item" data-personas="all" data-loc="intl" data-deadline="rolling">
-      <div class="tah-row">
-        <div class="tah-title">Elements of AI - Free Online Course</div>
-        <div class="tah-meta">
-          <span class="tah-pill rolling">No deadline — self-paced</span>
-          <div class="tah-badges"><span class="tb tb-rolling">ROLLING</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Global (online)</span></div>
-        </div>
-        <span class="tah-chev">▼</span>
-      </div>
-      <div class="tah-body">
-        <div class="tah-mob-badges"><span class="tb tb-rolling">ROLLING</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Global (online)</span></div>
-        <div class="tah-grid">
-          <div class="tah-detail"><span>📅</span><span><strong>Deadline:</strong> No deadline — self-paced</span></div>
-          <div class="tah-detail"><span>💰</span><span><strong>Award:</strong> Free certificate</span></div>
-          <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> Anyone interested in AI — no coding required for the Introduction course</span></div>
-          <div class="tah-detail full"><span>🌟</span><span>2M+ students from 170+ countries. Free courses from University of Helsinki. Self-paced with certificate. Available in 28 languages.</span></div>
-        </div>
-        <div class="tah-foot">
-          <div class="tah-badges"><span class="tb tb-rolling">ROLLING</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Global (online)</span></div>
-          <button class="tah-copy-btn" onclick="copyLink('https://www.elementsofai.com/')">📋 Copy Link</button>
-          <a class="tah-btn" href="https://www.elementsofai.com/" target="_blank">Enroll →</a>
-        </div>
-      </div>
-    </div>`,
-  'prodev': `
-    <div class="tah-item" data-personas="all university earlycareer founder" data-loc="intl" data-deadline="rolling">
-      <div class="tah-row">
-        <div class="tah-title">Women in Tech Global Mentorship Program (OneUpOneDown)</div>
-        <div class="tah-meta">
-          <span class="tah-pill rolling">Rolling applications</span>
-          <div class="tah-badges"><span class="tb tb-rolling">ROLLING</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Global</span></div>
-        </div>
-        <span class="tah-chev">▼</span>
-      </div>
-      <div class="tah-body">
-        <div class="tah-mob-badges"><span class="tb tb-rolling">ROLLING</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Global</span></div>
-        <div class="tah-grid">
-          <div class="tah-detail"><span>📅</span><span><strong>Deadline:</strong> Rolling applications</span></div>
-          <div class="tah-detail"><span>💰</span><span><strong>Award:</strong> Free mentorship (scholarships available)</span></div>
-          <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> Women at every career stage in tech</span></div>
-          <div class="tah-detail full"><span>🌟</span><span>Unique mentorship experience for women's leadership journey in tech. Near-peer matching for transformational growth. Can serve as both mentor and mentee.</span></div>
-        </div>
-        <div class="tah-foot">
-          <div class="tah-badges"><span class="tb tb-rolling">ROLLING</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Global</span></div>
-          <button class="tah-copy-btn" onclick="copyLink('https://women-in-tech-mentoring.oneuponedown.org/')">📋 Copy Link</button>
-          <a class="tah-btn" href="https://women-in-tech-mentoring.oneuponedown.org/" target="_blank">Join →</a>
-        </div>
-      </div>
-    </div>
-    <div class="tah-item" data-personas="all secondary university earlycareer" data-loc="intl" data-deadline="rolling">
-      <div class="tah-row">
-        <div class="tah-title">Build For Good Labs Student Builder Program Summer 2026</div>
-        <div class="tah-meta">
-          <span class="tah-pill rolling">Rolling (June-Sept 2026)</span>
-          <div class="tah-badges"><span class="tb tb-rolling">ROLLING</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Global (virtual)</span></div>
-        </div>
-        <span class="tah-chev">▼</span>
-      </div>
-      <div class="tah-body">
-        <div class="tah-mob-badges"><span class="tb tb-rolling">ROLLING</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Global (virtual)</span></div>
-        <div class="tah-grid">
-          <div class="tah-detail"><span>📅</span><span><strong>Deadline:</strong> Rolling (June-Sept 2026)</span></div>
-          <div class="tah-detail"><span>💰</span><span><strong>Award:</strong> Free 10-week program</span></div>
-          <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> Students wanting to leverage tech and AI for social impact</span></div>
-          <div class="tah-detail full"><span>🌟</span><span>Free, hands-on program. Design, build, and ship a real tech solution for social good with mentorship from professionals. Portfolio-ready work.</span></div>
-        </div>
-        <div class="tah-foot">
-          <div class="tah-badges"><span class="tb tb-rolling">ROLLING</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Global (virtual)</span></div>
-          <button class="tah-copy-btn" onclick="copyLink('https://www.buildforgoodlabs.org/2026-student-builder-program')">📋 Copy Link</button>
-          <a class="tah-btn" href="https://www.buildforgoodlabs.org/2026-student-builder-program" target="_blank">Join →</a>
-        </div>
-      </div>
-    </div>`,
-  'founders': `
-    <div class="tah-item" data-personas="all founder earlycareer" data-loc="intl" data-deadline="rolling">
-      <div class="tah-row">
-        <div class="tah-title">Women in Tech Accelerator 2026 (Standard Chartered Foundation)</div>
-        <div class="tah-meta">
-          <span class="tah-pill rolling">Rolling — apply early</span>
-          <div class="tah-badges"><span class="tb tb-rolling">ROLLING</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Africa, Middle East, Pakistan</span></div>
-        </div>
-        <span class="tah-chev">▼</span>
-      </div>
-      <div class="tah-body">
-        <div class="tah-mob-badges"><span class="tb tb-rolling">ROLLING</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Africa, Middle East, Pakistan</span></div>
-        <div class="tah-grid">
-          <div class="tah-detail"><span>📅</span><span><strong>Deadline:</strong> Rolling — apply early</span></div>
-          <div class="tah-detail"><span>💰</span><span><strong>Award:</strong> Up to $600K in grants across cohort</span></div>
-          <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> Women-led tech startups using technology to drive impact and innovation</span></div>
-          <div class="tah-detail full"><span>🌟</span><span>Specialized program strengthening women-led startups with grant funding, mentorship, investment-readiness training, and strategic networks across 12 markets.</span></div>
-        </div>
-        <div class="tah-foot">
-          <div class="tah-badges"><span class="tb tb-rolling">ROLLING</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">Africa, Middle East, Pakistan</span></div>
-          <button class="tah-copy-btn" onclick="copyLink('https://opportunitiesforyouth.org/2026/05/08/2026-us-women-in-tech-accele/')">📋 Copy Link</button>
-          <a class="tah-btn" href="https://opportunitiesforyouth.org/2026/05/08/2026-us-women-in-tech-accele/" target="_blank">Apply Now →</a>
-        </div>
-      </div>
-    </div>
-    <div class="tah-item" data-personas="all founder" data-loc="us" data-deadline="rolling">
-      <div class="tah-row">
-        <div class="tah-title">US Women in Tech Accelerator 2026 (Village Capital)</div>
-        <div class="tah-meta">
-          <span class="tah-pill rolling">Watch for future cohorts</span>
-          <div class="tah-badges"><span class="tb tb-rolling">ROLLING</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">United States</span></div>
-        </div>
-        <span class="tah-chev">▼</span>
-      </div>
-      <div class="tah-body">
-        <div class="tah-mob-badges"><span class="tb tb-rolling">ROLLING</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">United States</span></div>
-        <div class="tah-grid">
-          <div class="tah-detail"><span>📅</span><span><strong>Deadline:</strong> Watch for future cohorts</span></div>
-          <div class="tah-detail"><span>💰</span><span><strong>Award:</strong> $25K grants to 2 peer-selected startups</span></div>
-          <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> US-based women-led businesses, fewer than 10 employees, under $100K annual revenue</span></div>
-          <div class="tah-detail full"><span>🌟</span><span>Addresses the funding gap for women founders. Focus on tech-enabled solutions advancing economic mobility. Includes 1:1 coaching and investor network access.</span></div>
-        </div>
-        <div class="tah-foot">
-          <div class="tah-badges"><span class="tb tb-rolling">ROLLING</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">United States</span></div>
-          <button class="tah-copy-btn" onclick="copyLink('https://vilcap.com/programs/women-in-tech-accelerator-us-2026')">📋 Copy Link</button>
-          <a class="tah-btn" href="https://vilcap.com/programs/women-in-tech-accelerator-us-2026" target="_blank">Apply Now →</a>
-        </div>
-      </div>
-    </div>
-    <div class="tah-item" data-personas="all founder" data-loc="us" data-deadline="soon">
-      <div class="tah-row">
-        <div class="tah-title">Women Founders Network Fast Pitch Competition 2026</div>
-        <div class="tah-meta">
-          <span class="tah-pill soon">May 31, 2026</span>
-          <div class="tah-badges"><span class="tb tb-soon">SOON</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">United States</span></div>
-        </div>
-        <span class="tah-chev">▼</span>
-      </div>
-      <div class="tah-body">
-        <div class="tah-mob-badges"><span class="tb tb-soon">SOON</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">United States</span></div>
-        <div class="tah-grid">
-          <div class="tah-detail"><span>📅</span><span><strong>Deadline:</strong> May 31, 2026</span></div>
-          <div class="tah-detail"><span>💰</span><span><strong>Award:</strong> $25,000 cash grant (tech track) + $5,000 Junior VC grant</span></div>
-          <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> Women founders in tech/tech-enabled or consumer/CPG/non-tech tracks</span></div>
-          <div class="tah-detail full"><span>🌟</span><span>14th annual competition. Winners receive coaching, capital access, mentoring, and visibility. Two tracks: tech and non-tech.</span></div>
-        </div>
-        <div class="tah-foot">
-          <div class="tah-badges"><span class="tb tb-soon">SOON</span><span class="tb tb-new">NEW</span><span class="tb tb-priority">PRIORITY</span><span class="tb tb-loc">United States</span></div>
-          <button class="tah-copy-btn" onclick="copyLink('https://www.womenfoundersgrant.com')">📋 Copy Link</button>
-          <a class="tah-btn" href="https://www.womenfoundersgrant.com" target="_blank">Apply Now →</a>
-        </div>
-      </div>
-    </div>`
+  scholarships: {id:'sec-scholarships', personas:'all university earlycareer'},
+  fellowships:  {id:'sec-fellowships',  personas:'all university earlycareer founder'},
+  jobs:         {id:'sec-jobs',         personas:'all university earlycareer'},
+  events:       {id:'sec-events',       personas:'all university earlycareer founder secondary'},
+  courses:      {id:'sec-courses',      personas:'all secondary university earlycareer'},
+  prodev:       {id:'sec-prodev',       personas:'all university earlycareer founder'},
+  founders:     {id:'sec-founders',     personas:'all founder earlycareer'},
 };
 
-let allOpps=[], verdicts={};
+const APPLY_LABELS = {
+  scholarships:'Apply Now \u2192', fellowships:'Apply Now \u2192',
+  jobs:'View Roles \u2192', events:'Apply Now \u2192',
+  courses:'Enroll \u2192', prodev:'Join \u2192', founders:'Apply Now \u2192'
+};
 
-document.querySelectorAll('.cat-btn').forEach(b=>b.addEventListener('click',()=>b.classList.toggle('on')));
+let allOpps = [], verdicts = {};
 
-function toggleField(id,btn){const i=document.getElementById(id);i.type=i.type==='password'?'text':'password';btn.textContent=i.type==='password'?'Show':'Hide';}
-const getAKey=()=>document.getElementById('anthropicKey').value.trim();
-const getToken=()=>document.getElementById('ghToken').value.trim();
-const getCats=()=>[...document.querySelectorAll('.cat-btn.on')].map(b=>b.dataset.cat);
-const today=()=>new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
-function setStatus(m){document.getElementById('status').style.display='flex';document.getElementById('statusText').textContent=m;}
-function hideStatus(){document.getElementById('status').style.display='none';}
-function showError(m){const e=document.getElementById('errorBox');e.style.display='block';e.textContent=m;}
-function hideError(){document.getElementById('errorBox').style.display='none';}
+// ── UI helpers ──
+document.querySelectorAll('.cat-btn').forEach(b => b.addEventListener('click', () => b.classList.toggle('on')));
+function toggleField(id, btn) {
+  const i = document.getElementById(id);
+  i.type = i.type === 'password' ? 'text' : 'password';
+  btn.textContent = i.type === 'password' ? 'Show' : 'Hide';
+}
+const getAKey  = () => document.getElementById('anthropicKey').value.trim();
+const getToken = () => document.getElementById('ghToken').value.trim();
+const getCats  = () => [...document.querySelectorAll('.cat-btn.on')].map(b => b.dataset.cat);
+const today    = () => new Date().toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
+function setStatus(m) { document.getElementById('status').style.display='flex'; document.getElementById('statusText').textContent=m; }
+function hideStatus()  { document.getElementById('status').style.display='none'; }
+function showError(m)  { const e=document.getElementById('errorBox'); e.style.display='block'; e.textContent=m; }
+function hideError()   { document.getElementById('errorBox').style.display='none'; }
 
-async function findOpps(){
-  const cats=getCats();
-  if(!cats.length){alert('Select at least one category.');return;}
-  if(!getAKey()){alert('Please enter your Anthropic API key.');return;}
-  if(!getToken()){alert('Please enter your GitHub token.');return;}
-  const btn=document.getElementById('runBtn');
-  btn.disabled=true;btn.textContent='Searching...';
+// ── GitHub helpers ──
+async function ghFetch(token) {
+  const apiUrl = 'https://api.github.com/repos/' + REPO + '/contents/' + FILE;
+  const headers = {
+    'Authorization': 'token ' + token,
+    'Accept': 'application/vnd.github.v3+json',
+    'Content-Type': 'application/json'
+  };
+  const res = await fetch(apiUrl, {headers});
+  if (!res.ok) { const e = await res.json(); throw new Error('GitHub error (' + res.status + '): ' + e.message); }
+  return {data: await res.json(), apiUrl, headers};
+}
+
+async function ghPut(apiUrl, headers, html, sha, message) {
+  const encoded = btoa(unescape(encodeURIComponent(html)));
+  const res = await fetch(apiUrl, {
+    method: 'PUT', headers,
+    body: JSON.stringify({message, content: encoded, sha})
+  });
+  if (!res.ok) { const e = await res.json(); throw new Error('Push error (' + res.status + '): ' + e.message); }
+}
+
+// ── Get existing titles from live hub ──
+async function getExistingTitles(token) {
+  try {
+    const {data} = await ghFetch(token);
+    const raw = decodeURIComponent(escape(atob(data.content.replace(/\n/g, ''))));
+    // Extract all tah-title text
+    const matches = raw.match(/class="tah-title">([^<]+)/g) || [];
+    return matches.map(m => m.replace('class="tah-title">', '').trim().toLowerCase());
+  } catch(e) {
+    console.warn('Could not load existing titles:', e);
+    return [];
+  }
+}
+
+// ── Main find function ──
+async function findOpps() {
+  const cats = getCats();
+  if (!cats.length) { alert('Select at least one category.'); return; }
+  if (!getAKey())   { alert('Please enter your Anthropic API key.'); return; }
+  if (!getToken())  { alert('Please enter your GitHub token.'); return; }
+
+  const btn = document.getElementById('runBtn');
+  btn.disabled = true; btn.textContent = 'Searching...';
   hideError();
-  document.getElementById('reviewSection').style.display='none';
-  document.getElementById('pushResult').style.display='none';
-  setStatus('Searching the web for fresh opportunities...');
+  document.getElementById('reviewSection').style.display = 'none';
+  document.getElementById('pushResult').style.display = 'none';
 
-  const catDescs={
-    scholarships:'scholarships and funding awards for women in tech, STEM, and social impact — global, high school and university level',
-    fellowships:'fellowships and research programs for women in tech, AI, engineering, and social impact — global',
-    jobs:'internships and early-career job opportunities for women in tech, AI, engineering, or social impact',
-    events:'hackathons, pitch competitions, and tech conferences open to women and underrepresented groups',
-    courses:'free or low-cost online courses and learning programs in tech, AI, coding, and entrepreneurship',
-    prodev:'professional development, mentorship, and leadership programs for women in tech',
-    founders:'grants, accelerators, pitch competitions, and no-equity funding for women founders and social impact startups',
+  // Step 1: load existing titles
+  setStatus('Checking what\u2019s already on the hub\u2026');
+  const existingTitles = await getExistingTitles(getToken());
+  const existingCount = existingTitles.length;
+
+  // Step 2: build prompt with exclusion list
+  setStatus('Searching the web for new opportunities\u2026');
+
+  const catDescs = {
+    scholarships: 'scholarships and funding awards for women in tech, STEM, and social impact \u2014 global, high school and university level',
+    fellowships:  'fellowships and research programs for women in tech, AI, engineering, and social impact \u2014 global',
+    jobs:         'internships and early-career job opportunities for women in tech, AI, engineering, or social impact',
+    events:       'hackathons, pitch competitions, and tech conferences open to women and underrepresented groups',
+    courses:      'free or low-cost online courses and learning programs in tech, AI, coding, and entrepreneurship',
+    prodev:       'professional development, mentorship, and leadership programs for women in tech',
+    founders:     'grants, accelerators, pitch competitions, and no-equity funding for women founders and social impact startups',
   };
 
-  const prompt = `You are a research assistant for Technovation Alumnae — a global community of young women (high school, university, early career, and founders) passionate about tech, AI, and social impact. Today is ${today()}.
+  const exclusionList = existingTitles.length > 0
+    ? '\n\nDo NOT suggest any of these \u2014 they are already on the hub:\n' + existingTitles.map(t => '- ' + t).join('\n')
+    : '';
 
-Use web search to find 6-10 NEW opportunities not already widely known. Prioritize programs with deadlines in the next 1-3 months or newly launched rolling programs.
-
-Categories: ${cats.map(c=>catDescs[c]).join(' | ')}
-
-IMPORTANT: Return ONLY a raw JSON array. No markdown fences, no backticks, no explanation text. Start your response with [ and end with ].
-
-Format:
-[{"title":"","category":"scholarships|fellowships|jobs|events|courses|prodev|founders","deadline":"","urgency":"URGENT|SOON|FUTURE|ROLLING","award":"","location":"","eligibility":"","description":"","url":"","priority":true,"personas":"all secondary university earlycareer founder"}]
-
-URGENCY: URGENT=within 2 weeks, SOON=within 1 month, FUTURE=1+ months, ROLLING=no fixed deadline.
-personas: space-separated subset of: all secondary university earlycareer founder
-priority=true if especially well-suited to Technovation alumnae.`;
+  const prompt = [
+    'You are a research assistant for Technovation Alumnae \u2014 a global community of young women (high school, university, early career, and founders) passionate about tech, AI, and social impact.',
+    'Today is ' + today() + '.',
+    '',
+    'Use web search to find 6\u201310 NEW opportunities. Prioritize programs with deadlines in the next 1\u20133 months or newly launched rolling programs.',
+    '',
+    'Categories: ' + cats.map(c => catDescs[c]).join(' | '),
+    exclusionList,
+    '',
+    'Return ONLY a raw JSON array \u2014 no markdown, no backticks, no explanation. Start with [ and end with ].',
+    '',
+    '[{"title":"","category":"scholarships|fellowships|jobs|events|courses|prodev|founders","deadline":"","urgency":"URGENT|SOON|FUTURE|ROLLING","award":"","location":"","eligibility":"","description":"","url":"","priority":true,"personas":"all secondary university earlycareer founder"}]',
+    '',
+    'URGENCY: URGENT=within 2 weeks, SOON=within 1 month, FUTURE=1+ months, ROLLING=no fixed deadline.',
+    'personas: space-separated subset of: all secondary university earlycareer founder',
+    'priority=true if especially well-suited to Technovation alumnae.'
+  ].join('\n');
 
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','x-api-key':getAKey(),'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-5',
-        max_tokens:4000,
-        tools:[{type:'web_search_20250305',name:'web_search'}],
-        messages:[{role:'user',content:prompt}]
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': getAKey(),
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-5',
+        max_tokens: 4000,
+        tools: [{type: 'web_search_20250305', name: 'web_search'}],
+        messages: [{role: 'user', content: prompt}]
       })
     });
-    if(!res.ok){const e=await res.json();throw new Error(e.error?.message||`API error ${res.status}`);}
-    setStatus('Processing results...');
-    const data=await res.json();
-    const raw=data.content.filter(b=>b.type==='text').map(b=>b.text).join('');
 
-    // Robust JSON extraction - try multiple strategies
+    if (!res.ok) { const e = await res.json(); throw new Error(e.error?.message || 'API error ' + res.status); }
+
+    setStatus('Processing results\u2026');
+    const data = await res.json();
+    const raw = data.content.filter(b => b.type === 'text').map(b => b.text).join('');
+
+    // Robust JSON extraction
     let opps = null;
+    const m1 = raw.match(/\[[\s\S]*\]/);
+    if (m1) { try { opps = JSON.parse(m1[0]); } catch(e) {} }
+    if (!opps) {
+      const stripped = raw.replace(/```json\s*/g, '').replace(/```\s*/g, '').trim();
+      const m2 = stripped.match(/\[[\s\S]*\]/);
+      if (m2) { try { opps = JSON.parse(m2[0]); } catch(e) {} }
+    }
+    if (!opps || !opps.length) throw new Error('Could not parse results. Please try again.');
 
-    // Strategy 1: find array between [ and ]
-    const arrMatch = raw.match(/\[[\s\S]*\]/);
-    if(arrMatch){
-      try{ opps=JSON.parse(arrMatch[0]); }catch(e){}
+    // Step 3: client-side duplicate filter (belt-and-suspenders)
+    const before = opps.length;
+    opps = opps.filter(o => {
+      const norm = o.title.toLowerCase().trim();
+      return !existingTitles.some(t => {
+        // exact match OR one contains the other (handles slight title variations)
+        return t === norm || t.includes(norm) || norm.includes(t);
+      });
+    });
+    const filtered = before - opps.length;
+
+    if (!opps.length) {
+      throw new Error('All ' + before + ' results were already on the hub. Try again \u2014 Claude will search for different ones.');
     }
 
-    // Strategy 2: find first { to last }
-    if(!opps){
-      const objMatch = raw.match(/\{[\s\S]*\}/g);
-      if(objMatch){
-        try{ opps=JSON.parse('['+objMatch.join(',')+']'); }catch(e){}
-      }
-    }
-
-    // Strategy 3: strip markdown fences and retry
-    if(!opps){
-      const stripped = raw.replace(/```json?\s*/g,'').replace(/```\s*/g,'').trim();
-      const arr2 = stripped.match(/\[[\s\S]*\]/);
-      if(arr2){ try{ opps=JSON.parse(arr2[0]); }catch(e){} }
-    }
-
-    if(!opps||!opps.length) throw new Error('No opportunities found. Please try again — the AI search may need another attempt.');
-
-    allOpps=opps; verdicts={};
-    opps.forEach((_,i)=>{verdicts[i]=null;});
-    renderReview(opps);
+    allOpps = opps; verdicts = {};
+    opps.forEach((_, i) => { verdicts[i] = null; });
+    renderReview(opps, existingCount, filtered);
     hideStatus();
-  } catch(err){
+
+  } catch(err) {
     hideStatus();
-    showError('Error: '+err.message);
+    showError('Error: ' + err.message);
   }
-  btn.disabled=false;btn.textContent="Find This Week's Opportunities";
+
+  btn.disabled = false;
+  btn.textContent = 'Find This Week\u2019s Opportunities';
 }
 
-function renderReview(opps){
-  const list=document.getElementById('oppList');
-  list.innerHTML='';
-  opps.forEach((opp,i)=>{
-    const urgClass={URGENT:'p-urgent',SOON:'p-soon',FUTURE:'p-future',ROLLING:'p-rolling'}[opp.urgency]||'p-rolling';
-    const div=document.createElement('div');
-    div.className='opp-card';div.id=`opp-${i}`;
-    div.innerHTML=`
-      <div class="opp-top">
-        <div class="opp-title-row">
-          <div class="opp-name">${esc(opp.title)}</div>
-          <span class="sec-tag t-${opp.category}">${opp.category}</span>
-        </div>
-        <div class="opp-pills">
-          <span class="pill p-deadline">📅 ${esc(opp.deadline)}</span>
-          ${opp.award?`<span class="pill p-award">💰 ${esc(opp.award)}</span>`:''}
-          <span class="pill p-loc">📍 ${esc(opp.location)}</span>
-          <span class="pill ${urgClass}">${opp.urgency}</span>
-          ${opp.priority?'<span class="pill p-priority">⭐ PRIORITY</span>':''}
-        </div>
-        <div class="opp-desc">${esc(opp.eligibility)}<br>${esc(opp.description)}</div>
-        <div class="opp-url">${esc(opp.url)}</div>
-      </div>
-      <div class="opp-actions">
-        <button class="verdict-btn yes" onclick="setVerdict(${i},true)">✓ Add to Hub</button>
-        <button class="verdict-btn no" onclick="setVerdict(${i},false)">✕ Skip</button>
-      </div>`;
+// ── Render review cards ──
+function renderReview(opps, existingCount, filtered) {
+  const list = document.getElementById('oppList');
+  list.innerHTML = '';
+  opps.forEach((opp, i) => {
+    const urgClass = {URGENT:'p-urgent',SOON:'p-soon',FUTURE:'p-future',ROLLING:'p-rolling'}[opp.urgency] || 'p-rolling';
+    const div = document.createElement('div');
+    div.className = 'opp-card'; div.id = 'opp-' + i;
+    div.innerHTML =
+      '<div class="opp-top">' +
+        '<div class="opp-title-row">' +
+          '<div class="opp-name">' + esc(opp.title) + '</div>' +
+          '<span class="sec-tag t-' + opp.category + '">' + opp.category + '</span>' +
+        '</div>' +
+        '<div class="opp-pills">' +
+          '<span class="pill p-deadline">\uD83D\uDCC5 ' + esc(opp.deadline) + '</span>' +
+          (opp.award ? '<span class="pill p-award">\uD83D\uDCB0 ' + esc(opp.award) + '</span>' : '') +
+          '<span class="pill p-loc">\uD83D\uDCCD ' + esc(opp.location) + '</span>' +
+          '<span class="pill ' + urgClass + '">' + opp.urgency + '</span>' +
+          (opp.priority ? '<span class="pill p-priority">\u2B50 PRIORITY</span>' : '') +
+        '</div>' +
+        '<div class="opp-desc">' + esc(opp.eligibility) + '<br>' + esc(opp.description) + '</div>' +
+        '<div class="opp-url">' + esc(opp.url) + '</div>' +
+      '</div>' +
+      '<div class="opp-actions">' +
+        '<button class="verdict-btn yes" onclick="setVerdict(' + i + ',true)">\u2713 Add to Hub</button>' +
+        '<button class="verdict-btn no" onclick="setVerdict(' + i + ',false)">\u2715 Skip</button>' +
+      '</div>';
     list.appendChild(div);
   });
-  document.getElementById('reviewSection').style.display='block';
+  document.getElementById('reviewSection').style.display = 'block';
+
+  let subtitle = opps.length + ' new opportunities found';
+  if (existingCount) subtitle += ' (checked against ' + existingCount + ' already on hub';
+  if (filtered) subtitle += ', ' + filtered + ' duplicates removed';
+  if (existingCount) subtitle += ')';
+  document.getElementById('reviewTitle').textContent = subtitle;
+
   updatePushBtn();
 }
 
-function setVerdict(i,approved){
-  verdicts[i]=approved;
-  const card=document.getElementById(`opp-${i}`);
-  card.classList.remove('approved','rejected');
-  card.classList.add(approved?'approved':'rejected');
-  const[y,n]=card.querySelectorAll('.verdict-btn');
-  y.classList.toggle('active',approved===true);
-  n.classList.toggle('active',approved===false);
+function setVerdict(i, approved) {
+  verdicts[i] = approved;
+  const card = document.getElementById('opp-' + i);
+  card.classList.remove('approved', 'rejected');
+  card.classList.add(approved ? 'approved' : 'rejected');
+  const [y, n] = card.querySelectorAll('.verdict-btn');
+  y.classList.toggle('active', approved === true);
+  n.classList.toggle('active', approved === false);
   updatePushBtn();
 }
 
-function updatePushBtn(){
-  const nA=Object.values(verdicts).filter(v=>v===true).length;
-  const nS=Object.values(verdicts).filter(v=>v===false).length;
-  const btn=document.getElementById('pushBtn');
-  btn.disabled=nA===0;
-  btn.textContent=nA>0?`Push ${nA} to GitHub`:'Push Approved to GitHub';
-  document.getElementById('reviewTitle').textContent=`${allOpps.length} found — ${nA} approved, ${nS} skipped`;
+function updatePushBtn() {
+  const nA = Object.values(verdicts).filter(v => v === true).length;
+  const nS = Object.values(verdicts).filter(v => v === false).length;
+  const btn = document.getElementById('pushBtn');
+  btn.disabled = nA === 0;
+  btn.textContent = nA > 0 ? 'Push ' + nA + ' to GitHub' : 'Push Approved to GitHub';
+  document.getElementById('reviewTitle').textContent =
+    allOpps.length + ' found \u2014 ' + nA + ' approved, ' + nS + ' skipped';
 }
 
-function buildHubEntry(opp){
-  const urg=(opp.urgency||'ROLLING').toLowerCase();
-  const locRaw=opp.location||'International';
-  const locData=locRaw.toLowerCase().replace(/[^a-z]/g,' ').split(' ').some(w=>['international','global'].includes(w))?'intl':'us';
-  const personas=opp.personas||SECTION_MAP[opp.category]?.personas||'all university earlycareer';
-  const applyLabel=APPLY_LABELS[opp.category]||'Learn More →';
-  const badges=`<span class="tb tb-${urg}">${urg.toUpperCase()}</span><span class="tb tb-new">NEW</span>${opp.priority?'<span class="tb tb-priority">PRIORITY</span>':''}<span class="tb tb-loc">${locRaw}</span>`;
-  const awardLine=opp.award?`
-          <div class="tah-detail"><span>💰</span><span><strong>Award:</strong> ${opp.award}</span></div>`:'';
-  return `
-    <div class="tah-item" data-personas="${personas}" data-loc="${locData}" data-deadline="${urg}">
-      <div class="tah-row">
-        <div class="tah-title">${opp.title}</div>
-        <div class="tah-meta">
-          <span class="tah-pill ${urg}">${opp.deadline}</span>
-          <div class="tah-badges">${badges}</div>
-        </div>
-        <span class="tah-chev">▼</span>
-      </div>
-      <div class="tah-body">
-        <div class="tah-mob-badges">${badges}</div>
-        <div class="tah-grid">
-          <div class="tah-detail"><span>📅</span><span><strong>Deadline:</strong> ${opp.deadline}</span></div>${awardLine}
-          <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> ${opp.eligibility}</span></div>
-          <div class="tah-detail full"><span>🌟</span><span>${opp.description}</span></div>
-        </div>
-        <div class="tah-foot">
-          <div class="tah-badges">${badges}</div>
-          <button class="tah-copy-btn" onclick="copyLink('${opp.url}')">📋 Copy Link</button>
-          <a class="tah-btn" href="${opp.url}" target="_blank">${applyLabel}</a>
-        </div>
-      </div>
-    </div>`;
+// ── Build correctly-formatted hub entry ──
+function buildHubEntry(opp) {
+  const urg = (opp.urgency || 'ROLLING').toLowerCase();
+  const locRaw = opp.location || 'International';
+  const words = locRaw.toLowerCase().replace(/[^a-z ]/g, ' ').split(' ');
+  const locData = words.some(w => ['international','global'].includes(w)) ? 'intl' : 'us';
+  const personas = opp.personas || SECTION_MAP[opp.category]?.personas || 'all university earlycareer';
+  const applyLabel = APPLY_LABELS[opp.category] || 'Learn More \u2192';
+  const badges =
+    '<span class="tb tb-' + urg + '">' + urg.toUpperCase() + '</span>' +
+    '<span class="tb tb-new">NEW</span>' +
+    (opp.priority ? '<span class="tb tb-priority">PRIORITY</span>' : '') +
+    '<span class="tb tb-loc">' + locRaw + '</span>';
+  const awardLine = opp.award
+    ? '<div class="tah-detail"><span>\uD83D\uDCB0</span><span><strong>Award:</strong> ' + opp.award + '</span></div>'
+    : '';
+  return (
+    '\n    <div class="tah-item" data-personas="' + personas + '" data-loc="' + locData + '" data-deadline="' + urg + '">' +
+    '\n      <div class="tah-row">' +
+    '\n        <div class="tah-title">' + opp.title + '</div>' +
+    '\n        <div class="tah-meta"><span class="tah-pill ' + urg + '">' + opp.deadline + '</span><div class="tah-badges">' + badges + '</div></div>' +
+    '\n        <span class="tah-chev">\u25BC</span>' +
+    '\n      </div>' +
+    '\n      <div class="tah-body">' +
+    '\n        <div class="tah-mob-badges">' + badges + '</div>' +
+    '\n        <div class="tah-grid">' +
+    '\n          <div class="tah-detail"><span>\uD83D\uDCC5</span><span><strong>Deadline:</strong> ' + opp.deadline + '</span></div>' +
+    awardLine +
+    '\n          <div class="tah-detail full"><span>\uD83D\uDC65</span><span><strong>Eligibility:</strong> ' + opp.eligibility + '</span></div>' +
+    '\n          <div class="tah-detail full"><span>\uD83C\uDF1F</span><span>' + opp.description + '</span></div>' +
+    '\n        </div>' +
+    '\n        <div class="tah-foot">' +
+    '\n          <div class="tah-badges">' + badges + '</div>' +
+    '\n          <button class="tah-copy-btn" onclick="copyLink(\'' + opp.url + '\')">\uD83D\uDCCB Copy Link</button>' +
+    '\n          <a class="tah-btn" href="' + opp.url + '" target="_blank">' + applyLabel + '</a>' +
+    '\n        </div>' +
+    '\n      </div>' +
+    '\n    </div>'
+  );
 }
 
-async function ghFetch(token){
-  const apiUrl=`https://api.github.com/repos/${REPO}/contents/${FILE}`;
-  const headers={'Authorization':`token ${token}`,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'};
-  const res=await fetch(apiUrl,{headers});
-  if(!res.ok){const e=await res.json();throw new Error(`GitHub fetch failed (${res.status}): ${e.message}`);}
-  return{data:await res.json(),apiUrl,headers};
-}
+// ── Push approved to GitHub ──
+async function pushToGitHub() {
+  const token = getToken();
+  const approved = allOpps.filter((_, i) => verdicts[i] === true);
+  if (!token || !approved.length) return;
 
-async function ghPut(apiUrl,headers,html,sha,message){
-  const encoded=btoa(unescape(encodeURIComponent(html)));
-  const res=await fetch(apiUrl,{method:'PUT',headers,body:JSON.stringify({message,content:encoded,sha})});
-  if(!res.ok){const e=await res.json();throw new Error(`Push failed (${res.status}): ${e.message}`);}
-  return res;
-}
-
-async function cleanupPage(){
-  const token=getToken();
-  if(!token){alert('Please enter your GitHub token first.');return;}
-  const btn=document.getElementById('cleanupBtn');
-  btn.disabled=true;btn.textContent='Cleaning up...';
+  const btn = document.getElementById('pushBtn');
+  btn.disabled = true; btn.textContent = 'Pushing\u2026';
   hideError();
-  try{
-    setStatus('Fetching index.html from GitHub...');
-    const{data,apiUrl,headers}=await ghFetch(token);
-    let html=decodeURIComponent(escape(atob(data.content.replace(/\n/g,''))));
-    setStatus('Removing misformatted entries and replacing with correct format...');
 
-    // Remove all opp-item blocks
-    html=html.replace(/<div class="opp-item"[\s\S]*?<\/div>\s*<\/div>\s*<\/div>/g,'');
+  try {
+    setStatus('Fetching current index.html\u2026');
+    const {data, apiUrl, headers} = await ghFetch(token);
+    let html = decodeURIComponent(escape(atob(data.content.replace(/\n/g, ''))));
 
-    // Insert correct tah-items after each section h2
-    for(const[sec,entries] of Object.entries(CLEANUP_ENTRIES)){
-      const secId=SECTION_MAP[sec]?.id;
-      if(!secId) continue;
-      // Find the section by id, then find its h2 and insert converted entries after it
-      const secDivIdx = html.indexOf('id="'+secId+'"');
-      if(secDivIdx !== -1){
-        const h2Start = html.indexOf('<h2 class="tah-section-title">', secDivIdx);
+    setStatus('Inserting ' + approved.length + ' new entr' + (approved.length === 1 ? 'y' : 'ies') + '\u2026');
+
+    // Group by section and insert after each section's h2
+    const bySection = {};
+    approved.forEach(opp => {
+      const secId = SECTION_MAP[opp.category]?.id || 'sec-scholarships';
+      if (!bySection[secId]) bySection[secId] = [];
+      bySection[secId].push(opp);
+    });
+
+    for (const [secId, opps] of Object.entries(bySection)) {
+      const newHtml = opps.map(buildHubEntry).join('\n');
+      // Find section h2 and insert after it
+      const secIdx = html.indexOf('id="' + secId + '"');
+      if (secIdx !== -1) {
+        const h2Start = html.indexOf('<h2 class="tah-section-title">', secIdx);
         const h2End = html.indexOf('</h2>', h2Start) + 5;
-        if(h2Start !== -1 && h2End > 5){
-          html = html.slice(0, h2End) + '\n' + entries + html.slice(h2End);
+        if (h2Start !== -1 && h2End > 5) {
+          html = html.slice(0, h2End) + '\n' + newHtml + html.slice(h2End);
         }
+      } else {
+        html = html.replace('</body>', newHtml + '\n</body>');
       }
     }
 
     // Update last updated date
-    html=html.replace(/Last Updated:.*?(?=<)/,'Last Updated: '+today());
+    html = html.replace(/Last Updated:[^<]*/g, 'Last Updated: ' + today());
 
-    setStatus('Pushing cleaned page to GitHub...');
-    await ghPut(apiUrl,headers,html,data.sha,`Fix page formatting — remove opp-items, add proper tah-items (${today()})`);
+    setStatus('Pushing to GitHub\u2026');
+    await ghPut(apiUrl, headers, html, data.sha,
+      'Weekly opp update \u2014 ' + today() + ' (' + approved.length + ' new entr' + (approved.length === 1 ? 'y' : 'ies') + ')'
+    );
+
     hideStatus();
-    const result=document.getElementById('pushResult');
-    result.style.display='block';
-    result.innerHTML=`✅ Page cleaned and fixed! <a href="https://technovation-alumnae.github.io/alumnae-opps/" target="_blank">View the hub →</a>`;
-    btn.style.display='none'; // hide after successful cleanup
-  }catch(err){
+    const result = document.getElementById('pushResult');
+    result.style.display = 'block';
+    result.innerHTML = '\u2705 ' + approved.length + ' opportunit' + (approved.length === 1 ? 'y' : 'ies') + ' pushed! <a href="' + HUB_URL + '" target="_blank">View the live hub \u2192</a>';
+
+  } catch(err) {
     hideStatus();
-    showError('Cleanup failed: '+err.message);
-    btn.disabled=false;btn.textContent='🧹 Fix Page Formatting (one-time cleanup)';
+    showError('Push failed: ' + err.message);
   }
+
+  btn.disabled = false;
+  updatePushBtn();
 }
 
-async function pushToGitHub(){
-  const token=getToken();
-  const approved=allOpps.filter((_,i)=>verdicts[i]===true);
-  if(!token){alert('GitHub token missing.');return;}
-  if(!approved.length) return;
-  const btn=document.getElementById('pushBtn');
-  btn.disabled=true;btn.textContent='Pushing...';
-  hideError();
-  try{
-    setStatus('Fetching index.html from GitHub...');
-    const{data,apiUrl,headers}=await ghFetch(token);
-    let html=decodeURIComponent(escape(atob(data.content.replace(/\n/g,''))));
-    setStatus('Inserting approved opportunities...');
-    const bySection={};
-    approved.forEach(opp=>{
-      const secId=SECTION_MAP[opp.category]?.id||'sec-scholarships';
-      if(!bySection[secId]) bySection[secId]=[];
-      bySection[secId].push(opp);
-    });
-    for(const[secId,opps] of Object.entries(bySection)){
-      const newHTML=opps.map(buildHubEntry).join('\n');
-      const idx=html.indexOf(`id="${secId}"`);
-      if(idx!==-1){
-        const closeTag=html.indexOf('>',idx)+1;
-        html=html.slice(0,closeTag)+'\n'+newHTML+html.slice(closeTag);
-      } else {
-        html=html.replace('</body>',newHTML+'\n</body>');
-      }
-    }
-    html=html.replace(/Last Updated:.*?(?=<)/,'Last Updated: '+today());
-    setStatus('Pushing to GitHub...');
-    await ghPut(apiUrl,headers,html,data.sha,`Weekly opp update — ${today()} (${approved.length} new entr${approved.length===1?'y':'ies'})`);
-    hideStatus();
-    const result=document.getElementById('pushResult');
-    result.style.display='block';
-    result.innerHTML=`✅ ${approved.length} opportunit${approved.length===1?'y':'ies'} pushed! <a href="https://technovation-alumnae.github.io/alumnae-opps/" target="_blank">View the live hub →</a>`;
-  }catch(err){
-    hideStatus();
-    showError('Push failed: '+err.message);
-  }
-  btn.disabled=false;updatePushBtn();
-}
-
-const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const esc = s => String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 </script>
 </body>
 </html>
