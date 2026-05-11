@@ -697,8 +697,7 @@ async function cleanupPage(){
   try{
     setStatus('Fetching index.html from GitHub...');
     const{data,apiUrl,headers}=await ghFetch(token);
-    let html=decodeURIComponent(escape(atob(data.content.replace(/
-/g,''))));
+    let html=decodeURIComponent(escape(atob(data.content.replace(/\n/g,''))));
     setStatus('Removing misformatted entries and replacing with correct format...');
 
     // Remove all opp-item blocks
@@ -708,11 +707,14 @@ async function cleanupPage(){
     for(const[sec,entries] of Object.entries(CLEANUP_ENTRIES)){
       const secId=SECTION_MAP[sec]?.id;
       if(!secId) continue;
-      // Find the h2 in this section and insert after it
-      const h2Pattern=new RegExp(`(<h2 class="tah-section-title">[^<]*${secId.includes('founders')?'Founders':secId.includes('scholarships')?'Scholar':secId.includes('fellows')?'Fellow':secId.includes('jobs')?'Jobs':secId.includes('events')?'Events':secId.includes('courses')?'Course':'Profess'}[\s\S]*?<\/h2>)`);
-      if(h2Pattern.test(html)){
-        html=html.replace(h2Pattern,`$1
-${entries}`);
+      // Find the section by id, then find its h2 and insert converted entries after it
+      const secDivIdx = html.indexOf('id="'+secId+'"');
+      if(secDivIdx !== -1){
+        const h2Start = html.indexOf('<h2 class="tah-section-title">', secDivIdx);
+        const h2End = html.indexOf('</h2>', h2Start) + 5;
+        if(h2Start !== -1 && h2End > 5){
+          html = html.slice(0, h2End) + '\n' + entries + html.slice(h2End);
+        }
       }
     }
 
@@ -744,8 +746,7 @@ async function pushToGitHub(){
   try{
     setStatus('Fetching index.html from GitHub...');
     const{data,apiUrl,headers}=await ghFetch(token);
-    let html=decodeURIComponent(escape(atob(data.content.replace(/
-/g,''))));
+    let html=decodeURIComponent(escape(atob(data.content.replace(/\n/g,''))));
     setStatus('Inserting approved opportunities...');
     const bySection={};
     approved.forEach(opp=>{
@@ -754,16 +755,13 @@ async function pushToGitHub(){
       bySection[secId].push(opp);
     });
     for(const[secId,opps] of Object.entries(bySection)){
-      const newHTML=opps.map(buildHubEntry).join('
-');
+      const newHTML=opps.map(buildHubEntry).join('\n');
       const idx=html.indexOf(`id="${secId}"`);
       if(idx!==-1){
         const closeTag=html.indexOf('>',idx)+1;
-        html=html.slice(0,closeTag)+'
-'+newHTML+html.slice(closeTag);
+        html=html.slice(0,closeTag)+'\n'+newHTML+html.slice(closeTag);
       } else {
-        html=html.replace('</body>',newHTML+'
-</body>');
+        html=html.replace('</body>',newHTML+'\n</body>');
       }
     }
     html=html.replace(/Last Updated:.*?(?=<)/,'Last Updated: '+today());
