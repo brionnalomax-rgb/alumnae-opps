@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>Clean Hub HTML</title>
+<style>
+body{font-family:system-ui;max-width:640px;margin:3rem auto;padding:1rem;background:#f5f4f1}
+.card{background:#fff;border:1px solid #e2dfd8;border-radius:12px;padding:1.5rem;margin-bottom:1rem}
+h1{font-size:1.1rem;margin-bottom:.5rem}
+p{font-size:13px;color:#555;line-height:1.5;margin-bottom:1rem}
+.field{display:flex;gap:8px;margin-bottom:.75rem}
+input{flex:1;padding:8px 12px;border:1px solid #e2dfd8;border-radius:7px;font-size:13px;font-family:monospace}
+button{padding:10px 18px;border:none;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
+.go{background:#26215C;color:#fff;width:100%;margin-top:.25rem}
+.go:disabled{background:#999;cursor:not-allowed}
+.log{background:#1a1a2e;color:#a8ff78;border-radius:8px;padding:1rem;font-size:12px;font-family:monospace;white-space:pre-wrap;max-height:320px;overflow-y:auto;margin-top:1rem;display:none}
+.ok{background:#E1F5EE;border:1px solid #9FE1CB;color:#0F6E56;padding:.75rem 1rem;border-radius:8px;margin-top:1rem;font-size:13px;font-weight:600;display:none}
+.err{background:#fff5f5;border:1px solid #fcc;color:#a00;padding:.75rem 1rem;border-radius:8px;margin-top:1rem;font-size:13px;display:none}
+</style>
+</head><body>
+<div class="card">
+  <h1>🧹 Clean Duplicate Opportunities</h1>
+  <p>Fetches your live hub, removes all <code>tah-item</code> entries that appear before their section heading, then removes any remaining entries with identical titles. Shows exactly what gets removed.</p>
+  <div class="field">
+    <input type="password" id="tok" placeholder="GitHub token (ghp_...)"/>
+    <button onclick="var t=document.getElementById('tok');t.type=t.type=='password'?'text':'password';this.textContent=t.type=='password'?'Show':'Hide'">Show</button>
+  </div>
+  <button class="go" id="btn" onclick="run()">Clean & Push to GitHub</button>
+  <div class="log" id="log"></div>
+  <div class="ok" id="ok"></div>
+  <div class="err" id="err"></div>
+</div>
+<script>
+const REPO='technovation-alumnae/alumnae-opps', FILE='index.html';
+
+function log(msg) {
+  const el = document.getElementById('log');
+  el.style.display = 'block';
+  el.textContent += msg + '\n';
+  el.scrollTop = el.scrollHeight;
+}
+
+function cleanHtml(html) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+  const removedBefore = [], removedDupes = [];
+
+  // Step 1: remove tah-items appearing before h2 in each section
+  doc.querySelectorAll('.tah-section').forEach(section => {
+    const h2 = section.querySelector('h2.tah-section-title');
+    if (!h2) return;
+    let reachedH2 = false;
+    Array.from(section.childNodes).forEach(node => {
+      if (node === h2) { reachedH2 = true; return; }
+      if (!reachedH2 && node.nodeType === 1 && node.classList.contains('tah-item')) {
+        const t = node.querySelector('.tah-title');
+        removedBefore.push(t ? t.textContent.trim() : '(unknown)');
+        node.remove();
+      }
+    });
+  });
+
+  // Step 2: deduplicate by title across whole doc
+  const seen = new Map();
+  doc.querySelectorAll('.tah-item').forEach(item => {
+    const titleEl = item.querySelector('.tah-title');
+    if (!titleEl) return;
+    const key = titleEl.textContent.trim().toLowerCase().replace(/\s+/g, ' ');
+    if (seen.has(key)) {
+      removedDupes.push(titleEl.textContent.trim());
+      item.remove();
+    } else {
+      seen.set(key, true);
+    }
+  });
+
+  return { cleaned: '<!DOCTYPE html>\n' + doc.documentElement.outerHTML, removedBefore, removedDupes };
+}
+
+async function run() {
+  const token = document.getElementById('tok').value.trim();
+  if (!token) { alert('Enter your GitHub token'); return; }
+  const btn = document.getElementById('btn');
+  btn.disabled = true; btn.textContent = 'Working…';
+  document.getElementById('ok').style.display = 'none';
+  document.getElementById('err').style.display = 'none';
+  document.getElementById('log').textContent = '';
+
+  try {
+    log('Fetching index.html from GitHub…');
+    const apiUrl = 'https://api.github.com/repos/' + REPO + '/contents/' + FILE;
+    const headers = {'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'};
+    const getRes = await fetch(apiUrl, {headers});
+    if (!getRes.ok) { const e=await getRes.json(); throw new Error('Fetch failed: '+e.message); }
+    const fileData = await getRes.json();
+    const html = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g,''))));
+    log('Fetched ' + html.length.toLocaleString() + ' chars, ' + (html.match(/class="tah-item"/g)||[]).length + ' total tah-items');
+
+    log('\nCleaning…');
+    const { cleaned, removedBefore, removedDupes } = cleanHtml(html);
+
+    if (removedBefore.length) {
+      log('\nRemoved ' + removedBefore.length + ' items appearing before section headings:');
+      removedBefore.forEach(t => log('  ✂ ' + t));
+    } else {
+      log('No before-h2 items found.');
+    }
+
+    if (removedDupes.length) {
+      log('\nRemoved ' + removedDupes.length + ' duplicate title(s):');
+      removedDupes.forEach(t => log('  ✂ ' + t));
+    } else {
+      log('No duplicate titles found.');
+    }
+
+    const remaining = (cleaned.match(/class="tah-item"/g)||[]).length;
+    log('\nResult: ' + remaining + ' clean entries remain');
+
+    if (removedBefore.length === 0 && removedDupes.length === 0) {
+      log('\nNothing to remove — hub is already clean!');
+      document.getElementById('ok').style.display='block';
+      document.getElementById('ok').textContent = '✅ Hub is already clean — nothing changed.';
+      return;
+    }
+
+    log('\nPushing to GitHub…');
+    const encoded = btoa(unescape(encodeURIComponent(cleaned)));
+    const putRes = await fetch(apiUrl, {
+      method:'PUT', headers,
+      body: JSON.stringify({
+        message: 'Remove ' + (removedBefore.length+removedDupes.length) + ' duplicate opportunity entries',
+        content: encoded, sha: fileData.sha
+      })
+    });
+    if (!putRes.ok) { const e=await putRes.json(); throw new Error('Push failed: '+e.message); }
+
+    log('Done!');
+    document.getElementById('ok').style.display='block';
+    document.getElementById('ok').innerHTML =
+      '✅ Removed ' + (removedBefore.length+removedDupes.length) + ' duplicates. ' +
+      '<a href="https://technovation-alumnae.github.io/alumnae-opps/" target="_blank">View the hub →</a>';
+
+  } catch(e) {
+    document.getElementById('err').style.display='block';
+    document.getElementById('err').textContent = 'Error: ' + e.message;
+    log('ERROR: ' + e.message);
+  }
+  btn.disabled=false; btn.textContent='Clean & Push to GitHub';
+}
+</script>
+</body></html>
