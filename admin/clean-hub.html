@@ -6,30 +6,163 @@ body{font-family:system-ui;max-width:640px;margin:3rem auto;padding:1rem;backgro
 h1{font-size:1.1rem;margin-bottom:.5rem}
 p{font-size:13px;color:#555;line-height:1.5;margin-bottom:1rem}
 .field{display:flex;gap:8px;margin-bottom:.75rem}
-input{flex:1;padding:8px 12px;border:1px solid #e2dfd8;border-radius:7px;font-size:13px;font-family:monospace}
+.field label{font-size:12px;font-weight:700;color:#444;min-width:110px;display:flex;align-items:center}
+input[type=password],input[type=text]{flex:1;padding:8px 12px;border:1px solid #e2dfd8;border-radius:7px;font-size:13px;font-family:monospace}
 button{padding:10px 18px;border:none;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
-.go{background:#26215C;color:#fff;width:100%;margin-top:.25rem}
+.go{background:#26215C;color:#fff;width:100%;margin-top:.25rem;padding:.8rem}
 .go:disabled{background:#999;cursor:not-allowed}
-.log{background:#1a1a2e;color:#a8ff78;border-radius:8px;padding:1rem;font-size:12px;font-family:monospace;white-space:pre-wrap;max-height:320px;overflow-y:auto;margin-top:1rem;display:none}
+.log{background:#1a1a2e;color:#a8ff78;border-radius:8px;padding:1rem;font-size:12px;font-family:monospace;white-space:pre-wrap;max-height:380px;overflow-y:auto;margin-top:1rem;display:none}
 .ok{background:#E1F5EE;border:1px solid #9FE1CB;color:#0F6E56;padding:.75rem 1rem;border-radius:8px;margin-top:1rem;font-size:13px;font-weight:600;display:none}
 .err{background:#fff5f5;border:1px solid #fcc;color:#a00;padding:.75rem 1rem;border-radius:8px;margin-top:1rem;font-size:13px;display:none}
+.section-head{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#888;margin:.75rem 0 .4rem}
 </style>
 </head><body>
 <div class="card">
-  <h1>🧹 Clean Duplicate Opportunities</h1>
-  <p>Fetches your live hub, removes all <code>tah-item</code> entries that appear before their section heading, then removes any remaining entries with identical titles. Shows exactly what gets removed.</p>
+  <h1>🧹 Clean Opportunities Hub</h1>
+  <p>Fetches your live hub and runs three cleanup passes in order:</p>
+  <p style="margin-bottom:.5rem"><strong>1.</strong> Removes entries appearing before their section heading (bad push artefacts)<br>
+  <strong>2.</strong> Removes duplicate titles (keeps first occurrence)<br>
+  <strong>3.</strong> Removes entries whose deadline has passed</p>
+  <p>Shows a log of everything removed before pushing.</p>
+
   <div class="field">
-    <input type="password" id="tok" placeholder="GitHub token (ghp_...)"/>
+    <label>GitHub token</label>
+    <input type="password" id="tok" placeholder="ghp_..."/>
     <button onclick="var t=document.getElementById('tok');t.type=t.type=='password'?'text':'password';this.textContent=t.type=='password'?'Show':'Hide'">Show</button>
   </div>
-  <button class="go" id="btn" onclick="run()">Clean & Push to GitHub</button>
+  <button class="go" id="btn" onclick="run()">Clean &amp; Push to GitHub</button>
   <div class="log" id="log"></div>
   <div class="ok" id="ok"></div>
   <div class="err" id="err"></div>
 </div>
-<script>
-const REPO='technovation-alumnae/alumnae-opps', FILE='index.html';
 
+<script>
+const REPO = 'technovation-alumnae/alumnae-opps';
+const FILE = 'index.html';
+const TODAY = new Date();
+TODAY.setHours(0,0,0,0);
+
+// ── Date parsing ──────────────────────────────────────────────────────────────
+// Extracts the LATEST date mentioned in a string, returns a Date or null.
+// Handles: "June 15, 2026", "May 31, 2026", "Aug 14, 2026",
+//          "May 29–Jun 3" (uses the end date), "January 30, 2026 - EXPIRED"
+function parseDeadline(text) {
+  if (!text) return null;
+  text = text.replace(/\u2013|\u2014/g, '-'); // normalise dashes
+
+  const MONTHS = {
+    jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov:10,dec:11,
+    january:0,february:1,march:2,april:3,june:5,july:6,august:7,
+    september:8,october:9,november:10,december:11
+  };
+
+  // Find all date-like fragments and return the latest one
+  const found = [];
+
+  // Pattern 1: "Month DD, YYYY"  or  "Month DD YYYY"
+  const p1 = /\b(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:tember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\s+(\d{1,2})(?:,?\s*(\d{4}))?/gi;
+  let m;
+  while ((m = p1.exec(text)) !== null) {
+    const mo = MONTHS[m[1].toLowerCase()];
+    const day = parseInt(m[2]);
+    const yr = m[3] ? parseInt(m[3]) : TODAY.getFullYear();
+    const d = new Date(yr, mo, day);
+    found.push(d);
+  }
+
+  // Pattern 2: "DD Month YYYY"
+  const p2 = /\b(\d{1,2})\s+(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:tember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\s+(\d{4})/gi;
+  while ((m = p2.exec(text)) !== null) {
+    const mo = MONTHS[m[2].toLowerCase()];
+    const d = new Date(parseInt(m[3]), mo, parseInt(m[1]));
+    found.push(d);
+  }
+
+  if (!found.length) return null;
+  // Return the latest date (for ranges like "May 29–Jun 3", we catch both and use Jun 3)
+  return found.reduce((a, b) => b > a ? b : a);
+}
+
+// Returns true if the entry is definitely expired (deadline in the past).
+// Rolling / no-deadline entries are never expired.
+// Entries where we can't parse a date are kept (safe default).
+function isExpired(item) {
+  const deadline = item.getAttribute('data-deadline') || '';
+
+  // Rolling entries never expire
+  if (deadline === 'rolling') return false;
+
+  // Try to parse a date from the tah-pill text (most reliable)
+  const pill = item.querySelector('.tah-pill');
+  const pillText = pill ? pill.textContent.trim() : '';
+
+  // Explicit "EXPIRED" marker
+  if (/expired/i.test(pillText)) return true;
+
+  // Skip obvious non-dates
+  if (/rolling|ongoing|open now|available now|anytime|seasonal|self.paced|varies|multiple|daily|monthly|periodic|annually|check/i.test(pillText)) return false;
+
+  const date = parseDeadline(pillText);
+  if (!date) return false;  // can't parse → keep it
+
+  // Add a 3-day grace period so entries don't vanish on the deadline day itself
+  const cutoff = new Date(date);
+  cutoff.setDate(cutoff.getDate() + 3);
+  return cutoff < TODAY;
+}
+
+// ── Main cleaner ─────────────────────────────────────────────────────────────
+function cleanHtml(html) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+  const stats = { beforeH2: [], dupes: [], expired: [] };
+
+  // Pass 1: remove tah-items before their section h2
+  doc.querySelectorAll('.tah-section').forEach(section => {
+    const h2 = section.querySelector('h2.tah-section-title');
+    if (!h2) return;
+    let passedH2 = false;
+    Array.from(section.childNodes).forEach(node => {
+      if (node === h2) { passedH2 = true; return; }
+      if (!passedH2 && node.nodeType === 1 && node.classList && node.classList.contains('tah-item')) {
+        const t = node.querySelector('.tah-title');
+        stats.beforeH2.push(t ? t.textContent.trim() : '(unknown)');
+        node.remove();
+      }
+    });
+  });
+
+  // Pass 2: deduplicate by normalised title
+  const seen = new Map();
+  doc.querySelectorAll('.tah-item').forEach(item => {
+    const titleEl = item.querySelector('.tah-title');
+    if (!titleEl) return;
+    const key = titleEl.textContent.trim().toLowerCase().replace(/\s+/g, ' ');
+    if (seen.has(key)) {
+      stats.dupes.push(titleEl.textContent.trim());
+      item.remove();
+    } else {
+      seen.set(key, true);
+    }
+  });
+
+  // Pass 3: remove expired entries
+  doc.querySelectorAll('.tah-item').forEach(item => {
+    if (isExpired(item)) {
+      const titleEl = item.querySelector('.tah-title');
+      const pill = item.querySelector('.tah-pill');
+      stats.expired.push({
+        title: titleEl ? titleEl.textContent.trim() : '(unknown)',
+        deadline: pill ? pill.textContent.trim() : ''
+      });
+      item.remove();
+    }
+  });
+
+  return { cleaned: '<!DOCTYPE html>\n' + doc.documentElement.outerHTML, stats };
+}
+
+// ── GitHub helpers ────────────────────────────────────────────────────────────
 function log(msg) {
   const el = document.getElementById('log');
   el.style.display = 'block';
@@ -37,110 +170,95 @@ function log(msg) {
   el.scrollTop = el.scrollHeight;
 }
 
-function cleanHtml(html) {
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(html, 'text/html');
-  const removedBefore = [], removedDupes = [];
-
-  // Step 1: remove tah-items appearing before h2 in each section
-  doc.querySelectorAll('.tah-section').forEach(section => {
-    const h2 = section.querySelector('h2.tah-section-title');
-    if (!h2) return;
-    let reachedH2 = false;
-    Array.from(section.childNodes).forEach(node => {
-      if (node === h2) { reachedH2 = true; return; }
-      if (!reachedH2 && node.nodeType === 1 && node.classList.contains('tah-item')) {
-        const t = node.querySelector('.tah-title');
-        removedBefore.push(t ? t.textContent.trim() : '(unknown)');
-        node.remove();
-      }
-    });
-  });
-
-  // Step 2: deduplicate by title across whole doc
-  const seen = new Map();
-  doc.querySelectorAll('.tah-item').forEach(item => {
-    const titleEl = item.querySelector('.tah-title');
-    if (!titleEl) return;
-    const key = titleEl.textContent.trim().toLowerCase().replace(/\s+/g, ' ');
-    if (seen.has(key)) {
-      removedDupes.push(titleEl.textContent.trim());
-      item.remove();
-    } else {
-      seen.set(key, true);
-    }
-  });
-
-  return { cleaned: '<!DOCTYPE html>\n' + doc.documentElement.outerHTML, removedBefore, removedDupes };
-}
-
 async function run() {
   const token = document.getElementById('tok').value.trim();
   if (!token) { alert('Enter your GitHub token'); return; }
+
   const btn = document.getElementById('btn');
   btn.disabled = true; btn.textContent = 'Working…';
-  document.getElementById('ok').style.display = 'none';
-  document.getElementById('err').style.display = 'none';
+  ['ok','err'].forEach(id => document.getElementById(id).style.display='none');
   document.getElementById('log').textContent = '';
 
   try {
-    log('Fetching index.html from GitHub…');
     const apiUrl = 'https://api.github.com/repos/' + REPO + '/contents/' + FILE;
-    const headers = {'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'};
+    const headers = {
+      'Authorization': 'token ' + token,
+      'Accept': 'application/vnd.github.v3+json',
+      'Content-Type': 'application/json'
+    };
+
+    log('Fetching index.html from GitHub…');
     const getRes = await fetch(apiUrl, {headers});
     if (!getRes.ok) { const e=await getRes.json(); throw new Error('Fetch failed: '+e.message); }
     const fileData = await getRes.json();
     const html = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g,''))));
-    log('Fetched ' + html.length.toLocaleString() + ' chars, ' + (html.match(/class="tah-item"/g)||[]).length + ' total tah-items');
+    const originalCount = (html.match(/class="tah-item"/g)||[]).length;
+    log('Fetched ' + html.length.toLocaleString() + ' chars — ' + originalCount + ' entries total');
+    log('Today: ' + TODAY.toLocaleDateString('en-US', {month:'long',day:'numeric',year:'numeric'}));
 
-    log('\nCleaning…');
-    const { cleaned, removedBefore, removedDupes } = cleanHtml(html);
+    log('\n── Pass 1: entries before section heading ───────────');
+    const { cleaned, stats } = cleanHtml(html);
 
-    if (removedBefore.length) {
-      log('\nRemoved ' + removedBefore.length + ' items appearing before section headings:');
-      removedBefore.forEach(t => log('  ✂ ' + t));
+    if (stats.beforeH2.length) {
+      stats.beforeH2.forEach(t => log('  ✂  ' + t));
+      log('  → ' + stats.beforeH2.length + ' removed');
     } else {
-      log('No before-h2 items found.');
+      log('  None found');
     }
 
-    if (removedDupes.length) {
-      log('\nRemoved ' + removedDupes.length + ' duplicate title(s):');
-      removedDupes.forEach(t => log('  ✂ ' + t));
+    log('\n── Pass 2: duplicate titles ─────────────────────────');
+    if (stats.dupes.length) {
+      stats.dupes.forEach(t => log('  ✂  ' + t));
+      log('  → ' + stats.dupes.length + ' removed');
     } else {
-      log('No duplicate titles found.');
+      log('  None found');
     }
 
+    log('\n── Pass 3: expired deadlines ────────────────────────');
+    if (stats.expired.length) {
+      stats.expired.forEach(e => log('  ✂  ' + e.title + '  [' + e.deadline + ']'));
+      log('  → ' + stats.expired.length + ' removed');
+    } else {
+      log('  None found');
+    }
+
+    const totalRemoved = stats.beforeH2.length + stats.dupes.length + stats.expired.length;
     const remaining = (cleaned.match(/class="tah-item"/g)||[]).length;
-    log('\nResult: ' + remaining + ' clean entries remain');
+    log('\n─────────────────────────────────────────────────────');
+    log('Total removed: ' + totalRemoved + ' | Remaining: ' + remaining);
 
-    if (removedBefore.length === 0 && removedDupes.length === 0) {
-      log('\nNothing to remove — hub is already clean!');
-      document.getElementById('ok').style.display='block';
-      document.getElementById('ok').textContent = '✅ Hub is already clean — nothing changed.';
+    if (totalRemoved === 0) {
+      log('\nHub is already clean — nothing to push.');
+      const ok = document.getElementById('ok');
+      ok.style.display='block'; ok.textContent='✅ Hub is already clean — nothing changed.';
       return;
     }
 
     log('\nPushing to GitHub…');
     const encoded = btoa(unescape(encodeURIComponent(cleaned)));
     const putRes = await fetch(apiUrl, {
-      method:'PUT', headers,
+      method: 'PUT', headers,
       body: JSON.stringify({
-        message: 'Remove ' + (removedBefore.length+removedDupes.length) + ' duplicate opportunity entries',
-        content: encoded, sha: fileData.sha
+        message: 'Clean hub: remove ' + totalRemoved + ' duplicate/expired entries',
+        content: encoded,
+        sha: fileData.sha
       })
     });
     if (!putRes.ok) { const e=await putRes.json(); throw new Error('Push failed: '+e.message); }
 
-    log('Done!');
-    document.getElementById('ok').style.display='block';
-    document.getElementById('ok').innerHTML =
-      '✅ Removed ' + (removedBefore.length+removedDupes.length) + ' duplicates. ' +
-      '<a href="https://technovation-alumnae.github.io/alumnae-opps/" target="_blank">View the hub →</a>';
+    log('✅ Done!');
+    const ok = document.getElementById('ok');
+    ok.style.display = 'block';
+    ok.innerHTML = '✅ Removed ' + totalRemoved + ' entr' + (totalRemoved===1?'y':'ies') + ' (' +
+      [stats.beforeH2.length && stats.beforeH2.length+' misplaced',
+       stats.dupes.length && stats.dupes.length+' duplicate',
+       stats.expired.length && stats.expired.length+' expired'].filter(Boolean).join(', ') +
+      '). <a href="https://technovation-alumnae.github.io/alumnae-opps/" target="_blank">View the hub →</a>';
 
   } catch(e) {
     document.getElementById('err').style.display='block';
-    document.getElementById('err').textContent = 'Error: ' + e.message;
-    log('ERROR: ' + e.message);
+    document.getElementById('err').textContent='Error: '+e.message;
+    log('ERROR: '+e.message);
   }
   btn.disabled=false; btn.textContent='Clean & Push to GitHub';
 }
