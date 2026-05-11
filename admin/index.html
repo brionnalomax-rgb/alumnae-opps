@@ -7,46 +7,35 @@
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f5f4f1; color: #1a1a1a; min-height: 100vh; }
-
 .header { background: #26215C; color: #fff; padding: 2rem 2rem 1.75rem; }
 .header h1 { font-size: 1.4rem; font-weight: 600; margin-bottom: 0.25rem; }
 .header p { font-size: 0.85rem; color: #CECBF6; }
-
 .main { max-width: 860px; margin: 0 auto; padding: 1.5rem; }
-
 .card { background: #fff; border: 1px solid #e2dfd8; border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem; }
 .card h2 { font-size: 0.95rem; font-weight: 700; margin-bottom: 1rem; }
-
 .cat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); gap: 7px; margin-bottom: 1.25rem; }
 .cat-btn { display: flex; align-items: center; gap: 7px; padding: 7px 11px; border: 1px solid #e2dfd8; border-radius: 7px; cursor: pointer; font-size: 13px; background: #fff; color: #555; transition: all 0.12s; user-select: none; }
 .cat-btn.on { background: #EEEDFE; border-color: #534AB7; color: #26215C; font-weight: 600; }
 .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-
 .field-row { display: flex; gap: 8px; align-items: center; margin-bottom: 0.75rem; }
 .field-row label { font-size: 12px; font-weight: 700; color: #444; min-width: 110px; }
 .field-row input { flex: 1; padding: 8px 12px; border: 1px solid #e2dfd8; border-radius: 7px; font-size: 13px; font-family: 'Courier New', monospace; background: #faf9f7; color: #1a1a1a; }
 .toggle-btn { padding: 8px 12px; border: 1px solid #e2dfd8; border-radius: 7px; background: #faf9f7; cursor: pointer; font-size: 12px; color: #666; white-space: nowrap; }
-
 .run-btn { width: 100%; padding: 0.8rem; background: #26215C; color: #fff; border: none; border-radius: 8px; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: background 0.12s; margin-top: 0.25rem; }
 .run-btn:hover { background: #3C3489; }
 .run-btn:disabled { background: #B4B2A9; cursor: not-allowed; }
-
 .status { display: none; align-items: center; gap: 10px; padding: 0.7rem 1rem; background: #E6F1FB; border: 1px solid #B5D4F4; border-radius: 8px; margin-bottom: 1.25rem; font-size: 13px; color: #0C447C; }
 .spinner { width: 15px; height: 15px; border-radius: 50%; border: 2px solid #B5D4F4; border-top-color: #185FA5; animation: spin 0.7s linear infinite; flex-shrink: 0; }
 @keyframes spin { to { transform: rotate(360deg); } }
-
 .error-box { display: none; padding: 0.8rem 1rem; background: #fff5f5; border: 1px solid #fcc; border-radius: 8px; font-size: 13px; color: #a00; margin-bottom: 1rem; }
-
 .review-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; flex-wrap: wrap; gap: 8px; }
 .review-header h2 { font-size: 1rem; font-weight: 700; }
 .push-btn { padding: 8px 20px; background: #0F6E56; color: #fff; border: none; border-radius: 7px; font-size: 13px; font-weight: 700; cursor: pointer; transition: background 0.12s; }
 .push-btn:hover { background: #085041; }
 .push-btn:disabled { background: #B4B2A9; cursor: not-allowed; }
-
 .opp-card { background: #fff; border: 1px solid #e2dfd8; border-radius: 10px; margin-bottom: 0.9rem; overflow: hidden; transition: border-color 0.15s, opacity 0.15s; }
 .opp-card.approved { border: 2px solid #5DCAA5; }
 .opp-card.rejected { opacity: 0.38; }
-
 .opp-top { padding: 1rem 1.25rem 0.75rem; }
 .opp-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 0.6rem; }
 .opp-name { font-size: 0.95rem; font-weight: 700; line-height: 1.3; color: #1a1a1a; }
@@ -58,7 +47,6 @@ body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f5f4f1; co
 .t-courses      { background: #EAF3DE; color: #3B6D11; }
 .t-prodev       { background: #E1F5EE; color: #0F6E56; }
 .t-founders     { background: #F1EFE8; color: #5F5E5A; }
-
 .opp-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 0.65rem; }
 .pill { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 20px; }
 .p-deadline { background: #fff3cd; color: #7a5c00; border: 1px solid #f5d872; }
@@ -69,10 +57,8 @@ body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f5f4f1; co
 .p-future   { background: #E1F5EE; color: #0F6E56; border: 1px solid #9FE1CB; }
 .p-rolling  { background: #E6F1FB; color: #185FA5; border: 1px solid #B5D4F4; }
 .p-priority { background: #EEEDFE; color: #534AB7; border: 1px solid #CECBF6; }
-
 .opp-desc { font-size: 13px; color: #444; line-height: 1.55; margin-bottom: 0.5rem; }
 .opp-url  { font-size: 12px; color: #185FA5; word-break: break-all; }
-
 .opp-actions { display: flex; border-top: 1px solid #f0ede6; }
 .verdict-btn { flex: 1; padding: 0.65rem; border: none; cursor: pointer; font-size: 13px; font-weight: 700; transition: background 0.12s; }
 .verdict-btn.yes { background: #f0faf6; color: #0F6E56; }
@@ -81,26 +67,18 @@ body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f5f4f1; co
 .verdict-btn.no  { background: #fff8f6; color: #993C1D; border-left: 1px solid #f0ede6; }
 .verdict-btn.no:hover { background: #F5C4B3; }
 .verdict-btn.no.active  { background: #D85A30; color: #fff; }
-
 .push-result { display: none; padding: 1rem 1.25rem; background: #E1F5EE; border: 1px solid #9FE1CB; border-radius: 8px; font-size: 13px; color: #0F6E56; font-weight: 600; margin-bottom: 1rem; }
 .push-result a { color: #0F6E56; text-decoration: underline; }
-
 .info-box { background: #EEEDFE; border: 1px solid #CECBF6; border-radius: 8px; padding: 0.9rem 1.1rem; font-size: 13px; color: #26215C; line-height: 1.6; margin-bottom: 1.25rem; }
 </style>
 </head>
 <body>
-
 <div class="header">
   <h1>Technovation Alumnae — Weekly Opportunity Finder</h1>
   <p>Find → approve → push to GitHub automatically</p>
 </div>
-
 <div class="main">
-
-  <div class="info-box">
-    <strong>How to use:</strong> Paste your two keys below, select categories, click Find. Approve or skip each result, then push to GitHub in one click.
-  </div>
-
+  <div class="info-box"><strong>How to use:</strong> Paste your two keys, select categories, click Find. Approve or skip each result, then push to GitHub in one click.</div>
   <div class="card">
     <h2>Categories to search this week</h2>
     <div class="cat-grid" id="catGrid">
@@ -112,27 +90,22 @@ body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f5f4f1; co
       <div class="cat-btn on" data-cat="prodev"><span class="dot" style="background:#0F6E56"></span>Pro Development</div>
       <div class="cat-btn on" data-cat="founders"><span class="dot" style="background:#5F5E5A"></span>Founders & Grants</div>
     </div>
-
     <h2 style="margin-bottom:0.75rem;">Your keys</h2>
-
     <div class="field-row">
       <label>Anthropic API key</label>
       <input type="password" id="anthropicKey" placeholder="sk-ant-..." autocomplete="off" />
-      <button class="toggle-btn" onclick="toggleField('anthropicKey', this)">Show</button>
+      <button class="toggle-btn" onclick="toggleField('anthropicKey',this)">Show</button>
     </div>
     <div class="field-row">
       <label>GitHub token</label>
       <input type="password" id="ghToken" placeholder="ghp_..." autocomplete="off" />
-      <button class="toggle-btn" onclick="toggleField('ghToken', this)">Show</button>
+      <button class="toggle-btn" onclick="toggleField('ghToken',this)">Show</button>
     </div>
-
     <button class="run-btn" id="runBtn" onclick="findOpps()">Find This Week's Opportunities</button>
   </div>
-
   <div class="status" id="status"><div class="spinner"></div><span id="statusText">Searching...</span></div>
   <div class="error-box" id="errorBox"></div>
   <div class="push-result" id="pushResult"></div>
-
   <div id="reviewSection" style="display:none;">
     <div class="review-header">
       <h2 id="reviewTitle"></h2>
@@ -140,21 +113,20 @@ body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f5f4f1; co
     </div>
     <div id="oppList"></div>
   </div>
-
 </div>
-
 <script>
 const REPO = 'technovation-alumnae/alumnae-opps';
 const FILE = 'index.html';
 
-const SECTION_IDS = {
-  scholarships: 'sec-scholarships',
-  fellowships:  'sec-fellowships',
-  jobs:         'sec-jobs',
-  events:       'sec-events',
-  courses:      'sec-courses',
-  prodev:       'sec-prodev',
-  founders:     'sec-founders',
+// Maps category to the section id and persona tags in the hub
+const SECTION_MAP = {
+  scholarships: { id: 'sec-scholarships', personas: 'all university earlycareer' },
+  fellowships:  { id: 'sec-fellowships',  personas: 'all university earlycareer founder' },
+  jobs:         { id: 'sec-jobs',         personas: 'all university earlycareer' },
+  events:       { id: 'sec-events',       personas: 'all university earlycareer founder' },
+  courses:      { id: 'sec-courses',      personas: 'all secondary university earlycareer' },
+  prodev:       { id: 'sec-prodev',       personas: 'all university earlycareer founder' },
+  founders:     { id: 'sec-founders',     personas: 'all founder earlycareer' },
 };
 
 const APPLY_LABELS = {
@@ -178,10 +150,10 @@ const getToken = () => document.getElementById('ghToken').value.trim();
 const getCats  = () => [...document.querySelectorAll('.cat-btn.on')].map(b => b.dataset.cat);
 const today    = () => new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
-function setStatus(msg) { document.getElementById('status').style.display = 'flex'; document.getElementById('statusText').textContent = msg; }
-function hideStatus()   { document.getElementById('status').style.display = 'none'; }
-function showError(msg) { const el = document.getElementById('errorBox'); el.style.display = 'block'; el.textContent = msg; }
-function hideError()    { document.getElementById('errorBox').style.display = 'none'; }
+function setStatus(msg) { document.getElementById('status').style.display='flex'; document.getElementById('statusText').textContent=msg; }
+function hideStatus()   { document.getElementById('status').style.display='none'; }
+function showError(msg) { const el=document.getElementById('errorBox'); el.style.display='block'; el.textContent=msg; }
+function hideError()    { document.getElementById('errorBox').style.display='none'; }
 
 async function findOpps() {
   const cats = getCats();
@@ -206,16 +178,18 @@ async function findOpps() {
     founders:     'grants, accelerators, pitch competitions, and no-equity funding for women founders and social impact startups',
   };
 
-  const prompt = `You are a research assistant for Technovation Alumnae, a global community of young women who participated in Technovation Girls and are now high school students, university students, early-career professionals, or founders. They are passionate about tech, AI, and social impact.
+  const prompt = `You are a research assistant for Technovation Alumnae, a global community of young women (high school students, university students, early-career professionals, and founders) passionate about tech, AI, and social impact.
 
-Today is ${today()}. Use web search to find 6–10 NEW opportunities — not widely known staples. Prioritize programs with deadlines in the next 1–3 months, or newly launched rolling programs.
+Today is ${today()}. Use web search to find 6–10 NEW opportunities not already widely known. Prioritize programs with deadlines in the next 1–3 months, or newly launched rolling programs.
 
 Categories: ${cats.map(c => catDescs[c]).join(' | ')}
 
 Return ONLY a valid JSON array, no markdown, no explanation:
-[{"title":"","category":"scholarships|fellowships|jobs|events|courses|prodev|founders","deadline":"","urgency":"URGENT|SOON|FUTURE|ROLLING","award":"","location":"","eligibility":"","description":"","url":"","priority":true}]
+[{"title":"","category":"scholarships|fellowships|jobs|events|courses|prodev|founders","deadline":"","urgency":"URGENT|SOON|FUTURE|ROLLING","award":"","location":"","eligibility":"","description":"","url":"","priority":true,"personas":"all secondary university earlycareer founder"}]
 
-URGENCY: URGENT=within 2 weeks, SOON=within 1 month, FUTURE=1+ months, ROLLING=no fixed deadline. priority=true if especially well-suited to Technovation alumnae.`;
+For personas, pick applicable from: all secondary university earlycareer founder (space-separated).
+URGENCY: URGENT=within 2 weeks, SOON=within 1 month, FUTURE=1+ months, ROLLING=no fixed deadline.
+priority=true if especially well-suited to Technovation alumnae.`;
 
   try {
     const res = await fetch('https://api.anthropic.com/v1/messages', {
@@ -249,7 +223,6 @@ URGENCY: URGENT=within 2 weeks, SOON=within 1 month, FUTURE=1+ months, ROLLING=n
     opps.forEach((_, i) => { verdicts[i] = null; });
     renderReview(opps);
     hideStatus();
-
   } catch(err) {
     hideStatus();
     showError('Error: ' + err.message);
@@ -312,33 +285,53 @@ function updatePushBtn() {
   document.getElementById('reviewTitle').textContent = `${allOpps.length} found — ${nA} approved, ${nS} skipped`;
 }
 
-function buildEntryHTML(opp) {
-  const urgTag = opp.urgency || 'ROLLING';
-  const locTag = opp.location || 'International';
-  const tags   = [urgTag, 'NEW', ...(opp.priority ? ['PRIORITY'] : [])];
-  const tagsHTML = tags.map(t => `<span class="tag tag-${t.toLowerCase()}">${t}</span>`).join('') + `<span class="tag">${locTag}</span>`;
+// Builds HTML in the EXACT format of the hub (tah-item structure)
+function buildHubEntry(opp) {
+  const urgency  = (opp.urgency || 'ROLLING').toLowerCase();
+  const locRaw   = opp.location || 'International';
+  const locData  = locRaw.toLowerCase().includes('international') || locRaw.toLowerCase().includes('global') ? 'intl' : 'us';
+  const personas = opp.personas || SECTION_MAP[opp.category]?.personas || 'all university earlycareer';
   const applyLabel = APPLY_LABELS[opp.category] || 'Learn More →';
-  const awardLine  = opp.award ? `\n            <p><span class="detail-icon">💰</span><strong>Award:</strong> ${opp.award}</p>` : '';
-  const locData    = locTag.toLowerCase().includes('international') ? 'international' : 'us';
+
+  // Deadline pill label
+  const pillLabel = opp.deadline || urgency;
+
+  // Badge HTML
+  const badges = [
+    `<span class="tb tb-${urgency}">${opp.urgency}</span>`,
+    `<span class="tb tb-new">NEW</span>`,
+    opp.priority ? `<span class="tb tb-priority">PRIORITY</span>` : '',
+    `<span class="tb tb-loc">${locRaw}</span>`,
+  ].filter(Boolean).join('');
+
+  const awardLine = opp.award
+    ? `\n          <div class="tah-detail"><span>💰</span><span><strong>Award:</strong> ${opp.award}</span></div>`
+    : '';
+
   return `
-        <div class="opp-item" data-category="${opp.category}" data-urgency="${urgTag}" data-location="${locData}">
-          <div class="opp-header" onclick="this.parentElement.classList.toggle('open')">
-            <div class="opp-title-wrap">
-              <span class="opp-title">${opp.title}</span>
-              <div class="opp-tags inline-tags">${tagsHTML}</div>
-            </div>
-            <span class="opp-deadline">${opp.deadline}</span>
-          </div>
-          <div class="opp-body">
-            <div class="opp-tags">${tagsHTML}</div>
-            <p><span class="detail-icon">👥</span><strong>Eligibility:</strong> ${opp.eligibility}</p>${awardLine}
-            <p>${opp.description}</p>
-            <div class="opp-footer">
-              <button class="copy-link-btn" onclick="copyLink('${opp.url}',this)">📋 Copy Link</button>
-              <a href="${opp.url}" target="_blank" rel="noopener" class="apply-btn">${applyLabel}</a>
-            </div>
-          </div>
-        </div>`;
+    <div class="tah-item" data-personas="${personas}" data-loc="${locData}" data-deadline="${urgency}">
+      <div class="tah-row">
+        <div class="tah-title">${opp.title}</div>
+        <div class="tah-meta">
+          <span class="tah-pill ${urgency}">${pillLabel}</span>
+          <div class="tah-badges">${badges}</div>
+        </div>
+        <span class="tah-chev">▼</span>
+      </div>
+      <div class="tah-body">
+        <div class="tah-mob-badges">${badges}</div>
+        <div class="tah-grid">
+          <div class="tah-detail"><span>📅</span><span><strong>Deadline:</strong> ${opp.deadline}</span></div>${awardLine}
+          <div class="tah-detail full"><span>👥</span><span><strong>Eligibility:</strong> ${opp.eligibility}</span></div>
+          <div class="tah-detail full"><span>🌟</span><span>${opp.description}</span></div>
+        </div>
+        <div class="tah-foot">
+          <div class="tah-badges">${badges}</div>
+          <button class="tah-copy-btn" onclick="copyLink('${opp.url}')">📋 Copy Link</button>
+          <a class="tah-btn" href="${opp.url}" target="_blank">${applyLabel}</a>
+        </div>
+      </div>
+    </div>`;
 }
 
 async function pushToGitHub() {
@@ -368,24 +361,31 @@ async function pushToGitHub() {
     let html = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g,''))));
 
     setStatus('Inserting approved opportunities...');
+
+    // Group by section
     const bySection = {};
     approved.forEach(opp => {
-      const sec = SECTION_IDS[opp.category] || 'sec-scholarships';
-      if (!bySection[sec]) bySection[sec] = [];
-      bySection[sec].push(opp);
+      const secId = SECTION_MAP[opp.category]?.id || 'sec-scholarships';
+      if (!bySection[secId]) bySection[secId] = [];
+      bySection[secId].push(opp);
     });
 
+    // Insert each group right after the section's opening div tag
     for (const [secId, opps] of Object.entries(bySection)) {
-      const newHTML = opps.map(buildEntryHTML).join('\n');
-      const idx = html.indexOf(`id="${secId}"`);
+      const newHTML = opps.map(buildHubEntry).join('\n');
+      // Find the section div: <div class="tah-section" id="sec-xxx">
+      const pat = `id="${secId}"`;
+      const idx = html.indexOf(pat);
       if (idx !== -1) {
         const closeTag = html.indexOf('>', idx) + 1;
         html = html.slice(0, closeTag) + '\n' + newHTML + html.slice(closeTag);
       } else {
+        // Fallback: insert before closing body
         html = html.replace('</body>', newHTML + '\n</body>');
       }
     }
 
+    // Update "Last Updated" date
     html = html.replace(/Last Updated:[\s\S]*?(?=<)/, `Last Updated: ${today()}`);
 
     setStatus('Pushing to GitHub...');
